@@ -5,6 +5,7 @@ extends RigidBody2D
 
 var jump_pressed_time = -1
 var is_grounded = false
+var is_jumping = false
 var ground = null
 
 signal grounded_start
@@ -25,6 +26,16 @@ func _process(_delta: float) -> void:
 		jump_pressed_time = Time.get_ticks_msec()
 		if(is_grounded):
 			apply_central_impulse(Vector2.UP * jump)
+			is_jumping = true
+			print("Legit jump")
+		else:
+			print("Not grounded")
+	
+	# Add some tolerance for actually when you hit the ground.
+	if(is_about_to_jump and jump_delta < 50 and not is_jumping and is_grounded):
+		apply_central_impulse(Vector2.UP * jump)
+		is_jumping = true
+		print("Tolerance jump (",jump_delta,")")
 	
 	# Add force to the jump while the button is pressed.
 	if(is_about_to_jump and Input.is_action_pressed("action_jump")):
@@ -32,6 +43,7 @@ func _process(_delta: float) -> void:
 		
 	# Reset jump when button is released or after 200ms.
 	if(Input.is_action_just_released("action_jump") or jump_delta > 200):
+		is_jumping = false
 		jump_pressed_time = -1
 	
 # Called every physic update.
