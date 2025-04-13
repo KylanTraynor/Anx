@@ -51,13 +51,18 @@ height = 258.0
 
 [node name="Player" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_78gyk")
+contact_monitor = true
+max_contacts_reported = 2
 script = ExtResource("1_78gyk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f46lw")
 animation = &"walk"
-frame_progress = 0.819631
+frame_progress = 0.418098
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-8, -1)
 shape = SubResource("CapsuleShape2D_4b615")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="." to="." method="_on_body_shape_exited"]
