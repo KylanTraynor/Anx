@@ -30,7 +30,7 @@ func _process(_delta: float) -> void:
 		# Only allow jumping if player is grounded at the time of the jump.
 		if(is_grounded):
 			#var jump_multiplier = 1 if jump_delta < 150 else 1.25
-			var jump_multiplier = 0.5+jump_delta/2000
+			var jump_multiplier = 0.5+jump_delta/2000.0
 			print(jump_multiplier)
 			apply_central_impulse(Vector2.UP	 * jump * jump_multiplier)
 	
@@ -60,7 +60,7 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 	var local_shape_owner = shape_owner_get_owner(local_shape_owner_id)
 	var local_shape_2d = shape_owner_get_shape(local_shape_owner_id, 0)
 	var local_global_transform = local_shape_owner.global_transform
-	pass
+	
 	var collision_points = local_shape_2d.collide_and_get_contacts(local_global_transform, body_shape_2d, body_global_transform)
 	for point in collision_points:
 		var dot_product = (point - position).normalized().dot(Vector2.DOWN)
