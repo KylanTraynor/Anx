@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 @export var speed = 400 # How far the player will move pixel/sec.
-@export var jump = 500 # How far the player will jump.
+@export var jump = 1000 # How far the player will jump.
 
 var jump_pressed_time = -1
 var is_grounded = false
