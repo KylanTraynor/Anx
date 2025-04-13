@@ -47,7 +47,6 @@ editor_draw_drag_margin = true
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 lock_rotation = true
-jump = 1000
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(599, 417)

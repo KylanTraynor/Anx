@@ -39,7 +39,7 @@ func _process(_delta: float) -> void:
 	
 	# Add force to the jump while the button is pressed.
 	if(is_about_to_jump and Input.is_action_pressed("action_jump")):
-		apply_force(Vector2.UP * jump)
+		apply_central_force(Vector2.UP * jump*2)
 		
 	# Reset jump when button is released or after 200ms.
 	if(Input.is_action_just_released("action_jump") or jump_delta > 200):
