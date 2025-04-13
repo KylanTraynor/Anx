@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://xmliywr1ptda"]
+[gd_scene load_steps=8 format=3 uid="uid://b548ffdyjbrt4"]
 
-[ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://dsuctdjc4m3pl" path="res://scripts/play_area.gd" id="2_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://b4svtifs3byw4" path="res://art/environments/test.jpg" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_5av4d"]
+[ext_resource type="Script" uid="uid://dsuctdjc4m3pl" path="res://scripts/play_area.gd" id="2_6bchc"]
+[ext_resource type="Texture2D" uid="uid://b4svtifs3byw4" path="res://art/environments/test.jpg" id="3_kr2gd"]
+[ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="4_tv77q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
 size = Vector2(2288, 752)
@@ -15,20 +15,20 @@ size = Vector2(240, 100)
 size = Vector2(242, 98)
 
 [node name="Main" type="Node"]
-script = ExtResource("1_0xm2m")
+script = ExtResource("1_5av4d")
 
 [node name="PlayArea" type="Area2D" parent="."]
-script = ExtResource("2_1bvp3")
+script = ExtResource("2_6bchc")
 
 [node name="Background" type="Sprite2D" parent="PlayArea"]
 scale = Vector2(2.13, 2.13)
-texture = ExtResource("2_h2yge")
+texture = ExtResource("3_kr2gd")
 centered = false
 
 [node name="Background2" type="Sprite2D" parent="PlayArea"]
 position = Vector2(-1152, 0)
 scale = Vector2(2.13, 2.13)
-texture = ExtResource("2_h2yge")
+texture = ExtResource("3_kr2gd")
 centered = false
 
 [node name="Shape" type="CollisionShape2D" parent="PlayArea"]
@@ -45,7 +45,7 @@ drag_vertical_enabled = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+[node name="Player" parent="." instance=ExtResource("4_tv77q")]
 lock_rotation = true
 
 [node name="StartPosition" type="Marker2D" parent="."]

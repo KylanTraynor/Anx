@@ -25,11 +25,13 @@ func _process(_delta: float) -> void:
 		jump_pressed_time = Time.get_ticks_msec()
 	
 	# Jump if releasing jump button or after a set amount of time.
-	if(is_about_to_jump and (Input.is_action_just_released("action_jump") or jump_delta > 200)):
+	if(is_about_to_jump and (Input.is_action_just_released("action_jump") or jump_delta > 2000)):
 		jump_pressed_time = -1
 		# Only allow jumping if player is grounded at the time of the jump.
 		if(is_grounded):
-			var jump_multiplier = 1 if jump_delta < 150 else 1.25
+			#var jump_multiplier = 1 if jump_delta < 150 else 1.25
+			var jump_multiplier = 0.5+jump_delta/2000
+			print(jump_multiplier)
 			apply_central_impulse(Vector2.UP	 * jump * jump_multiplier)
 	
 # Called every physic update.
