@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnht0v1pkreiq"]
+[gd_scene load_steps=11 format=3 uid="uid://bnht0v1pkreiq"]
 
 [ext_resource type="Texture2D" uid="uid://bb80ddtch0347" path="res://art/characters/player/idle00.png" id="1_4b615"]
 [ext_resource type="Script" uid="uid://dt8x32kr18fhm" path="res://scripts/player/player.gd" id="1_78gyk"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://k85gk8pifxyr" path="res://art/characters/player/walk00.png" id="4_5o4t3"]
 [ext_resource type="Texture2D" uid="uid://u60g6wpmtjo1" path="res://art/characters/player/walk02.png" id="5_sutub"]
 [ext_resource type="Texture2D" uid="uid://elwiw7igwcqj" path="res://art/characters/player/walk01.png" id="6_xuyv3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78gyk"]
+friction = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f46lw"]
 animations = [{
@@ -46,13 +49,14 @@ animations = [{
 radius = 76.0
 height = 258.0
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_78gyk")
 script = ExtResource("1_78gyk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f46lw")
 animation = &"walk"
-frame_progress = 0.259875
+frame_progress = 0.819631
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-8, -1)
