@@ -2,12 +2,11 @@ Character Diologue Interactions
 	Ability to add new characters
 
 Sound Design
-	Ability to add .wav files 
 	Different sound bits to represent character diologue. Possible voice over later. Played as text characters appear
 
 Music Editor
 	OGG
-	Ability to add music that depends on the scene. Also to depend on world states influenced by character choices/progress
+	Depend on world states influenced by character choices/progress
 
 Ability to enter doors/transition to a new scene
 
@@ -22,3 +21,5 @@ Character stat edits
 Scene transitions from choices
 
 Ideas for D-Pad alternate inputs/interactions/animations/gestures
+
+Parallax effect
