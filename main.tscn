@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://xmliywr1ptda"]
+[gd_scene load_steps=9 format=3 uid="uid://xmliywr1ptda"]
 
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dsuctdjc4m3pl" path="res://scripts/play_area.gd" id="2_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://b4svtifs3byw4" path="res://art/environments/test.jpg" id="2_h2yge"]
+[ext_resource type="AudioStream" uid="uid://bb23ycm2oxmso" path="res://sounds/backgroundmusic/testmusic.wav" id="2_lquwl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
 size = Vector2(2288, 752)
@@ -16,6 +17,17 @@ size = Vector2(242, 98)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_0xm2m")
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("2_lquwl")
+autoplay = true
+bus = &"Music"
+
+[node name="BackgroundSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
+autoplay = true
+bus = &"Sounds"
 
 [node name="PlayArea" type="Area2D" parent="."]
 script = ExtResource("2_1bvp3")

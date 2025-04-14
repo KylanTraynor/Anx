@@ -1,7 +1,11 @@
 extends RigidBody2D
 
-@export var speed = 400 # How far the player will move pixel/sec.
-@export var jump = 1000 # How far the player will jump.
+@export var speed = 400 ## How far the player will move pixel/sec.
+@export_subgroup("Jump settings")
+@export var jump = 1000 ## How far the player will jump.
+@export var jump_boost = 2 ## The jump multiplier for sustained jumps.
+@export var jump_sound: AudioStream ## Sound made when jumping.
+@export var landing_sound: AudioStream ## Sound made when landing.
 
 var jump_pressed_time = -1
 var is_grounded = false
@@ -11,40 +15,57 @@ var ground = null
 signal grounded_start
 signal grounded_end
 
+## Play the given sound at the player location.
+func play_sound(sound: AudioStream, restart: bool = false):
+	if(sound != null):
+		if($PlayerAudio.stream != sound or restart):
+			$PlayerAudio.stream = sound
+			$PlayerAudio.play()
+	else:
+		push_warning("Sound was null.")
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
 
 
+
 # Called every frame. 'delta' is the elapsed time since t0he previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_process_jump(delta)
+
+
+
+# Called every frame to handle jumping functionality.
+func _process_jump(delta: float) -> void:
 	var is_about_to_jump = jump_pressed_time != -1
 	var jump_delta = Time.get_ticks_msec() - jump_pressed_time if is_about_to_jump else 0
-	
 	# Jump
 	if(Input.is_action_just_pressed("action_jump")):
 		jump_pressed_time = Time.get_ticks_msec()
 		if(is_grounded):
 			apply_central_impulse(Vector2.UP * jump)
 			is_jumping = true
+			play_sound(jump_sound, true)
 			print("Legit jump")
 		else:
 			print("Not grounded")
-	
 	# Add some tolerance for actually when you hit the ground.
 	if(is_about_to_jump and jump_delta < 50 and not is_jumping and is_grounded):
 		apply_central_impulse(Vector2.UP * jump)
 		is_jumping = true
+		play_sound(jump_sound, true)
 		print("Tolerance jump (",jump_delta,")")
-	
 	# Add force to the jump while the button is pressed.
 	if(is_about_to_jump and Input.is_action_pressed("action_jump")):
-		apply_central_force(Vector2.UP * jump*2)
-		
+		apply_central_force(Vector2.UP * jump * jump_boost)	
 	# Reset jump when button is released or after 200ms.
 	if(Input.is_action_just_released("action_jump") or jump_delta > 200):
 		is_jumping = false
 		jump_pressed_time = -1
+	
+	
 	
 # Called every physic update.
 func _integrate_forces(_state: PhysicsDirectBodyState2D) -> void:
@@ -60,6 +81,8 @@ func _integrate_forces(_state: PhysicsDirectBodyState2D) -> void:
 	else:
 		$AnimatedSprite2D.play("idle")
 	linear_velocity.x = velocity.x
+
+
 
 # When the player collides with something.
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int):
@@ -81,11 +104,15 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 			ground = body
 			if(not is_grounded):
 				is_grounded = true
+				play_sound(landing_sound, true)
 				grounded_start.emit()
+
+
 
 # When the player stops colliding with something.
 func _on_body_shape_exited(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int):
 	if(body == ground):
+		# TODO Figure out how to stop being ungrouded when colliding with other objects.
 		is_grounded = false
 		ground = null
 		grounded_end.emit()
