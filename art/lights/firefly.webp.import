@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c01074owb1lix"
-path="res://.godot/imported/test_NRM.jpg-912193680ed8d46d67988bfc97bebf67.ctex"
+uid="uid://ddufcyxxss5kk"
+path="res://.godot/imported/firefly.webp-40070b64fe7fbfa61f31f44638769d2e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/environments/test_NRM.jpg"
-dest_files=["res://.godot/imported/test_NRM.jpg-912193680ed8d46d67988bfc97bebf67.ctex"]
+source_file="res://art/lights/firefly.webp"
+dest_files=["res://.godot/imported/firefly.webp-40070b64fe7fbfa61f31f44638769d2e.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

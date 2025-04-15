@@ -1,10 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://xmliywr1ptda"]
+[gd_scene load_steps=27 format=3 uid="uid://xmliywr1ptda"]
 
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://dsuctdjc4m3pl" path="res://scripts/play_area.gd" id="2_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://b4svtifs3byw4" path="res://art/environments/test.jpg" id="2_h2yge"]
-[ext_resource type="AudioStream" uid="uid://bb23ycm2oxmso" path="res://sounds/backgroundmusic/testmusic.wav" id="2_lquwl"]
 [ext_resource type="Texture2D" uid="uid://fgyjm2wr0gsj" path="res://art/environments/test_10.png" id="5_4c57u"]
 [ext_resource type="Texture2D" uid="uid://xcg6qdky8rg4" path="res://art/environments/test_9.png" id="5_dg77c"]
 [ext_resource type="Texture2D" uid="uid://c01074owb1lix" path="res://art/environments/test_NRM.jpg" id="5_kek77"]
@@ -12,6 +11,11 @@
 [ext_resource type="Script" uid="uid://cio7j4mgolo0f" path="res://scripts/functionalities/waypoint.gd" id="6_272bh"]
 [ext_resource type="Texture2D" uid="uid://b8ethwy4pl2ea" path="res://art/lights/defaultLight.webp" id="7_4c57u"]
 [ext_resource type="PackedScene" uid="uid://b548ffdyjbrt4" path="res://scenes/test scene.tscn" id="7_5vw27"]
+[ext_resource type="Texture2D" uid="uid://ddufcyxxss5kk" path="res://art/lights/firefly.webp" id="12_vivmo"]
+[ext_resource type="Shader" uid="uid://csk45i7a51qsl" path="res://shaders/pixelize.tres" id="13_w48qg"]
+[ext_resource type="Texture2D" uid="uid://crp4jlwpixksh" path="res://art/lights/firefly.png" id="14_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://n5cugupaj30b" path="res://art/environments/test_HEIGHT.jpg" id="14_vivmo"]
+[ext_resource type="Script" uid="uid://dhj58mdqj6l2b" path="res://scripts/entities/firefly.gd" id="15_vivmo"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_dg77c"]
 diffuse_texture = ExtResource("2_h2yge")
@@ -19,6 +23,7 @@ diffuse_texture = ExtResource("2_h2yge")
 [sub_resource type="CanvasTexture" id="CanvasTexture_ycdy4"]
 diffuse_texture = ExtResource("5_dg77c")
 normal_texture = ExtResource("5_kek77")
+texture_repeat = 3
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_4c57u"]
 diffuse_texture = ExtResource("5_4c57u")
@@ -38,13 +43,20 @@ size = Vector2(242, 98)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
 size = Vector2(242, 281)
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_yaehf"]
+diffuse_texture = ExtResource("14_2cqfq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
+shader = ExtResource("13_w48qg")
+shader_parameter/FloatParameter = 2048.0
+shader_parameter/FloatParameter2 = 100.0
+
 [node name="Main" type="Node"]
 script = ExtResource("1_0xm2m")
 
 [node name="Sounds" type="Node" parent="."]
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("2_lquwl")
 autoplay = true
 bus = &"Music"
 
@@ -56,28 +68,40 @@ bus = &"Sounds"
 script = ExtResource("2_1bvp3")
 
 [node name="Parallax2D9" type="Parallax2D" parent="PlayArea"]
-scale = Vector2(2.13, 2.13)
 scroll_scale = Vector2(0.8, 0.8)
 
 [node name="Background" type="Sprite2D" parent="PlayArea/Parallax2D9"]
+light_mask = 2
+texture_repeat = 3
+position = Vector2(-1000, 0)
+scale = Vector2(2, 2)
 texture = SubResource("CanvasTexture_dg77c")
 centered = false
+region_enabled = true
+region_rect = Rect2(-2000, 0, 2000, 648)
 
 [node name="Parallax2D10" type="Parallax2D" parent="PlayArea"]
-scale = Vector2(2.13, 2.13)
 scroll_scale = Vector2(0.95, 0.95)
 
 [node name="Background" type="Sprite2D" parent="PlayArea/Parallax2D10"]
-position = Vector2(-101.878, 0)
+position = Vector2(-1000, 0)
+scale = Vector2(2, 2)
 texture = SubResource("CanvasTexture_ycdy4")
 centered = false
+region_enabled = true
+region_rect = Rect2(-1000, 0, 2000, 645.78)
 
 [node name="Background3" type="Sprite2D" parent="PlayArea"]
-scale = Vector2(2.13, 2.13)
+texture_repeat = 3
+position = Vector2(-1000, 0)
+scale = Vector2(2, 2)
 texture = SubResource("CanvasTexture_4c57u")
 centered = false
+region_enabled = true
+region_rect = Rect2(-1000, 0, 2000, 648)
 
 [node name="Background2" type="Sprite2D" parent="PlayArea"]
+visible = false
 position = Vector2(-1152, 0)
 scale = Vector2(2.13, 2.13)
 texture = ExtResource("2_h2yge")
@@ -99,7 +123,7 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(744, 417)
+position = Vector2(376, 416)
 lock_rotation = true
 
 [node name="PointLight2D" type="PointLight2D" parent="Player"]
@@ -151,7 +175,433 @@ texture = SubResource("CanvasTexture_efxa6")
 position = Vector2(0, -91.5)
 shape = SubResource("RectangleShape2D_dg77c")
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D4" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D5" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D6" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D7" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D8" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D9" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D10" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D11" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D12" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D13" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D14" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D15" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D16" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D17" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D18" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D19" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D20" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D21" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D22" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D23" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D24" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D25" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D26" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D27" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D28" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D29" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D30" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 2
+texture = ExtResource("12_vivmo")
+texture_scale = 0.02
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D31" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 3
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D32" type="PointLight2D" parent="."]
+position = Vector2(120, 384)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 3
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D33" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 3
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D34" type="PointLight2D" parent="."]
+position = Vector2(120, 384)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 3
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D35" type="PointLight2D" parent="."]
+position = Vector2(-240, 264)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 3
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D36" type="PointLight2D" parent="."]
+position = Vector2(120, 384)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 2.58
+range_item_cull_mask = 3
+texture = ExtResource("12_vivmo")
+texture_scale = 0.04
+height = 35.0
+script = ExtResource("15_vivmo")
+blink_speed = 0.01
+
+[node name="PointLight2D37" type="PointLight2D" parent="."]
+modulate = Color(0.877, 2, 0.33, 1)
+position = Vector2(208, 368)
+scale = Vector2(3, 3)
+color = Color(0.596418, 0.933558, 0.439853, 1)
+energy = 16.0
+range_item_cull_mask = 0
+texture = ExtResource("12_vivmo")
+texture_scale = 0.3
+height = 1000.0
+script = ExtResource("15_vivmo")
+speed = 80
+blink_speed = 0.01
+
+[node name="Body" type="Sprite2D" parent="PointLight2D37"]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CanvasTexture_yaehf")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+visible = false
+scroll_scale = Vector2(0, 0)
+
+[node name="PixelShader" type="Sprite2D" parent="Parallax2D"]
+visible = false
+material = SubResource("ShaderMaterial_2cqfq")
+scale = Vector2(2.13333, 1.8)
+texture = ExtResource("14_vivmo")
+centered = false
+region_rect = Rect2(0, 0, 1152, 648)
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.171039, 0.171039, 0.171039, 1)
+color = Color(0.229605, 0.312589, 0.408143, 1)
 
 [connection signal="interacted" from="Objects/Interactable" to="Objects/Interactable/Waypoint" method="switch_scene"]
