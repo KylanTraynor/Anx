@@ -1,8 +1,10 @@
 extends RigidBody2D
 
+class_name Player
+
 @export var speed = 400 ## How far the player will move pixel/sec.
 @export_subgroup("Jump settings")
-@export var jump = 1000 ## How far the player will jump.
+@export var jump_strength = 1000 ## How far the player will jump.
 @export var jump_boost = 2 ## The jump multiplier for sustained jumps.
 @export var jump_sound: AudioStream ## Sound made when jumping.
 @export var landing_sound: AudioStream ## Sound made when landing.
@@ -44,28 +46,35 @@ func _process_jump(delta: float) -> void:
 	# Jump
 	if(Input.is_action_just_pressed("action_jump")):
 		jump_pressed_time = Time.get_ticks_msec()
-		if(is_grounded):
-			apply_central_impulse(Vector2.UP * jump)
-			is_jumping = true
-			play_sound(jump_sound, true)
-			print("Legit jump")
-		else:
-			print("Not grounded")
-	# Add some tolerance for actually when you hit the ground.
-	if(is_about_to_jump and jump_delta < 50 and not is_jumping and is_grounded):
-		apply_central_impulse(Vector2.UP * jump)
-		is_jumping = true
-		play_sound(jump_sound, true)
-		print("Tolerance jump (",jump_delta,")")
+		register_jump(50)
 	# Add force to the jump while the button is pressed.
-	if(is_about_to_jump and Input.is_action_pressed("action_jump")):
-		apply_central_force(Vector2.UP * jump * jump_boost)	
+	if(is_jumping and Input.is_action_pressed("action_jump")):
+		apply_central_force(Vector2.UP * jump_strength * jump_boost)	
 	# Reset jump when button is released or after 200ms.
 	if(Input.is_action_just_released("action_jump") or jump_delta > 200):
 		is_jumping = false
 		jump_pressed_time = -1
 	
-	
+func register_jump(tolerance: float = 50):
+	jump_pressed_time = Time.get_ticks_msec()
+	if(is_grounded):
+		print("Legit Jump!")
+		jump()
+	else:
+		await grounded_start
+		if(is_jumping): # If already jumping, then skip.
+			return
+		if(Time.get_ticks_msec() < jump_pressed_time + tolerance):
+			print("Tolerance jump (",Time.get_ticks_msec() - jump_pressed_time,")")
+			jump()
+		else:
+			jump_pressed_time = -1
+			print("Grounded too late, no jumping.")
+
+func jump() -> void:
+	apply_central_impulse(Vector2.UP * jump_strength)
+	is_jumping = true
+	play_sound(jump_sound, true)
 	
 # Called every physic update.
 func _integrate_forces(_state: PhysicsDirectBodyState2D) -> void:

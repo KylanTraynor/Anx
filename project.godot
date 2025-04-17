@@ -23,6 +23,10 @@ buses/default_bus_layout="uid://ddiqtmb1hhr43"
 
 window/stretch/mode="canvas_items"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_nodes/plugin.cfg", "res://addons/godot_piforge/plugin.cfg")
+
 [input]
 
 move_left={
@@ -51,6 +55,10 @@ action_jump={
 [physics]
 
 2d/default_gravity=4096.0
+
+[piforge_ai]
+
+api_key="v4j8f4M9j7z5P1F1z5I0w5e4G4r487D26hy3la605QhGrf8zIy5ywIyjj68hQF3e"
 
 [rendering]
 

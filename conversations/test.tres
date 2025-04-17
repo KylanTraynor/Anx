@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="DialogueData" load_steps=2 format=3 uid="uid://dj4pc0gbdlx57"]
+
+[ext_resource type="Script" uid="uid://dcvgs7ls8s8wx" path="res://addons/dialogue_nodes/objects/DialogueData.gd" id="1_bmwpf"]
+
+[resource]
+script = ExtResource("1_bmwpf")
+starts = {
+"0": &"0_1"
+}
+nodes = {
+&"0_1": {
+"link": &"1_1",
+"offset": Vector2(0, 0),
+"start_id": "0"
+},
+&"1_1": {
+"dialogue": "Today is going to be a great day !",
+"offset": Vector2(280, 0),
+"options": {
+0: {
+"condition": {},
+"link": &"1_2",
+"text": ""
+}
+},
+"size": Vector2(300, 260),
+"speaker": "Woofer"
+},
+&"1_2": {
+"dialogue": "If you like stewing in bellies.",
+"offset": Vector2(680, 20),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": "Dragon"
+}
+}
+variables = {}
+strays = Array[String]([])
+characters = ""
