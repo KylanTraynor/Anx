@@ -1,37 +1,37 @@
-[gd_scene load_steps=32 format=3 uid="uid://xmliywr1ptda"]
+[gd_scene load_steps=32 format=3 uid="uid://bqbgydm1v3e3c"]
 
-[ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://dsuctdjc4m3pl" path="res://scripts/play_area.gd" id="2_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://b4svtifs3byw4" path="res://art/environments/test.jpg" id="2_h2yge"]
-[ext_resource type="AudioStream" uid="uid://bb23ycm2oxmso" path="res://sounds/backgroundmusic/testmusic.wav" id="2_yaehf"]
-[ext_resource type="Texture2D" uid="uid://fgyjm2wr0gsj" path="res://art/environments/test_10.png" id="5_4c57u"]
-[ext_resource type="Texture2D" uid="uid://xcg6qdky8rg4" path="res://art/environments/test_9.png" id="5_dg77c"]
-[ext_resource type="Texture2D" uid="uid://c01074owb1lix" path="res://art/environments/test_NRM.jpg" id="5_kek77"]
-[ext_resource type="Script" uid="uid://dx2t13hh3xt1h" path="res://scripts/functionalities/interactable.gd" id="6_5vw27"]
-[ext_resource type="Texture2D" uid="uid://b8ethwy4pl2ea" path="res://art/lights/defaultLight.webp" id="7_4c57u"]
-[ext_resource type="Texture2D" uid="uid://mmarf6wis7rp" path="res://art/details/grass.png" id="8_074og"]
-[ext_resource type="Shader" uid="uid://dv1g25kllxn44" path="res://shaders/swaying.tres" id="8_cegan"]
-[ext_resource type="Script" uid="uid://ijb2rsgylb2u" path="res://scripts/conversation_player.gd" id="11_cegan"]
-[ext_resource type="Resource" uid="uid://dj4pc0gbdlx57" path="res://conversations/test.tres" id="12_82xsv"]
-[ext_resource type="Texture2D" uid="uid://ddufcyxxss5kk" path="res://art/lights/firefly.webp" id="12_vivmo"]
-[ext_resource type="Shader" uid="uid://csk45i7a51qsl" path="res://shaders/pixelize.tres" id="13_w48qg"]
-[ext_resource type="Texture2D" uid="uid://crp4jlwpixksh" path="res://art/lights/firefly.png" id="14_2cqfq"]
-[ext_resource type="Texture2D" uid="uid://n5cugupaj30b" path="res://art/environments/test_HEIGHT.jpg" id="14_vivmo"]
-[ext_resource type="Script" uid="uid://dhj58mdqj6l2b" path="res://scripts/entities/firefly.gd" id="15_vivmo"]
-[ext_resource type="PackedScene" uid="uid://dw7xovyysy2vo" path="res://subscenes/chat.tscn" id="20_82xsv"]
+[ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_vt7y6"]
+[ext_resource type="AudioStream" uid="uid://bb23ycm2oxmso" path="res://sounds/backgroundmusic/testmusic.wav" id="2_1wuy8"]
+[ext_resource type="Script" uid="uid://dsuctdjc4m3pl" path="res://scripts/play_area.gd" id="3_chgw2"]
+[ext_resource type="Texture2D" uid="uid://b4svtifs3byw4" path="res://art/environments/test.jpg" id="4_3yvir"]
+[ext_resource type="Texture2D" uid="uid://xcg6qdky8rg4" path="res://art/environments/test_9.png" id="5_ruim3"]
+[ext_resource type="Texture2D" uid="uid://c01074owb1lix" path="res://art/environments/test_NRM.jpg" id="6_58f2t"]
+[ext_resource type="Texture2D" uid="uid://fgyjm2wr0gsj" path="res://art/environments/test_10.png" id="7_2dscm"]
+[ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="8_6ymt8"]
+[ext_resource type="Texture2D" uid="uid://b8ethwy4pl2ea" path="res://art/lights/defaultLight.webp" id="9_ra1xu"]
+[ext_resource type="Script" uid="uid://dx2t13hh3xt1h" path="res://scripts/functionalities/interactable.gd" id="10_w7ti4"]
+[ext_resource type="Script" uid="uid://ijb2rsgylb2u" path="res://scripts/conversation_player.gd" id="11_5f4bw"]
+[ext_resource type="Resource" uid="uid://dj4pc0gbdlx57" path="res://conversations/test.tres" id="12_32hew"]
+[ext_resource type="Shader" uid="uid://dv1g25kllxn44" path="res://shaders/swaying.tres" id="13_rcl0i"]
+[ext_resource type="Texture2D" uid="uid://mmarf6wis7rp" path="res://art/details/grass.png" id="14_hfw70"]
+[ext_resource type="Texture2D" uid="uid://ddufcyxxss5kk" path="res://art/lights/firefly.webp" id="15_ihn6o"]
+[ext_resource type="Script" uid="uid://dhj58mdqj6l2b" path="res://scripts/entities/firefly.gd" id="16_8mpdy"]
+[ext_resource type="Texture2D" uid="uid://crp4jlwpixksh" path="res://art/lights/firefly.png" id="17_jmfxp"]
+[ext_resource type="Shader" uid="uid://csk45i7a51qsl" path="res://shaders/pixelize.tres" id="18_540rd"]
+[ext_resource type="Texture2D" uid="uid://n5cugupaj30b" path="res://art/environments/test_HEIGHT.jpg" id="19_s0uga"]
+[ext_resource type="PackedScene" uid="uid://dw7xovyysy2vo" path="res://subscenes/chat.tscn" id="20_im88e"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_dg77c"]
-diffuse_texture = ExtResource("2_h2yge")
+diffuse_texture = ExtResource("4_3yvir")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ycdy4"]
-diffuse_texture = ExtResource("5_dg77c")
-normal_texture = ExtResource("5_kek77")
+diffuse_texture = ExtResource("5_ruim3")
+normal_texture = ExtResource("6_58f2t")
 texture_repeat = 3
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_4c57u"]
-diffuse_texture = ExtResource("5_4c57u")
-normal_texture = ExtResource("5_kek77")
+diffuse_texture = ExtResource("7_2dscm")
+normal_texture = ExtResource("6_58f2t")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1bvp3"]
 size = Vector2(240, 100)
@@ -46,21 +46,21 @@ size = Vector2(0, 0)
 size = Vector2(242, 281)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_82xsv"]
-shader = ExtResource("8_cegan")
+shader = ExtResource("13_rcl0i")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
-size = Vector2(6064, 752)
+size = Vector2(6064, 1790)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_yaehf"]
-diffuse_texture = ExtResource("14_2cqfq")
+diffuse_texture = ExtResource("17_jmfxp")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
-shader = ExtResource("13_w48qg")
+shader = ExtResource("18_540rd")
 shader_parameter/FloatParameter = 512.0
 shader_parameter/FloatParameter2 = 100.0
 
 [node name="Main" type="Node" node_paths=PackedStringArray("player")]
-script = ExtResource("1_0xm2m")
+script = ExtResource("1_vt7y6")
 player = NodePath("PlayArea/PlayLayer/Player")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
@@ -69,7 +69,7 @@ color = Color(0.324293, 0.513765, 0.599744, 1)
 [node name="Sounds" type="Node" parent="."]
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("2_yaehf")
+stream = ExtResource("2_1wuy8")
 autoplay = true
 bus = &"Music"
 
@@ -78,7 +78,7 @@ autoplay = true
 bus = &"Sounds"
 
 [node name="PlayArea" type="Area2D" parent="."]
-script = ExtResource("2_1bvp3")
+script = ExtResource("3_chgw2")
 
 [node name="ParallaxLayer-2" type="Parallax2D" parent="PlayArea"]
 modulate = Color(0.759631, 0.914695, 0.990141, 1)
@@ -129,6 +129,22 @@ metadata/_edit_group_ = true
 position = Vector2(0, 520)
 polygon = PackedVector2Array(0, 0, 1080, 0, 1080, 200, 0, 200)
 
+[node name="Ground3" type="StaticBody2D" parent="PlayArea/PlayLayer"]
+position = Vector2(1080, 3)
+metadata/_edit_group_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayArea/PlayLayer/Ground3"]
+position = Vector2(0, 520)
+polygon = PackedVector2Array(0, 0, 1080, 0, 1080, 200, 0, 200)
+
+[node name="Ground4" type="StaticBody2D" parent="PlayArea/PlayLayer"]
+position = Vector2(2160, -7)
+metadata/_edit_group_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayArea/PlayLayer/Ground4"]
+position = Vector2(0, 520)
+polygon = PackedVector2Array(0, 0, 1080, 0, 1080, 200, 0, 200)
+
 [node name="Ground2" type="StaticBody2D" parent="PlayArea/PlayLayer"]
 position = Vector2(-1313, 0)
 metadata/_edit_group_ = true
@@ -137,12 +153,12 @@ metadata/_edit_group_ = true
 position = Vector2(0, 520)
 polygon = PackedVector2Array(0, 0, 1080, 0, 1080, 200, 0, 200)
 
-[node name="Player" parent="PlayArea/PlayLayer" instance=ExtResource("1_ig7tw")]
+[node name="Player" parent="PlayArea/PlayLayer" instance=ExtResource("8_6ymt8")]
 position = Vector2(736, -125)
 lock_rotation = true
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayArea/PlayLayer/Player"]
-texture = ExtResource("7_4c57u")
+texture = ExtResource("9_ra1xu")
 texture_scale = 8.83
 height = 210.0
 
@@ -161,9 +177,113 @@ texture = SubResource("PlaceholderTexture2D_1bvp3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PlayLayer/Objects/Object"]
 shape = SubResource("RectangleShape2D_1bvp3")
 
+[node name="Object2" type="RigidBody2D" parent="PlayArea/PlayLayer/Objects"]
+position = Vector2(304, 331)
+mass = 100.0
+lock_rotation = true
+freeze = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PlayLayer/Objects/Object2"]
+texture = SubResource("PlaceholderTexture2D_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PlayLayer/Objects/Object2"]
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Object3" type="RigidBody2D" parent="PlayArea/PlayLayer/Objects"]
+position = Vector2(832, 395)
+mass = 100.0
+lock_rotation = true
+freeze = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PlayLayer/Objects/Object3"]
+texture = SubResource("PlaceholderTexture2D_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PlayLayer/Objects/Object3"]
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Object4" type="RigidBody2D" parent="PlayArea/PlayLayer/Objects"]
+position = Vector2(1286, 200)
+mass = 100.0
+lock_rotation = true
+freeze = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PlayLayer/Objects/Object4"]
+texture = SubResource("PlaceholderTexture2D_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PlayLayer/Objects/Object4"]
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Object5" type="RigidBody2D" parent="PlayArea/PlayLayer/Objects"]
+position = Vector2(1646, -35)
+mass = 100.0
+lock_rotation = true
+freeze = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PlayLayer/Objects/Object5"]
+texture = SubResource("PlaceholderTexture2D_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PlayLayer/Objects/Object5"]
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Object6" type="RigidBody2D" parent="PlayArea/PlayLayer/Objects"]
+position = Vector2(1111, -254)
+mass = 100.0
+lock_rotation = true
+freeze = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PlayLayer/Objects/Object6"]
+texture = SubResource("PlaceholderTexture2D_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PlayLayer/Objects/Object6"]
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Object7" type="RigidBody2D" parent="PlayArea/PlayLayer/Objects"]
+position = Vector2(654, -412)
+mass = 100.0
+lock_rotation = true
+freeze = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PlayLayer/Objects/Object7"]
+texture = SubResource("PlaceholderTexture2D_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PlayLayer/Objects/Object7"]
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Object8" type="RigidBody2D" parent="PlayArea/PlayLayer/Objects"]
+position = Vector2(196, -637)
+mass = 100.0
+lock_rotation = true
+freeze = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PlayLayer/Objects/Object8"]
+texture = SubResource("PlaceholderTexture2D_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PlayLayer/Objects/Object8"]
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Object9" type="RigidBody2D" parent="PlayArea/PlayLayer/Objects"]
+position = Vector2(973, -869)
+mass = 100.0
+lock_rotation = true
+freeze = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PlayLayer/Objects/Object9"]
+texture = SubResource("PlaceholderTexture2D_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PlayLayer/Objects/Object9"]
+shape = SubResource("RectangleShape2D_1bvp3")
+
 [node name="Interactable" type="Area2D" parent="PlayArea/PlayLayer/Objects"]
 position = Vector2(-1032, 383)
-script = ExtResource("6_5vw27")
+script = ExtResource("10_w7ti4")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayArea/PlayLayer/Objects/Interactable"]
@@ -177,8 +297,8 @@ region_rect = Rect2(0, 0, 242.555, 283.7)
 shape = SubResource("RectangleShape2D_dg77c")
 
 [node name="ConversationPlayer" type="Node" parent="PlayArea/PlayLayer/Objects/Interactable"]
-script = ExtResource("11_cegan")
-dialogue_data = ExtResource("12_82xsv")
+script = ExtResource("11_5f4bw")
+dialogue_data = ExtResource("12_32hew")
 
 [node name="ParallaxLayer+1" type="Parallax2D" parent="PlayArea"]
 repeat_size = Vector2(1080, 0)
@@ -188,59 +308,59 @@ repeat_times = 3
 material = SubResource("ShaderMaterial_82xsv")
 instance_shader_parameters/Tint = Color(0.216209, 0.618688, 0.243589, 1)
 position = Vector2(96, 482)
-texture = ExtResource("8_074og")
+texture = ExtResource("14_hfw70")
 
 [node name="Grass2" type="Sprite2D" parent="PlayArea/ParallaxLayer+1"]
 material = SubResource("ShaderMaterial_82xsv")
 instance_shader_parameters/SwayOffset = 1.28
 instance_shader_parameters/Tint = Color(0.216209, 0.618688, 0.243589, 1)
 position = Vector2(280, 480)
-texture = ExtResource("8_074og")
+texture = ExtResource("14_hfw70")
 
 [node name="Grass3" type="Sprite2D" parent="PlayArea/ParallaxLayer+1"]
 material = SubResource("ShaderMaterial_82xsv")
 instance_shader_parameters/SwayOffset = 0.475
 instance_shader_parameters/Tint = Color(0.169364, 0.488612, 0.190057, 1)
 position = Vector2(896, 480)
-texture = ExtResource("8_074og")
+texture = ExtResource("14_hfw70")
 
 [node name="Grass4" type="Sprite2D" parent="PlayArea/ParallaxLayer+1"]
 material = SubResource("ShaderMaterial_82xsv")
 instance_shader_parameters/SwayOffset = 0.525
 instance_shader_parameters/Tint = Color(0.1925, 0.55, 0.216333, 1)
 position = Vector2(512, 480)
-texture = ExtResource("8_074og")
+texture = ExtResource("14_hfw70")
 
 [node name="Grass5" type="Sprite2D" parent="PlayArea/ParallaxLayer+1"]
 material = SubResource("ShaderMaterial_82xsv")
 instance_shader_parameters/SwayOffset = 1.78
 instance_shader_parameters/Tint = Color(0.353375, 0.55, 0.1925, 1)
 position = Vector2(528, 480)
-texture = ExtResource("8_074og")
+texture = ExtResource("14_hfw70")
 
 [node name="Grass6" type="Sprite2D" parent="PlayArea/ParallaxLayer+1"]
 material = SubResource("ShaderMaterial_82xsv")
 instance_shader_parameters/SwayOffset = 1.78
 instance_shader_parameters/Tint = Color(0.353375, 0.55, 0.1925, 1)
 position = Vector2(736, 480)
-texture = ExtResource("8_074og")
+texture = ExtResource("14_hfw70")
 
 [node name="Grass7" type="Sprite2D" parent="PlayArea/ParallaxLayer+1"]
 material = SubResource("ShaderMaterial_82xsv")
 instance_shader_parameters/SwayOffset = 1.78
 instance_shader_parameters/Tint = Color(0.353375, 0.55, 0.1925, 1)
 position = Vector2(889, 480)
-texture = ExtResource("8_074og")
+texture = ExtResource("14_hfw70")
 
 [node name="Grass8" type="Sprite2D" parent="PlayArea/ParallaxLayer+1"]
 material = SubResource("ShaderMaterial_82xsv")
 instance_shader_parameters/SwayOffset = 1.78
 instance_shader_parameters/Tint = Color(0.353375, 0.55, 0.1925, 1)
 position = Vector2(155, 480)
-texture = ExtResource("8_074og")
+texture = ExtResource("14_hfw70")
 
 [node name="Shape" type="CollisionShape2D" parent="PlayArea"]
-position = Vector2(0, 384)
+position = Vector2(0, -135)
 shape = SubResource("RectangleShape2D_h2yge")
 debug_color = Color(0.0901961, 0.647059, 0, 0.298039)
 
@@ -263,10 +383,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D2" type="PointLight2D" parent="Fireflies"]
@@ -274,10 +394,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D3" type="PointLight2D" parent="Fireflies"]
@@ -285,10 +405,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D4" type="PointLight2D" parent="Fireflies"]
@@ -296,10 +416,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D5" type="PointLight2D" parent="Fireflies"]
@@ -307,10 +427,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D6" type="PointLight2D" parent="Fireflies"]
@@ -318,10 +438,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D7" type="PointLight2D" parent="Fireflies"]
@@ -329,10 +449,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D8" type="PointLight2D" parent="Fireflies"]
@@ -340,10 +460,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D9" type="PointLight2D" parent="Fireflies"]
@@ -351,10 +471,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D10" type="PointLight2D" parent="Fireflies"]
@@ -362,10 +482,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D11" type="PointLight2D" parent="Fireflies"]
@@ -373,10 +493,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D12" type="PointLight2D" parent="Fireflies"]
@@ -384,10 +504,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D13" type="PointLight2D" parent="Fireflies"]
@@ -395,10 +515,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D14" type="PointLight2D" parent="Fireflies"]
@@ -406,10 +526,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D15" type="PointLight2D" parent="Fireflies"]
@@ -417,10 +537,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D16" type="PointLight2D" parent="Fireflies"]
@@ -428,10 +548,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D17" type="PointLight2D" parent="Fireflies"]
@@ -439,10 +559,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D18" type="PointLight2D" parent="Fireflies"]
@@ -450,10 +570,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D19" type="PointLight2D" parent="Fireflies"]
@@ -461,10 +581,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D20" type="PointLight2D" parent="Fireflies"]
@@ -472,10 +592,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D21" type="PointLight2D" parent="Fireflies"]
@@ -483,10 +603,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D22" type="PointLight2D" parent="Fireflies"]
@@ -494,10 +614,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D23" type="PointLight2D" parent="Fireflies"]
@@ -505,10 +625,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D24" type="PointLight2D" parent="Fireflies"]
@@ -516,10 +636,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D25" type="PointLight2D" parent="Fireflies"]
@@ -527,10 +647,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D26" type="PointLight2D" parent="Fireflies"]
@@ -538,10 +658,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D27" type="PointLight2D" parent="Fireflies"]
@@ -549,10 +669,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D28" type="PointLight2D" parent="Fireflies"]
@@ -560,10 +680,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D29" type="PointLight2D" parent="Fireflies"]
@@ -571,10 +691,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D30" type="PointLight2D" parent="Fireflies"]
@@ -582,10 +702,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.02
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D31" type="PointLight2D" parent="Fireflies"]
@@ -593,10 +713,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D32" type="PointLight2D" parent="Fireflies"]
@@ -604,10 +724,10 @@ position = Vector2(120, 384)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D33" type="PointLight2D" parent="Fireflies"]
@@ -615,10 +735,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D34" type="PointLight2D" parent="Fireflies"]
@@ -626,10 +746,10 @@ position = Vector2(120, 384)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D35" type="PointLight2D" parent="Fireflies"]
@@ -637,10 +757,10 @@ position = Vector2(-240, 264)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D36" type="PointLight2D" parent="Fireflies"]
@@ -648,10 +768,10 @@ position = Vector2(120, 384)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 2.58
 range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.04
 height = 35.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 blink_speed = 0.01
 
 [node name="PointLight2D37" type="PointLight2D" parent="Fireflies"]
@@ -661,10 +781,10 @@ scale = Vector2(3, 3)
 color = Color(0.596418, 0.933558, 0.439853, 1)
 energy = 16.0
 range_item_cull_mask = 0
-texture = ExtResource("12_vivmo")
+texture = ExtResource("15_ihn6o")
 texture_scale = 0.3
 height = 1000.0
-script = ExtResource("15_vivmo")
+script = ExtResource("16_8mpdy")
 speed = 80
 blink_speed = 0.01
 
@@ -679,13 +799,13 @@ scroll_scale = Vector2(0, 0)
 [node name="PixelShader" type="Sprite2D" parent="CameraFilters"]
 material = SubResource("ShaderMaterial_2cqfq")
 scale = Vector2(2.13333, 1.8)
-texture = ExtResource("14_vivmo")
+texture = ExtResource("19_s0uga")
 centered = false
 region_rect = Rect2(0, 0, 1152, 648)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Chat" parent="UI" instance=ExtResource("20_82xsv")]
+[node name="Chat" parent="UI" instance=ExtResource("20_im88e")]
 visible = false
 
 [connection signal="interacted" from="PlayArea/PlayLayer/Objects/Interactable" to="PlayArea/PlayLayer/Objects/Interactable/ConversationPlayer" method="trigger"]

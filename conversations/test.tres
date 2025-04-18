@@ -10,25 +10,87 @@ starts = {
 nodes = {
 &"0_1": {
 "link": &"1_1",
-"offset": Vector2(0, 0),
+"offset": Vector2(-740, 20),
 "start_id": "0"
 },
 &"1_1": {
 "dialogue": "Today is going to be a great day !",
-"offset": Vector2(280, 0),
+"offset": Vector2(-340, 20),
 "options": {
 0: {
 "condition": {},
 "link": &"1_2",
-"text": ""
+"text": "Test Option 1"
+},
+1: {
+"condition": {},
+"link": "END",
+"text": "Test Option 2"
+},
+2: {
+"condition": {},
+"link": "END",
+"text": "Test Option 3"
 }
 },
-"size": Vector2(300, 260),
+"size": Vector2(480, 580),
 "speaker": "Woofer"
 },
 &"1_2": {
 "dialogue": "If you like stewing in bellies.",
-"offset": Vector2(680, 20),
+"offset": Vector2(240, 260),
+"options": {
+0: {
+"condition": {},
+"link": &"1_3",
+"text": ""
+}
+},
+"size": Vector2(720, 400),
+"speaker": "Dragon"
+},
+&"1_3": {
+"dialogue": "",
+"offset": Vector2(1060, 520),
+"options": {
+0: {
+"condition": {},
+"link": &"1_4",
+"text": ""
+}
+},
+"size": Vector2(300, 385),
+"speaker": ""
+},
+&"1_4": {
+"dialogue": "",
+"offset": Vector2(1460, 780),
+"options": {
+0: {
+"condition": {},
+"link": &"1_5",
+"text": ""
+}
+},
+"size": Vector2(300, 385),
+"speaker": ""
+},
+&"1_5": {
+"dialogue": "",
+"offset": Vector2(1860, 1020),
+"options": {
+0: {
+"condition": {},
+"link": &"1_6",
+"text": ""
+}
+},
+"size": Vector2(300, 385),
+"speaker": ""
+},
+&"1_6": {
+"dialogue": "",
+"offset": Vector2(2260, 1260),
 "options": {
 0: {
 "condition": {},
@@ -36,8 +98,8 @@ nodes = {
 "text": ""
 }
 },
-"size": Vector2(300, 240),
-"speaker": "Dragon"
+"size": Vector2(300, 385),
+"speaker": ""
 }
 }
 variables = {}
