@@ -11,5 +11,5 @@ func _process(delta: float) -> void:
 	pass
 
 func get_rect() -> Rect2:
-	var node = get_node("Shape")
+	var node = get_node("CameraArea")
 	return Rect2(node.position - node.shape.size/2, node.shape.size)
