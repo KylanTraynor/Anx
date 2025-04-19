@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5msy3hmk2ply"]
+
+[ext_resource type="Shader" uid="uid://dv1g25kllxn44" path="res://shaders/swaying.tres" id="1_2yinv"]
+[ext_resource type="Texture2D" uid="uid://mmarf6wis7rp" path="res://art/details/grass.png" id="2_xoiht"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_82xsv"]
+shader = ExtResource("1_2yinv")
+
+[node name="Grass" type="Sprite2D"]
+material = SubResource("ShaderMaterial_82xsv")
+instance_shader_parameters/Tint = Color(0.216209, 0.618688, 0.243589, 1)
+texture = ExtResource("2_xoiht")

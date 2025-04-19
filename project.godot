@@ -27,6 +27,19 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/dialogue_nodes/plugin.cfg", "res://addons/godot_piforge/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://art/": "yellow",
+"res://conversations/": "green",
+"res://scenes/": "blue",
+"res://scripts/": "red",
+"res://shaders/": "red",
+"res://sounds/": "orange",
+"res://subscenes/": "blue"
+}
+
 [input]
 
 move_left={
