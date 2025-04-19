@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bnht0v1pkreiq"]
+[gd_scene load_steps=13 format=3 uid="uid://bnht0v1pkreiq"]
 
 [ext_resource type="Texture2D" uid="uid://bb80ddtch0347" path="res://art/characters/player/idle00.png" id="1_4b615"]
 [ext_resource type="Script" uid="uid://dt8x32kr18fhm" path="res://scripts/player/player.gd" id="1_78gyk"]
+[ext_resource type="AudioStream" uid="uid://3egpypo1iuat" path="res://sounds/soundeffects/Test Steps/modified test steps 406742__kretopi__steponwood-010.wav" id="2_1ap0v"]
 [ext_resource type="Texture2D" uid="uid://cbxmjkensak4v" path="res://art/characters/player/idle01.png" id="2_78gyk"]
 [ext_resource type="Texture2D" uid="uid://nsiwvhi58a04" path="res://art/characters/player/idle02.png" id="3_1ap0v"]
+[ext_resource type="AudioStream" uid="uid://ce6wkqybsorfm" path="res://sounds/soundeffects/Test Steps/modified test land 406742__kretopi__steponwood-010.wav" id="3_5o4t3"]
 [ext_resource type="Texture2D" uid="uid://k85gk8pifxyr" path="res://art/characters/player/walk00.png" id="4_5o4t3"]
 [ext_resource type="Texture2D" uid="uid://u60g6wpmtjo1" path="res://art/characters/player/walk02.png" id="5_sutub"]
 [ext_resource type="Texture2D" uid="uid://elwiw7igwcqj" path="res://art/characters/player/walk01.png" id="6_xuyv3"]
@@ -54,6 +56,8 @@ physics_material_override = SubResource("PhysicsMaterial_78gyk")
 contact_monitor = true
 max_contacts_reported = 2
 script = ExtResource("1_78gyk")
+jump_sound = ExtResource("2_1ap0v")
+landing_sound = ExtResource("3_5o4t3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_f46lw")
