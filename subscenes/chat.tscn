@@ -72,7 +72,7 @@ _data = {
 &"RESET": SubResource("Animation_eaefd")
 }
 
-[node name="Chat" type="Control" node_paths=PackedStringArray("animation_player", "text_container")]
+[node name="Chat" type="Control" node_paths=PackedStringArray("animation_player", "text_container", "choices_container")]
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -87,6 +87,7 @@ theme = ExtResource("1_ur7et")
 script = ExtResource("2_eaefd")
 animation_player = NodePath("Panel/AnimationPlayer")
 text_container = NodePath("Panel/RichTextLabel")
+choices_container = NodePath("ChoicesPanel")
 typing_sound = ExtResource("3_yg53j")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -101,6 +102,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(576, 200)
+theme = ExtResource("1_ur7et")
 theme_override_styles/panel = SubResource("StyleBoxFlat_eaefd")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
@@ -121,3 +123,16 @@ text = "Test"
 libraries = {
 &"": SubResource("AnimationLibrary_fve1l")
 }
+
+[node name="ChoicesPanel" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -375.0
+offset_bottom = -375.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ur7et")

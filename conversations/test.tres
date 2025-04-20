@@ -37,7 +37,7 @@ nodes = {
 "speaker": "Woofer"
 },
 &"1_2": {
-"dialogue": "If you like stewing in bellies.",
+"dialogue": "It definitely is.",
 "offset": Vector2(240, 260),
 "options": {
 0: {
