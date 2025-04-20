@@ -1,6 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://pt4ueo732xre"]
+[gd_scene load_steps=5 format=3 uid="uid://pt4ueo732xre"]
 
 [ext_resource type="Texture2D" uid="uid://0svslg15lxku" path="res://art/objects/crate.png" id="1_1dnc7"]
+[ext_resource type="Texture2D" uid="uid://bge7slvexcay5" path="res://art/objects/crate_NORMAL.png" id="2_y8cph"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_0iqh5"]
+diffuse_texture = ExtResource("1_1dnc7")
+normal_texture = ExtResource("2_y8cph")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8cph"]
 size = Vector2(128, 128)
@@ -8,7 +13,7 @@ size = Vector2(128, 128)
 [node name="Crate" type="StaticBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_1dnc7")
+texture = SubResource("CanvasTexture_0iqh5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_y8cph")
