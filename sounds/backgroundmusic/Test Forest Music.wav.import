@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c2dascl7rnic3"
+path="res://.godot/imported/Test Forest Music.wav-4698bfd5c5b578e6bfa2d78f889976a7.sample"
+
+[deps]
+
+source_file="res://sounds/backgroundmusic/Test Forest Music.wav"
+dest_files=["res://.godot/imported/Test Forest Music.wav-4698bfd5c5b578e6bfa2d78f889976a7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
