@@ -17,6 +17,8 @@ var ground = null
 var animated_sprite : AnimatedSprite2D
 var collision_shape : CollisionShape2D
 
+var _last_successful_ground_raycast_origin : Vector2 = Vector2.ZERO
+
 signal grounded_start
 signal grounded_end
 
@@ -103,13 +105,33 @@ func _physics_process(delta) -> void:
 func _process_ground_check():
 	var shapeowners = self.get_shape_owners()[0]
 	var shape = self.shape_owner_get_shape(shapeowners, 0)
+	var width = shape.get_rect().size.x
 	var height = shape.get_rect().size.y
 	var origin = collision_shape.global_position
 	var space_state = get_world_2d().direct_space_state
+	
+	
 	var query = PhysicsRayQueryParameters2D.create(origin, origin + Vector2.DOWN * (height/2 + 3), 1)
 	query.exclude = [self]
-	
 	var result = space_state.intersect_ray(query)
+	if(result):
+		_last_successful_ground_raycast_origin = Vector2.ZERO
+	
+	if(len(result) == 0):
+		print("Attempting to find ground from last origin.")
+		query.from = origin + _last_successful_ground_raycast_origin
+		query.to = query.from + Vector2.DOWN * (height/2 + 3)
+		result = space_state.intersect_ray(query)
+	
+	if(len(result) == 0):
+		print("Attempting to find ground from random origin.")
+		var offset = Vector2(randf_range(-width/2, width/2), 0)
+		query.from = origin + offset
+		query.to = query.from + Vector2.DOWN * (height/2 + 3)
+		result = space_state.intersect_ray(query)
+		if(result):
+			_last_successful_ground_raycast_origin = offset
+	
 	if(result):
 		if(not is_grounded):
 			is_grounded = true
