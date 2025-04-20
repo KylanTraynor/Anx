@@ -2,7 +2,7 @@ Character Diologue Interactions
 	Ability to add new characters
 
 Sound Design
-	Different sound bits to represent character diologue. Possible voice over later. Played as text characters appear
+	Different sound bits to represent character diologue. Possible voice over later.
 
 Music Editor
 	OGG
@@ -21,5 +21,3 @@ Character stat edits
 Scene transitions from choices
 
 Ideas for D-Pad alternate inputs/interactions/animations/gestures
-
-Parallax effect

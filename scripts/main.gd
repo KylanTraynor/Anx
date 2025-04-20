@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 	if(Chat.instance.visible):
 		pass
 	else:
-		if(current_interactable != null and Input.is_action_just_released("ui_accept")):
+		if(current_interactable != null and Input.is_action_just_released("action_interact")):
 			current_interactable.interact()
 	if(Input.is_anything_pressed()):
 		if is_in_ui() == true:
@@ -54,6 +54,7 @@ func ensure_camera_is_in_bounds() -> void:
 	
 static func set_interactable(interactable: Interactable) -> void:
 	instance.current_interactable = interactable
+	print("Press E to interact with ", interactable)
 	instance.interactable_changed.emit()
 
 static func unset_interactable(interactable: Interactable) -> void:

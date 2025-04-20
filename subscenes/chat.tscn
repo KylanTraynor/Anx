@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dw7xovyysy2vo"]
+[gd_scene load_steps=9 format=3 uid="uid://dw7xovyysy2vo"]
 
 [ext_resource type="Theme" uid="uid://d4afl12pvcn5i" path="res://uitheme.tres" id="1_ur7et"]
 [ext_resource type="Script" uid="uid://cij1xh74kjlr0" path="res://scripts/chat.gd" id="2_eaefd"]
+[ext_resource type="AudioStream" uid="uid://tbctixt60ok4" path="res://sounds/soundeffects/ui/typing_ramjac.wav" id="3_yg53j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eaefd"]
 bg_color = Color(0, 0, 0, 1)
@@ -19,6 +20,7 @@ corner_detail = 10
 
 [sub_resource type="Animation" id="Animation_yg53j"]
 resource_name = "Close"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -26,7 +28,7 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(0.34151, 0.466516),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0, 0)]
@@ -34,6 +36,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ur7et"]
 resource_name = "Open"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -41,7 +44,7 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(0.366021, 0.366022),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1, 1)]
@@ -84,6 +87,11 @@ theme = ExtResource("1_ur7et")
 script = ExtResource("2_eaefd")
 animation_player = NodePath("Panel/AnimationPlayer")
 text_container = NodePath("Panel/RichTextLabel")
+typing_sound = ExtResource("3_yg53j")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+max_polyphony = 10
+bus = &"Message"
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

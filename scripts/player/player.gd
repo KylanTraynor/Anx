@@ -118,13 +118,11 @@ func _process_ground_check():
 		_last_successful_ground_raycast_origin = Vector2.ZERO
 	
 	if(len(result) == 0):
-		print("Attempting to find ground from last origin.")
 		query.from = origin + _last_successful_ground_raycast_origin
 		query.to = query.from + Vector2.DOWN * (height/2 + 3)
 		result = space_state.intersect_ray(query)
 	
 	if(len(result) == 0):
-		print("Attempting to find ground from random origin.")
 		var offset = Vector2(randf_range(-width/2, width/2), 0)
 		query.from = origin + offset
 		query.to = query.from + Vector2.DOWN * (height/2 + 3)
@@ -137,10 +135,8 @@ func _process_ground_check():
 			is_grounded = true
 			ground = result["collider"]
 			grounded_start.emit()
-			print("New ground: ", ground)
 	else:
 		if(is_grounded):
 			is_grounded = false
 			ground = null
 			grounded_end.emit()
-			print("Leaving ground.")
