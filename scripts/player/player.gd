@@ -14,6 +14,9 @@ var is_grounded = false
 var is_jumping = false
 var ground = null
 
+var animated_sprite : AnimatedSprite2D
+var collision_shape : CollisionShape2D
+
 signal grounded_start
 signal grounded_end
 
@@ -29,6 +32,8 @@ func play_sound(sound: AudioStream, restart: bool = false):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	animated_sprite = find_children("*", "AnimatedSprite2D")[0]
+	collision_shape = find_children("*", "CollisionShape2D")[0]
 	pass
 
 
@@ -85,43 +90,35 @@ func _integrate_forces(_state: PhysicsDirectBodyState2D) -> void:
 		velocity.x += 1
 	if(velocity.length_squared() > 0):
 		velocity = velocity.normalized() * speed
-		$AnimatedSprite2D.play("walk")
-		$AnimatedSprite2D.flip_h = velocity.x > 0
+		animated_sprite.play("walk")
+		animated_sprite.flip_h = velocity.x > 0
 	else:
-		$AnimatedSprite2D.play("idle")
+		animated_sprite.play("idle")
 	linear_velocity.x = velocity.x
 
+func _physics_process(delta) -> void:
+	_process_ground_check()
 
-
-# When the player collides with something.
-func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int):
-	var body_shape_owner_id = body.shape_find_owner(body_shape_index)
-	var body_shape_owner = body.shape_owner_get_owner(body_shape_owner_id)
-	var body_shape_2d = body.shape_owner_get_shape(body_shape_owner_id, 0)
-	var body_global_transform = body_shape_owner.global_transform
-
-	var local_shape_owner_id = shape_find_owner(local_shape_index)
-	var local_shape_owner = shape_owner_get_owner(local_shape_owner_id)
-	var local_shape_2d = shape_owner_get_shape(local_shape_owner_id, 0)
-	var local_global_transform = local_shape_owner.global_transform
+# Checks if the player is colliding with something under their feet.
+func _process_ground_check():
+	var shapeowners = self.get_shape_owners()[0]
+	var shape = self.shape_owner_get_shape(shapeowners, 0)
+	var height = shape.get_rect().size.y
+	var origin = collision_shape.global_position
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsRayQueryParameters2D.create(origin, origin + Vector2.DOWN * (height/2 + 3), 1)
+	query.exclude = [self]
 	
-	var collision_points = local_shape_2d.collide_and_get_contacts(local_global_transform, body_shape_2d, body_global_transform)
-	for point in collision_points:
-		var dot_product = (point - position).normalized().dot(Vector2.DOWN)
-		var is_below = dot_product > 0.9
-		if(is_below):
-			ground = body
-			if(not is_grounded):
-				is_grounded = true
-				play_sound(landing_sound, true)
-				grounded_start.emit()
-
-
-
-# When the player stops colliding with something.
-func _on_body_shape_exited(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int):
-	if(body == ground):
-		# TODO Figure out how to stop being ungrouded when colliding with other objects.
-		is_grounded = false
-		ground = null
-		grounded_end.emit()
+	var result = space_state.intersect_ray(query)
+	if(result):
+		if(not is_grounded):
+			is_grounded = true
+			ground = result["collider"]
+			grounded_start.emit()
+			print("New ground: ", ground)
+	else:
+		if(is_grounded):
+			is_grounded = false
+			ground = null
+			grounded_end.emit()
+			print("Leaving ground.")
