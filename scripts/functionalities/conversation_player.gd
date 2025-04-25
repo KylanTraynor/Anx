@@ -9,24 +9,25 @@ var waiting_for_choice: bool = false
 func trigger() -> void:
 	processor.data = dialogue_data
 	processor.dialogue_processed.connect(show_dialogue)
+	Chat.instance.choice_selected.connect(select_option)
+	Chat.instance.message_ended.connect(message_ended)
+	print("Start")
 	processor.start("0")
-	_process_dialog()
 
-func _process_dialog() -> void:
-	while(processor.is_running()):
-		if(waiting_for_choice):
-			var choice = await Chat.instance.choice_selected
-			print("Made choice: #", choice)
-			processor.select_option(choice)
-		else:
-			await Chat.instance.message_ended
-			processor.select_option(0)
+func select_option(option: int) -> void:
+	await Chat.instance.message_ended
+	processor.select_option(option)
+	pass
+
+func message_ended(text: String) -> void:
+	if(waiting_for_choice):
+		pass
+	else:
+		processor.select_option(0)
 	
 func show_dialogue(speaker: Variant, dialogue: String, options: Array[String]) -> void:
-	print(dialogue)
-	print("Number of options: ", len(options), " at Time: ", Time.get_ticks_msec())
-	if(len(options) > 1):
-		waiting_for_choice = true
-	elif options[0] == "":
+	if options[0] == "" and len(options) == 1:
 		waiting_for_choice = false
+	else:
+		waiting_for_choice = true
 	Chat.show_message(dialogue, options)

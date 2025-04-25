@@ -42,6 +42,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since t0he previous frame.
 func _process(delta: float) -> void:
+	if Main.instance.is_in_ui(): return
 	_process_jump(delta)
 
 

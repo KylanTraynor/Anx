@@ -10,7 +10,7 @@ static var instance: Chat
 @export var typing_sound: AudioStream
 
 signal input_received
-signal message_ended
+signal message_ended(text: String)
 signal choice_selected(choice: int)
 
 var audio_player : AudioStreamPlayer
@@ -20,7 +20,7 @@ func _ready() -> void:
 	audio_player = find_children("*", "AudioStreamPlayer")[0]
 	
 func _process(delta: float) -> void:
-	if(visible and Input.is_action_just_pressed("ui_accept")):
+	if(visible and Input.is_action_just_pressed("ui_accept") and not choices_container.visible):
 		input_received.emit()
 
 static func show_message(text: String, choices: Array[String]= []) -> void:
@@ -30,19 +30,24 @@ static func show_message(text: String, choices: Array[String]= []) -> void:
 	instance.text_container.clear()
 	instance.text_container.add_text(text)
 	instance.text_container.visible_characters = 0
+	await instance.get_tree().process_frame
 	await instance.animation_player.animation_finished
 	instance.audio_player.stream = instance.typing_sound
 	while(instance.text_container.visible_characters < len(text)):
 		await instance.get_tree().create_timer(0.01).timeout
 		instance.text_container.visible_characters += 1
 		instance.audio_player.play()
-	if(len(choices) > 0):
+	if len(choices) == 0 or (choices[0] == "" and len(choices) == 1):
+		pass
+	else:
 		show_choices(choices)
-	await instance.input_received
+	instance.input_received.connect(close_message)  
+
+static func close_message():
 	instance.animation_player.play("Close")
 	await instance.animation_player.animation_finished
 	instance.visible = false
-	instance.message_ended.emit()
+	instance.message_ended.emit(instance.text_container.text)
 
 static func show_choices(choices: Array[String])-> void:
 	for n in instance.choices_container.get_children():
@@ -53,10 +58,12 @@ static func show_choices(choices: Array[String])-> void:
 		var btn := Button.new()
 		btn.text = choice
 		instance.choices_container.add_child(btn)
+		btn.pressed.connect(close_message)
 		btn.pressed.connect(select_choice.bind(i))
+		if i == 0:
+			btn.grab_focus()
 		i += 1
 	instance.choices_container.visible = true
 
 static func select_choice(choice: int) -> void:
-	print("Clicked on choice #", choice)
 	instance.choice_selected.emit(choice)
