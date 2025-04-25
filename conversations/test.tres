@@ -24,7 +24,7 @@ nodes = {
 },
 1: {
 "condition": {},
-"link": "END",
+"link": &"1_7",
 "text": "Test Option 2"
 },
 2: {
@@ -33,7 +33,7 @@ nodes = {
 "text": "Test Option 3"
 }
 },
-"size": Vector2(480, 580),
+"size": Vector2(480, 645),
 "speaker": "Woofer"
 },
 &"1_2": {
@@ -46,51 +46,12 @@ nodes = {
 "text": ""
 }
 },
-"size": Vector2(720, 400),
+"size": Vector2(720, 450),
 "speaker": "Dragon"
 },
 &"1_3": {
-"dialogue": "",
+"dialogue": "Alright",
 "offset": Vector2(1060, 520),
-"options": {
-0: {
-"condition": {},
-"link": &"1_4",
-"text": ""
-}
-},
-"size": Vector2(300, 385),
-"speaker": ""
-},
-&"1_4": {
-"dialogue": "",
-"offset": Vector2(1460, 780),
-"options": {
-0: {
-"condition": {},
-"link": &"1_5",
-"text": ""
-}
-},
-"size": Vector2(300, 385),
-"speaker": ""
-},
-&"1_5": {
-"dialogue": "",
-"offset": Vector2(1860, 1020),
-"options": {
-0: {
-"condition": {},
-"link": &"1_6",
-"text": ""
-}
-},
-"size": Vector2(300, 385),
-"speaker": ""
-},
-&"1_6": {
-"dialogue": "",
-"offset": Vector2(2260, 1260),
 "options": {
 0: {
 "condition": {},
@@ -98,8 +59,21 @@ nodes = {
 "text": ""
 }
 },
+"size": Vector2(300, 450),
+"speaker": "Woofer"
+},
+&"1_7": {
+"dialogue": "It might not be.",
+"offset": Vector2(286.833, 1011),
+"options": {
+0: {
+"condition": {},
+"link": &"1_2",
+"text": ""
+}
+},
 "size": Vector2(300, 385),
-"speaker": ""
+"speaker": "Dragon"
 }
 }
 variables = {}

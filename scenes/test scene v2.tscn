@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bqbgydm1v3e3c"]
+[gd_scene load_steps=32 format=3 uid="uid://bdrvrf3rmknlo"]
 
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_vt7y6"]
 [ext_resource type="AudioStream" uid="uid://bb23ycm2oxmso" path="res://sounds/backgroundmusic/testmusic.wav" id="2_1wuy8"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="8_6ymt8"]
 [ext_resource type="Texture2D" uid="uid://b8ethwy4pl2ea" path="res://art/lights/defaultLight.webp" id="9_ra1xu"]
 [ext_resource type="Script" uid="uid://dx2t13hh3xt1h" path="res://scripts/functionalities/interactable.gd" id="10_w7ti4"]
-[ext_resource type="Script" uid="uid://ijb2rsgylb2u" path="res://scripts/conversation_player.gd" id="11_5f4bw"]
+[ext_resource type="Script" uid="uid://ijb2rsgylb2u" path="res://scripts/functionalities/conversation_player.gd" id="11_5f4bw"]
 [ext_resource type="Resource" uid="uid://dj4pc0gbdlx57" path="res://conversations/test.tres" id="12_32hew"]
 [ext_resource type="Shader" uid="uid://dv1g25kllxn44" path="res://shaders/swaying.tres" id="13_rcl0i"]
 [ext_resource type="Texture2D" uid="uid://mmarf6wis7rp" path="res://art/details/grass.png" id="14_hfw70"]

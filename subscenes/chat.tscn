@@ -92,7 +92,6 @@ typing_sound = ExtResource("3_yg53j")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 max_polyphony = 10
-bus = &"Message"
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

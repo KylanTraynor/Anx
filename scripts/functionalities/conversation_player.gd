@@ -24,8 +24,9 @@ func _process_dialog() -> void:
 	
 func show_dialogue(speaker: Variant, dialogue: String, options: Array[String]) -> void:
 	print(dialogue)
-	if(len(options) > 0):
+	print("Number of options: ", len(options), " at Time: ", Time.get_ticks_msec())
+	if(len(options) > 1):
 		waiting_for_choice = true
-	else:
+	elif options[0] == "":
 		waiting_for_choice = false
 	Chat.show_message(dialogue, options)

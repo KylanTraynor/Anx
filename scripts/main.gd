@@ -46,10 +46,11 @@ func new_game() -> void:
 
 func ensure_camera_is_in_bounds() -> void:
 	var scene_rect = $PlayArea.get_rect()
-	$Camera.limit_left = scene_rect.position.x
-	$Camera.limit_top = scene_rect.position.y
-	$Camera.limit_right = (scene_rect.position + Vector2(scene_rect.size)).x
-	$Camera.limit_bottom = (scene_rect.position + Vector2(scene_rect.size)).y
+	if(scene_rect):
+		$Camera.limit_left = scene_rect.position.x
+		$Camera.limit_top = scene_rect.position.y
+		$Camera.limit_right = (scene_rect.position + Vector2(scene_rect.size)).x
+		$Camera.limit_bottom = (scene_rect.position + Vector2(scene_rect.size)).y
 	
 	
 static func set_interactable(interactable: Interactable) -> void:
