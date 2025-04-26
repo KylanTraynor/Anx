@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://bb23ycm2oxmso" path="res://sounds/backgroundmusic/testmusic.wav" id="2_1wuy8"]
 [ext_resource type="Script" uid="uid://dsuctdjc4m3pl" path="res://scripts/play_area.gd" id="3_chgw2"]
 [ext_resource type="Texture2D" uid="uid://b4svtifs3byw4" path="res://art/environments/test.jpg" id="4_3yvir"]
+[ext_resource type="PackedScene" uid="uid://pt4ueo732xre" path="res://subscenes/objects/crate.tscn" id="4_u5s5q"]
 [ext_resource type="Texture2D" uid="uid://xcg6qdky8rg4" path="res://art/environments/test_9.png" id="5_ruim3"]
 [ext_resource type="Texture2D" uid="uid://c01074owb1lix" path="res://art/environments/test_NRM.jpg" id="6_58f2t"]
 [ext_resource type="Texture2D" uid="uid://fgyjm2wr0gsj" path="res://art/environments/test_10.png" id="7_2dscm"]
@@ -79,6 +80,9 @@ bus = &"Sounds"
 
 [node name="PlayArea" type="Area2D" parent="."]
 script = ExtResource("3_chgw2")
+
+[node name="Crate" parent="PlayArea" instance=ExtResource("4_u5s5q")]
+position = Vector2(-536, 456)
 
 [node name="ParallaxLayer-2" type="Parallax2D" parent="PlayArea"]
 modulate = Color(0.759631, 0.914695, 0.990141, 1)
@@ -163,6 +167,9 @@ texture_scale = 8.83
 height = 210.0
 
 [node name="Objects" type="Node2D" parent="PlayArea/PlayLayer"]
+
+[node name="Crate" parent="PlayArea/PlayLayer/Objects" instance=ExtResource("11_3qwqc")]
+position = Vector2(1875, -167)
 
 [node name="Object" type="RigidBody2D" parent="PlayArea/PlayLayer/Objects"]
 position = Vector2(-120, 472)

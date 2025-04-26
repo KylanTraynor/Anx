@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bg17aqw1mo0nu"]
+
+[ext_resource type="Texture2D" uid="uid://0svslg15lxku" path="res://art/objects/crate.png" id="1_xssnw"]
+[ext_resource type="Texture2D" uid="uid://bge7slvexcay5" path="res://art/objects/crate_NORMAL.png" id="2_g8l8k"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_0iqh5"]
+diffuse_texture = ExtResource("1_xssnw")
+normal_texture = ExtResource("2_g8l8k")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8cph"]
+size = Vector2(246, 108)
+
+[node name="Crate" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(61, 10.5)
+scale = Vector2(1.95313, 0.835938)
+texture = SubResource("CanvasTexture_0iqh5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(59, 10)
+shape = SubResource("RectangleShape2D_y8cph")
