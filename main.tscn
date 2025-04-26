@@ -34,7 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://dw7xovyysy2vo" path="res://subscenes/chat.tscn" id="20_82xsv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
-size = Vector2(6064, 1816)
+size = Vector2(4932, 688)
 
 [sub_resource type="Gradient" id="Gradient_htxhm"]
 offsets = PackedFloat32Array(0.0574913, 0.367596)
@@ -334,9 +334,14 @@ shader = ExtResource("13_w48qg")
 shader_parameter/FloatParameter = 512.0
 shader_parameter/FloatParameter2 = 100.0
 
-[node name="Main" type="Node" node_paths=PackedStringArray("player")]
+[node name="Main" type="Node" node_paths=PackedStringArray("base_layer", "player", "play_area", "camera", "start_position")]
 script = ExtResource("1_0xm2m")
+background_music = ExtResource("2_htxhm")
+base_layer = NodePath("PlayArea/PlayLayer")
 player = NodePath("PlayArea/PlayLayer/Player")
+play_area = NodePath("PlayArea")
+camera = NodePath("Camera")
+start_position = NodePath("StartPosition")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.324293, 0.513765, 0.599744, 1)
@@ -353,7 +358,6 @@ autoplay = true
 bus = &"Sounds"
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
 process_callback = 0
 limit_smoothed = true
 position_smoothing_enabled = true
@@ -367,7 +371,7 @@ script = ExtResource("2_1bvp3")
 
 [node name="CameraArea" type="CollisionShape2D" parent="PlayArea"]
 editor_description = "The area the camera is constrained to."
-position = Vector2(0, -188)
+position = Vector2(743, 361)
 shape = SubResource("RectangleShape2D_h2yge")
 debug_color = Color(0.0901961, 0.647059, 0, 0.298039)
 
@@ -443,6 +447,7 @@ polygon = PackedVector2Array(0, 0, 1080, 0, 1080, 200, 0, 200)
 
 [node name="Player" parent="PlayArea/PlayLayer" instance=ExtResource("1_ig7tw")]
 position = Vector2(736, -125)
+jump_tolerance = 200
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayArea/PlayLayer/Player"]
 texture = ExtResource("7_4c57u")

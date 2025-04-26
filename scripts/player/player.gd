@@ -7,6 +7,7 @@ class_name Player
 @export var jump_strength = 1000 ## How far the player will jump.
 @export var jump_boost = 2 ## The jump multiplier for sustained jumps.
 @export var jump_limit = 1 ## If 1, only single jumps allowed. More allows double or triple jumps.
+@export var jump_tolerance = 50 ## Time in milliseconds before hitting the ground that will still trigger a jump.
 @export var jump_sound: AudioStream ## Sound made when jumping.
 @export var landing_sound: AudioStream ## Sound made when landing.
 
@@ -56,7 +57,7 @@ func _process_jump(_delta: float) -> void:
 	# Jump
 	if(Input.is_action_just_pressed("action_jump")):
 		jump_pressed_time = Time.get_ticks_msec()
-		register_jump(50)
+		register_jump(jump_tolerance)
 	# Add force to the jump while the button is pressed.
 	if(is_jumping and Input.is_action_pressed("action_jump")):
 		apply_central_force(Vector2.UP * jump_strength * jump_boost)	
@@ -65,7 +66,7 @@ func _process_jump(_delta: float) -> void:
 		is_jumping = false
 		jump_pressed_time = -1
 	
-func register_jump(tolerance: float = 50):
+func register_jump(tolerance: float = jump_tolerance):
 	jump_pressed_time = Time.get_ticks_msec()
 	if(is_grounded):
 		print("Legit Jump!")
@@ -74,8 +75,12 @@ func register_jump(tolerance: float = 50):
 		if(jump_counter < jump_limit):
 			jump()
 			return
+		# Wait for ground collision.
 		await grounded_start
-		if(is_jumping): # If already jumping, then skip.
+		# Wait a frame to ensure velocity is back to 0.
+		await get_tree().process_frame
+		# If already jumping, then skip.
+		if(is_jumping):
 			return
 		if(Time.get_ticks_msec() < jump_pressed_time + tolerance):
 			print("Tolerance jump (",Time.get_ticks_msec() - jump_pressed_time,")")

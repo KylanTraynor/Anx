@@ -42,6 +42,10 @@ static func show_message(speaker: String, text: String, choices: Array[String]= 
 		await instance.get_tree().create_timer(0.01).timeout
 		instance.text_container.visible_characters += 1
 		instance.audio_player.play()
+		if Input.is_action_just_pressed("ui_accept"):
+			instance.text_container.visible_characters = len(text)
+			
+	await instance.get_tree().process_frame
 	if len(choices) == 0 or (choices[0] == "" and len(choices) == 1):
 		pass
 	else:

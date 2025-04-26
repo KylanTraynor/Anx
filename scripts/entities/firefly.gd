@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 			next_state = Time.get_ticks_msec() + randf_range(250, 5000)
 	
 	position = position.move_toward(destination, speed * delta)
-	var target_energy = max_energy if turned_on else 0
+	var target_energy = max_energy if turned_on else 0.0
 	energy = lerpf(energy, target_energy, clampf(delta*10, 0, 1))
 	modulate.a = lerpf(modulate.a, 1 if target_energy > 0 else 0, clampf(delta*10, 0, 1))
 	pass

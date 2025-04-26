@@ -9,13 +9,13 @@ var waiting_for_choice: bool = false
 func trigger() -> void:
 	processor.data = dialogue_data
 	processor.dialogue_processed.connect(show_dialogue)
-	processor.dialogue_ended.connect(_conversation_ended)
+	processor.dialogue_ended.connect(_on_conversation_ended)
 	Chat.instance.choice_selected.connect(select_option)
-	Chat.instance.message_ended.connect(message_ended)
+	Chat.instance.message_ended.connect(_on_message_ended)
 	print("Start")
 	processor.start("0")
 
-func _conversation_ended() -> void:
+func _on_conversation_ended() -> void:
 	print("End")
 	pass
 
@@ -24,7 +24,7 @@ func select_option(option: int) -> void:
 	processor.select_option(option)
 	pass
 
-func message_ended(_text: String) -> void:
+func _on_message_ended(_text: String) -> void:
 	if(waiting_for_choice):
 		pass
 	else:
