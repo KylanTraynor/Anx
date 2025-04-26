@@ -71,6 +71,3 @@ position = Vector2(2, 12)
 shape = SubResource("CapsuleShape2D_4b615")
 
 [node name="PlayerAudio" type="AudioStreamPlayer2D" parent="."]
-
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
-[connection signal="body_shape_exited" from="." to="." method="_on_body_shape_exited"]
