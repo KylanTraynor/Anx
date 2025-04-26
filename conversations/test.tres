@@ -82,7 +82,7 @@ nodes = {
 "text": "Nevermind"
 }
 },
-"size": Vector2(300, 580),
+"size": Vector2(300, 645),
 "speaker": "Merchant"
 },
 &"1_5": {
@@ -95,7 +95,7 @@ nodes = {
 "text": ""
 }
 },
-"size": Vector2(300, 385),
+"size": Vector2(300, 450),
 "speaker": "Merchant"
 },
 &"1_6": {
@@ -108,7 +108,7 @@ nodes = {
 "text": ""
 }
 },
-"size": Vector2(300, 385),
+"size": Vector2(300, 450),
 "speaker": "Merchant"
 },
 &"1_7": {
@@ -130,12 +130,17 @@ nodes = {
 "options": {
 0: {
 "condition": {},
-"link": "END",
+"link": &"3_1",
 "text": ""
 }
 },
-"size": Vector2(300, 385),
+"size": Vector2(600, 540),
 "speaker": "Merchant"
+},
+&"3_1": {
+"link": "END",
+"offset": Vector2(3080, 340),
+"signalValue": "merchant"
 }
 }
 variables = {}

@@ -7,6 +7,7 @@ static var instance: Chat
 @export var animation_player: AnimationPlayer
 @export var text_container: RichTextLabel
 @export var choices_container: VBoxContainer
+@export var name_container: RichTextLabel
 @export var typing_sound: AudioStream
 
 signal input_received
@@ -23,11 +24,13 @@ func _process(_delta: float) -> void:
 	if(visible and Input.is_action_just_pressed("ui_accept") and not choices_container.visible):
 		input_received.emit()
 
-static func show_message(text: String, choices: Array[String]= []) -> void:
+static func show_message(speaker: String, text: String, choices: Array[String]= []) -> void:
 	if(not instance):
 		return
 	instance.visible = true
 	instance.choices_container.visible = false
+	instance.name_container.get_parent_control().visible = speaker != ""
+	instance.name_container.text = speaker
 	instance.animation_player.play("Open")
 	instance.text_container.clear()
 	instance.text_container.add_text(text)
@@ -46,6 +49,7 @@ static func show_message(text: String, choices: Array[String]= []) -> void:
 	instance.input_received.connect(close_message)  
 
 static func close_message():
+	instance.input_received.disconnect(close_message)
 	instance.animation_player.play("Close")
 	await instance.animation_player.animation_finished
 	instance.visible = false

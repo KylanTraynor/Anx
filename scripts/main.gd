@@ -74,7 +74,7 @@ func is_in_ui() -> bool:
 func new_game() -> void:
 	if(start_position):
 		player.position = start_position.position
-	Chat.show_message("Game starting!")
+	Chat.show_message("", "Game starting!")
 
 func ensure_camera_is_in_bounds() -> void:
 	if(not play_area):
