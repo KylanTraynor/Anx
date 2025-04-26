@@ -55,12 +55,61 @@ nodes = {
 "options": {
 0: {
 "condition": {},
-"link": "END",
+"link": &"1_4",
 "text": ""
 }
 },
 "size": Vector2(300, 450),
 "speaker": "Woofer"
+},
+&"1_4": {
+"dialogue": "Do you want to buy stuff?",
+"offset": Vector2(1580, 420),
+"options": {
+0: {
+"condition": {},
+"link": &"1_8",
+"text": "Sure"
+},
+1: {
+"condition": {},
+"link": &"1_6",
+"text": "I want to sell"
+},
+2: {
+"condition": {},
+"link": &"1_5",
+"text": "Nevermind"
+}
+},
+"size": Vector2(300, 580),
+"speaker": "Merchant"
+},
+&"1_5": {
+"dialogue": "Alright, see you later!",
+"offset": Vector2(2418.33, 1040.49),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 385),
+"speaker": "Merchant"
+},
+&"1_6": {
+"dialogue": "Sure, let's see what you've got.",
+"offset": Vector2(2383.19, 558.8),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 385),
+"speaker": "Merchant"
 },
 &"1_7": {
 "dialogue": "It might not be.",
@@ -72,8 +121,21 @@ nodes = {
 "text": ""
 }
 },
-"size": Vector2(300, 385),
+"size": Vector2(300, 450),
 "speaker": "Dragon"
+},
+&"1_8": {
+"dialogue": "You won't find better stuff anywhere else I assure you!",
+"offset": Vector2(2326.09, -34.1604),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 385),
+"speaker": "Merchant"
 }
 }
 variables = {}

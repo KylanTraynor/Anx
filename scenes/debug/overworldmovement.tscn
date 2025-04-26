@@ -1,0 +1,127 @@
+[gd_scene load_steps=21 format=3 uid="uid://cqeggvxebh1kp"]
+
+[ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_dswoo"]
+[ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="2_5ogqy"]
+[ext_resource type="Script" uid="uid://cdqbk50wg5d5s" path="res://addons/rmsmartshape/shapes/shape_open.gd" id="3_wuvoj"]
+[ext_resource type="Script" uid="uid://crt8cstbdfuyr" path="res://addons/rmsmartshape/vertex_properties.gd" id="4_vyeve"]
+[ext_resource type="Script" uid="uid://cekcaqqk77qpu" path="res://addons/rmsmartshape/shapes/point.gd" id="5_er5vc"]
+[ext_resource type="Script" uid="uid://cqbgarmxy0513" path="res://addons/rmsmartshape/shapes/point_array.gd" id="6_vaj32"]
+[ext_resource type="Resource" uid="uid://cslaf7a3o75a0" path="res://materials/polygons/grass_and_dirt.tres" id="7_ip80r"]
+
+[sub_resource type="Resource" id="Resource_mhfwe"]
+script = ExtResource("4_vyeve")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_se3c3"]
+script = ExtResource("5_er5vc")
+position = Vector2(2432, 736)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_mhfwe")
+
+[sub_resource type="Resource" id="Resource_qyggo"]
+script = ExtResource("4_vyeve")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_2buio"]
+script = ExtResource("5_er5vc")
+position = Vector2(1200, 512)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_qyggo")
+
+[sub_resource type="Resource" id="Resource_tixy2"]
+script = ExtResource("4_vyeve")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_qyrm6"]
+script = ExtResource("5_er5vc")
+position = Vector2(-8, 696)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_tixy2")
+
+[sub_resource type="Resource" id="Resource_582s2"]
+script = ExtResource("4_vyeve")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_nefvf"]
+script = ExtResource("5_er5vc")
+position = Vector2(-168, 672)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_582s2")
+
+[sub_resource type="Resource" id="Resource_5tuxy"]
+script = ExtResource("4_vyeve")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_cqo4r"]
+script = ExtResource("5_er5vc")
+position = Vector2(-256, 832)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_5tuxy")
+
+[sub_resource type="Resource" id="Resource_wuvoj"]
+script = ExtResource("4_vyeve")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_vyeve"]
+script = ExtResource("5_er5vc")
+position = Vector2(364.371, 649.255)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_wuvoj")
+
+[sub_resource type="Resource" id="Resource_vh7v7"]
+script = ExtResource("6_vaj32")
+_points = {
+0: SubResource("Resource_se3c3"),
+1: SubResource("Resource_2buio"),
+2: SubResource("Resource_qyrm6"),
+3: SubResource("Resource_nefvf"),
+4: SubResource("Resource_cqo4r"),
+5: SubResource("Resource_vyeve")
+}
+_point_order = PackedInt32Array(0, 1, 5, 2, 3, 4)
+_constraints = {}
+_next_key = 6
+_material_overrides = {}
+tessellation_stages = 3
+tessellation_tolerance = 6.0
+curve_bake_interval = 20.0
+
+[node name="Overworld Movement" type="Node"]
+script = ExtResource("1_dswoo")
+
+[node name="Player" parent="." instance=ExtResource("2_5ogqy")]
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="SS2D_Shape_Open" type="Node2D" parent="StaticBody2D"]
+script = ExtResource("3_wuvoj")
+_points = SubResource("Resource_vh7v7")
+flip_edges = true
+shape_material = ExtResource("7_ip80r")
+collision_polygon_node_path = NodePath("../CollisionPolygon2D")
+metadata/_custom_type_script = "uid://cdqbk50wg5d5s"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+visible = false
+modulate = Color(1, 1, 1, 0.3)
+polygon = PackedVector2Array(2432, 736, 1200, 511.766, 364.371, 649.252, -7.9982, 695.85, -169.273, 669.427, -256, 832, -227.961, 847.421, -155.081, 698.107, -8.38235, 727.848, 368.958, 680.922, 1199.73, 543.765, 2426.28, 767.484)

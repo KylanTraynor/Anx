@@ -53,6 +53,7 @@ height = 232.0
 
 [node name="Player" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_78gyk")
+lock_rotation = true
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 2

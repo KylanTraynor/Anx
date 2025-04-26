@@ -19,11 +19,13 @@ func _ready() -> void:
 	instance = self
 	audio_player = find_children("*", "AudioStreamPlayer")[0]
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if(visible and Input.is_action_just_pressed("ui_accept") and not choices_container.visible):
 		input_received.emit()
 
 static func show_message(text: String, choices: Array[String]= []) -> void:
+	if(not instance):
+		return
 	instance.visible = true
 	instance.choices_container.visible = false
 	instance.animation_player.play("Open")

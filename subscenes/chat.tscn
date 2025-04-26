@@ -135,3 +135,10 @@ offset_bottom = -375.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ur7et")
+
+[node name="Name" type="Panel" parent="."]
+layout_mode = 1
+offset_top = -30.0
+offset_right = 300.0
+offset_bottom = 30.0
+theme = ExtResource("1_ur7et")

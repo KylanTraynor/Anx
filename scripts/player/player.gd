@@ -48,7 +48,7 @@ func _process(delta: float) -> void:
 
 
 # Called every frame to handle jumping functionality.
-func _process_jump(delta: float) -> void:
+func _process_jump(_delta: float) -> void:
 	var is_about_to_jump = jump_pressed_time != -1
 	var jump_delta = Time.get_ticks_msec() - jump_pressed_time if is_about_to_jump else 0
 	# Jump
@@ -99,7 +99,7 @@ func _integrate_forces(_state: PhysicsDirectBodyState2D) -> void:
 		animated_sprite.play("idle")
 	linear_velocity.x = velocity.x
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	_process_ground_check()
 
 # Checks if the player is colliding with something under their feet.
