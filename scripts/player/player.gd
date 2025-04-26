@@ -6,10 +6,12 @@ class_name Player
 @export_subgroup("Jump settings")
 @export var jump_strength = 1000 ## How far the player will jump.
 @export var jump_boost = 2 ## The jump multiplier for sustained jumps.
+@export var jump_limit = 1 ## If 1, only single jumps allowed. More allows double or triple jumps.
 @export var jump_sound: AudioStream ## Sound made when jumping.
 @export var landing_sound: AudioStream ## Sound made when landing.
 
 var jump_pressed_time = -1
+var jump_counter = 0
 var is_grounded = false
 var is_jumping = false
 var ground = null
@@ -69,6 +71,9 @@ func register_jump(tolerance: float = 50):
 		print("Legit Jump!")
 		jump()
 	else:
+		if(jump_counter < jump_limit):
+			jump()
+			return
 		await grounded_start
 		if(is_jumping): # If already jumping, then skip.
 			return
@@ -82,6 +87,7 @@ func register_jump(tolerance: float = 50):
 func jump() -> void:
 	apply_central_impulse(Vector2.UP * jump_strength)
 	is_jumping = true
+	jump_counter += 1
 	play_sound(jump_sound, true)
 	
 # Called every physic update.
@@ -135,6 +141,7 @@ func _process_ground_check():
 		if(not is_grounded):
 			is_grounded = true
 			ground = result["collider"]
+			jump_counter = 0
 			grounded_start.emit()
 	else:
 		if(is_grounded):

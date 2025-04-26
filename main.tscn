@@ -443,7 +443,6 @@ polygon = PackedVector2Array(0, 0, 1080, 0, 1080, 200, 0, 200)
 
 [node name="Player" parent="PlayArea/PlayLayer" instance=ExtResource("1_ig7tw")]
 position = Vector2(736, -125)
-lock_rotation = true
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayArea/PlayLayer/Player"]
 texture = ExtResource("7_4c57u")
@@ -947,9 +946,11 @@ texture = SubResource("CanvasTexture_yaehf")
 
 [node name="CameraFilters" type="Parallax2D" parent="."]
 visible = false
+z_index = 100
 scroll_scale = Vector2(0, 0)
 
 [node name="PixelShader" type="Sprite2D" parent="CameraFilters"]
+visible = false
 material = SubResource("ShaderMaterial_2cqfq")
 scale = Vector2(2.13333, 1.8)
 texture = ExtResource("14_vivmo")
