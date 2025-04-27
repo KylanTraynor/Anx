@@ -2,7 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
+<<<<<<< Updated upstream
 uid="uid://bpbv0onvf0itx"
+=======
+uid="uid://c0c1euuadhwox"
+>>>>>>> Stashed changes
 path="res://.godot/imported/rifle_n.png-6019ae8bca942b35fcd7c15db3693aba.ctex"
 metadata={
 "vram_texture": false
@@ -27,7 +31,11 @@ roughness/mode=0
 roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
+<<<<<<< Updated upstream
 process/normal_map_invert_y=true
+=======
+process/normal_map_invert_y=false
+>>>>>>> Stashed changes
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
