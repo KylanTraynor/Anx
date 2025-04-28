@@ -96,3 +96,6 @@ api_key="v4j8f4M9j7z5P1F1z5I0w5e4G4r487D26hy3la605QhGrf8zIy5ywIyjj68hQF3e"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true
+anti_aliasing/quality/msaa_2d=2
+anti_aliasing/quality/screen_space_aa=1

@@ -2,11 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< Updated upstream
-uid="uid://jfgwmfbctubv"
-=======
-uid="uid://cfjwuhawtqk48"
->>>>>>> Stashed changes
+uid="uid://ccn7q24hd3ruc"
 path="res://.godot/imported/rifle_s.png-3acef2acfad3bdc335ae0415938872af.ctex"
 metadata={
 "vram_texture": false
@@ -25,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

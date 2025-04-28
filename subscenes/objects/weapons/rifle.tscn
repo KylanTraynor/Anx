@@ -1,13 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://6c2qi8ufltwi"]
 
-[ext_resource type="Texture2D" uid="uid://bsr1ouq4nhmcv" path="res://art/weapons/rifle_d.png" id="1_x5hsd"]
-[ext_resource type="Texture2D" uid="uid://bpbv0onvf0itx" path="res://art/weapons/rifle_n.png" id="2_jk8il"]
-[ext_resource type="Texture2D" uid="uid://jfgwmfbctubv" path="res://art/weapons/rifle_s.png" id="3_wie8n"]
+[ext_resource type="Texture2D" uid="uid://cr1rlfr8htuvd" path="res://art/weapons/rifle_d_with_ao.png" id="1_x5hsd"]
+[ext_resource type="Texture2D" uid="uid://bhjghyi8am7tm" path="res://art/weapons/rifle_n.png" id="2_jk8il"]
+[ext_resource type="Texture2D" uid="uid://ccn7q24hd3ruc" path="res://art/weapons/rifle_s.png" id="3_wie8n"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_xxhkj"]
 diffuse_texture = ExtResource("1_x5hsd")
 normal_texture = ExtResource("2_jk8il")
 specular_texture = ExtResource("3_wie8n")
+specular_shininess = 0.52
+texture_filter = 6
 
 [node name="Rifle" type="Node2D"]
 
