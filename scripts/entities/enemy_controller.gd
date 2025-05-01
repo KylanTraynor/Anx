@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
-@export var speed = 300.0
-@export var jump_velocity = 400.0
+@export var enemy_data : EnemyData
 @export var melee_cooldown = 2.0 ## Number of seconds of cooldown between basic attacks.
 @export var melee_range = 2.0 ## Melee range measured in number of widths of the enemy.
 
@@ -62,9 +61,9 @@ func _physics_process(delta: float) -> void:
 	if _wants_to_jump and is_on_floor(): jump()
 
 	if move_direction.length_squared() >= 0.1:
-		velocity.x = move_direction.x * speed
+		velocity.x = move_direction.x * enemy_data.speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.x = move_toward(velocity.x, 0, enemy_data.speed)
 	
 	$Sprite2D.flip_h = move_direction.x > 0
 
@@ -72,7 +71,7 @@ func _physics_process(delta: float) -> void:
 
 func jump() -> void:
 	_wants_to_jump = false
-	velocity.y = -jump_velocity
+	velocity.y = -enemy_data.jump_strength
 
 func attack() -> void:
 	_wants_to_attack = false

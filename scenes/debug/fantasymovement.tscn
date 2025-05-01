@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bhwwryfp2f6bb"]
+[gd_scene load_steps=43 format=3 uid="uid://bhwwryfp2f6bb"]
 
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="1_c6y0c"]
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_htiwf"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://cslaf7a3o75a0" path="res://materials/polygons/grass_and_dirt.tres" id="7_wolfc"]
 [ext_resource type="PackedScene" uid="uid://hgqq1bar7djj" path="res://subscenes/objects/perils/spikes.tscn" id="8_f0k5l"]
 [ext_resource type="PackedScene" uid="uid://bxn8fsd6meo3m" path="res://subscenes/ui/hud.tscn" id="9_s6ojs"]
+[ext_resource type="Resource" uid="uid://c3r0w6lxp4l70" path="res://data/enemies/basic_enemy.tres" id="10_1c8e3"]
 [ext_resource type="PackedScene" uid="uid://dmgkd0nxenni8" path="res://subscenes/enemies/basic_enemy.tscn" id="10_cighu"]
 [ext_resource type="PackedScene" uid="uid://cnoqgnk8ri4m1" path="res://subscenes/objects/platforms/basic_platform.tscn" id="10_wolfc"]
 
@@ -282,6 +283,7 @@ rotation = 0.123849
 
 [node name="BasicEnemy" parent="." instance=ExtResource("10_cighu")]
 position = Vector2(1877, -160)
+enemy_data = ExtResource("10_1c8e3")
 melee_range = 3.0
 
 [node name="Path2D" type="Path2D" parent="."]
