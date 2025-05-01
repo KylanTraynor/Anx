@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bhwwryfp2f6bb"]
+[gd_scene load_steps=42 format=3 uid="uid://bhwwryfp2f6bb"]
 
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="1_c6y0c"]
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_htiwf"]
@@ -228,6 +228,12 @@ _data = {
 }
 point_count = 4
 
+[sub_resource type="Curve2D" id="Curve2D_wolfc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 966, -715, -371.122, 149.067, 371.122, -149.067, 2118, -834, 0, 0, 0, 0, 3290, -953)
+}
+point_count = 3
+
 [node name="Fantasy Movement" type="Node" node_paths=PackedStringArray("player")]
 script = ExtResource("1_htiwf")
 player = NodePath("Player")
@@ -283,6 +289,21 @@ curve = SubResource("Curve2D_cighu")
 
 [node name="BasicPlatform" parent="Path2D" instance=ExtResource("10_wolfc")]
 position = Vector2(1792, 36)
+
+[node name="Path2D2" type="Path2D" parent="."]
+position = Vector2(1626, 53)
+curve = SubResource("Curve2D_wolfc")
+
+[node name="BasicPlatform" parent="Path2D2" instance=ExtResource("10_wolfc")]
+position = Vector2(966, -715)
+loop = false
+ping_pong = true
+
+[node name="BasicPlatform2" parent="Path2D2" instance=ExtResource("10_wolfc")]
+position = Vector2(3290, -953)
+progress = 2348.45
+loop = false
+ping_pong = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 

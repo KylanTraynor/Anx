@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 
 func _brain_process(_delta: float) -> void:
 	if target: set_destination(target.global_position, true)
-	#else: set_target(Main.get_player())
+	else: set_target(Main.get_player())
 	if global_position.distance_squared_to(destination) >= 2 :
 		move_direction = (destination - global_position).normalized()
 	if target and is_in_melee_range(target.global_position):
