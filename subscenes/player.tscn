@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bnht0v1pkreiq"]
+[gd_scene load_steps=12 format=3 uid="uid://bnht0v1pkreiq"]
 
 [ext_resource type="Texture2D" uid="uid://bb80ddtch0347" path="res://art/characters/player/idle00.png" id="1_4b615"]
 [ext_resource type="Script" uid="uid://dt8x32kr18fhm" path="res://scripts/player/player.gd" id="1_78gyk"]
@@ -9,9 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://k85gk8pifxyr" path="res://art/characters/player/walk00.png" id="4_5o4t3"]
 [ext_resource type="Texture2D" uid="uid://u60g6wpmtjo1" path="res://art/characters/player/walk02.png" id="5_sutub"]
 [ext_resource type="Texture2D" uid="uid://elwiw7igwcqj" path="res://art/characters/player/walk01.png" id="6_xuyv3"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_78gyk"]
-friction = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f46lw"]
 animations = [{
@@ -51,12 +48,7 @@ animations = [{
 radius = 40.0
 height = 232.0
 
-[node name="Player" type="RigidBody2D"]
-physics_material_override = SubResource("PhysicsMaterial_78gyk")
-lock_rotation = true
-continuous_cd = 2
-contact_monitor = true
-max_contacts_reported = 2
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_78gyk")
 jump_sound = ExtResource("2_1ap0v")
 landing_sound = ExtResource("3_5o4t3")

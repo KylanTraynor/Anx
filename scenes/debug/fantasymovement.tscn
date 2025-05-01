@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bhwwryfp2f6bb"]
+[gd_scene load_steps=41 format=3 uid="uid://bhwwryfp2f6bb"]
 
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="1_c6y0c"]
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_htiwf"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://hgqq1bar7djj" path="res://subscenes/objects/perils/spikes.tscn" id="8_f0k5l"]
 [ext_resource type="PackedScene" uid="uid://bxn8fsd6meo3m" path="res://subscenes/ui/hud.tscn" id="9_s6ojs"]
 [ext_resource type="PackedScene" uid="uid://dmgkd0nxenni8" path="res://subscenes/enemies/basic_enemy.tscn" id="10_cighu"]
+[ext_resource type="PackedScene" uid="uid://cnoqgnk8ri4m1" path="res://subscenes/objects/platforms/basic_platform.tscn" id="10_wolfc"]
 
 [sub_resource type="Resource" id="Resource_xtiew"]
 script = ExtResource("4_f0k5l")
@@ -221,6 +222,12 @@ tessellation_stages = 3
 tessellation_tolerance = 6.0
 curve_bake_interval = 20.0
 
+[sub_resource type="Curve2D" id="Curve2D_cighu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1792, 36, 1.94872, 635.282, -1.94872, -635.282, 2090, -615, 0, 0, 0, 0, 1667, -1722, 0, 0, 0, 0, 1792, 36)
+}
+point_count = 4
+
 [node name="Fantasy Movement" type="Node" node_paths=PackedStringArray("player")]
 script = ExtResource("1_htiwf")
 player = NodePath("Player")
@@ -267,10 +274,16 @@ polygon = PackedVector2Array(1032, -304, 1015.91, -321.105, 998.172, -356.094, 9
 position = Vector2(1775, 190)
 rotation = 0.123849
 
+[node name="BasicEnemy" parent="." instance=ExtResource("10_cighu")]
+position = Vector2(1877, -160)
+melee_range = 3.0
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_cighu")
+
+[node name="BasicPlatform" parent="Path2D" instance=ExtResource("10_wolfc")]
+position = Vector2(1792, 36)
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UI" instance=ExtResource("9_s6ojs")]
-
-[node name="BasicEnemy" parent="." instance=ExtResource("10_cighu")]
-position = Vector2(1588, -13)
-melee_range = 3.0

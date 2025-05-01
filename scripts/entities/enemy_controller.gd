@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var melee_cooldown = 2.0 ## Number of seconds of cooldown between basic attacks.
 @export var melee_range = 2.0 ## Melee range measured in number of widths of the enemy.
 
-var destination : Vector2 = self.position
+var destination : Vector2 = self.global_position
 var target : Node2D = null
 var move_direction : Vector2 = Vector2.ZERO
 var _wants_to_jump = false
@@ -23,10 +23,10 @@ func _process(delta: float) -> void:
 
 func _brain_process(_delta: float) -> void:
 	if target: set_destination(target.global_position, true)
-	else: set_target(Main.get_player())
+	#else: set_target(Main.get_player())
 	if global_position.distance_squared_to(destination) >= 2 :
 		move_direction = (destination - global_position).normalized()
-	if is_in_melee_range(target.global_position):
+	if target and is_in_melee_range(target.global_position):
 		_wants_to_attack = true
 
 func get_size() -> Vector2:
@@ -66,10 +66,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 	
-	if move_direction.x > 0:
-		$Sprite2D.scale.x = -1
-	else:
-		$Sprite2D.scale.x = 1
+	$Sprite2D.flip_h = move_direction.x > 0
 
 	move_and_slide()
 
