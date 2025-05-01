@@ -243,6 +243,7 @@ player = NodePath("Player")
 speed = 1000
 jump_boost = 6
 jump_limit = 2
+jump_tolerance = 500
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(0.25, 0.25)

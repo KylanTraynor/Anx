@@ -20,9 +20,9 @@ var animated_sprite : AnimatedSprite2D
 var collision_shape : CollisionShape2D
 
 var _last_successful_ground_raycast_origin : Vector2 = Vector2.ZERO
-var _was_grounded = false
-var _was_walled = false
-var _was_ceiled = false
+var _was_grounded : bool = false
+var _was_walled : bool = false
+var _was_ceiled : bool = false
 var _last_ground_velocity = Vector2.ZERO
 
 signal grounded_start
@@ -81,6 +81,7 @@ func register_jump(tolerance: float = jump_tolerance):
 			return
 		# Wait for ground collision.
 		await grounded_start
+		print("Grounded")
 		# Wait a frame to ensure velocity is back to 0.
 		await get_tree().physics_frame
 		# If already jumping, then skip.
@@ -120,11 +121,11 @@ func _physics_process(delta) -> void:
 	
 	$AnimatedSprite2D.flip_h = $AnimatedSprite2D.flip_h if move_direction == 0 else move_direction > 0
 
-	move_and_slide()
-	
 	_was_grounded = is_on_floor()
 	_was_walled = is_on_wall()
+	_was_ceiled = is_on_ceiling()
 	if is_on_floor() : _last_ground_velocity = get_platform_velocity()
+	move_and_slide()
 
 func _handle_events() -> void:
 	if not is_on_floor():
