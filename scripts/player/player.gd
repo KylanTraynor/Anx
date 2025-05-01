@@ -82,7 +82,7 @@ func register_jump(tolerance: float = jump_tolerance):
 		# Wait for ground collision.
 		await grounded_start
 		# Wait a frame to ensure velocity is back to 0.
-		await get_tree().process_frame
+		await get_tree().physics_frame
 		# If already jumping, then skip.
 		if(is_jumping):
 			return
