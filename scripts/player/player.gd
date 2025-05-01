@@ -21,10 +21,16 @@ var collision_shape : CollisionShape2D
 
 var _last_successful_ground_raycast_origin : Vector2 = Vector2.ZERO
 var _was_grounded = false
+var _was_walled = false
+var _was_ceiled = false
 var _last_ground_velocity = Vector2.ZERO
 
 signal grounded_start
 signal grounded_end
+signal walled_start
+signal walled_end
+signal ceiled_start
+signal ceiled_end
 
 ## Play the given sound at the player location.
 func play_sound(sound: AudioStream, restart: bool = false):
@@ -94,14 +100,11 @@ func jump() -> void:
 	play_sound(jump_sound, true)
 
 func _physics_process(delta) -> void:
+	_handle_events()
+	
 	# Add the gravity.
 	if not is_on_floor():
-		if _was_grounded : grounded_end.emit()
 		velocity += get_gravity() * delta
-	else:
-		jump_counter = 0
-		is_jumping = false
-		if not _was_grounded : grounded_start.emit()
 
 	# Handle jump.
 	#if _wants_to_jump and is_on_floor(): jump()
@@ -120,7 +123,26 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 	
 	_was_grounded = is_on_floor()
+	_was_walled = is_on_wall()
 	if is_on_floor() : _last_ground_velocity = get_platform_velocity()
+
+func _handle_events() -> void:
+	if not is_on_floor():
+		if _was_grounded : grounded_end.emit()
+	else:
+		jump_counter = 0
+		is_jumping = false
+		if not _was_grounded : grounded_start.emit()
+	
+	if not is_on_wall():
+		if _was_walled : walled_end.emit()
+	else:
+		if not _was_walled : walled_start.emit()
+	
+	if not is_on_ceiling():
+		if _was_ceiled : ceiled_end.emit()
+	else:
+		if not _was_ceiled : ceiled_start.emit()
 
 func _on_damaged(_amount: int) -> void:
 	play_sound(damaged_sound)
