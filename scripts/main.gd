@@ -96,3 +96,21 @@ static func unset_interactable(interactable: Interactable) -> void:
 	if(instance.current_interactable == interactable):
 		instance.current_interactable = null
 		instance.interactable_changed.emit()
+
+static func shake_screen(amount = 100, frequency = 500, time = 200):
+	if(not instance.camera):
+		push_error("Can't shake the screen, no camera found!")
+		return
+	var noisex = FastNoiseLite.new()
+	var noisey = FastNoiseLite.new()
+	noisex.frequency = frequency
+	noisey.frequency = frequency
+	noisey.offset = Vector3(500,0 ,0)
+	var start_time = Time.get_ticks_msec()
+	while Time.get_ticks_msec() < start_time + time:
+		instance.camera.offset = Vector2(
+			noisex.get_noise_1d(Time.get_ticks_msec()) * amount,
+			noisey.get_noise_1d(Time.get_ticks_msec()) * amount
+		)
+		await instance.get_tree().process_frame
+	instance.camera.offset = Vector2.ZERO

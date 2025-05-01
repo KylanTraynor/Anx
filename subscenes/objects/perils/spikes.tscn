@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://hgqq1bar7djj"]
+
+[ext_resource type="Texture2D" uid="uid://oy7uy0d1kj0t" path="res://art/objects/spikes.png" id="1_3ylq1"]
+[ext_resource type="Script" uid="uid://27f5ld0mkt72" path="res://scripts/functionalities/peril.gd" id="1_rwc6d"]
+[ext_resource type="Texture2D" uid="uid://deign36upv3m1" path="res://art/objects/spikes_NORMAL.png" id="2_rwc6d"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_21438"]
+diffuse_texture = ExtResource("1_3ylq1")
+normal_texture = ExtResource("2_rwc6d")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ylq1"]
+size = Vector2(128, 64)
+
+[node name="Spikes" type="Area2D"]
+script = ExtResource("1_rwc6d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+scale = Vector2(1, 0.48)
+texture = SubResource("CanvasTexture_21438")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_3ylq1")
+debug_color = Color(1, 0, 0, 0.419608)

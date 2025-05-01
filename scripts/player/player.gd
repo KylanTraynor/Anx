@@ -3,6 +3,7 @@ extends RigidBody2D
 class_name Player
 
 @export var speed = 400 ## How far the player will move pixel/sec.
+@export var damaged_sound: AudioStream ## Sound made when receiving damage.
 @export_subgroup("Jump settings")
 @export var jump_strength = 1000 ## How far the player will jump.
 @export var jump_boost = 2 ## The jump multiplier for sustained jumps.
@@ -39,6 +40,7 @@ func play_sound(sound: AudioStream, restart: bool = false):
 func _ready() -> void:
 	animated_sprite = find_children("*", "AnimatedSprite2D")[0]
 	collision_shape = find_children("*", "CollisionShape2D")[0]
+	PlayerData.get_instance().damaged.connect(_on_damaged)
 	pass
 
 
@@ -47,8 +49,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Main.instance.is_in_ui(): return
 	_process_jump(delta)
-
-
 
 # Called every frame to handle jumping functionality.
 func _process_jump(_delta: float) -> void:
@@ -153,3 +153,7 @@ func _process_ground_check():
 			is_grounded = false
 			ground = null
 			grounded_end.emit()
+
+func _on_damaged(amount: int) -> void:
+	play_sound(damaged_sound)
+	Main.shake_screen(100)

@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxn8fsd6meo3m"]
+
+[ext_resource type="Texture2D" uid="uid://b5s44m7yw67c1" path="res://art/ui/status.png" id="1_j1872"]
+
+[sub_resource type="GDScript" id="GDScript_vu6n8"]
+resource_name = "HealthBar"
+script/source = "extends HBoxContainer
+
+@export var max_hitpoint_displayed : int = 8
+@export var hitpoint_display : TextureRect
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	_prepare_display()
+	PlayerData.get_instance().health_changed.connect(_on_player_health_changed)
+	_on_player_health_changed(PlayerData.get_health())
+	pass # Replace with function body.
+
+func _prepare_display() -> void:
+	for i in range(max_hitpoint_displayed):
+		if i == 0: continue
+		self.add_child(self.get_child(0).duplicate())
+
+func _on_player_health_changed(new_health: int) -> void:
+	for i in range(self.get_child_count()):
+		self.get_child(i).visible = i < new_health 
+"
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CornerHUD" type="Control" parent="."]
+clip_contents = true
+anchors_preset = 0
+offset_right = 396.0
+offset_bottom = 79.0
+
+[node name="StatusImage" type="TextureRect" parent="CornerHUD"]
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 76.0
+texture = ExtResource("1_j1872")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="HitPointContainer" type="HBoxContainer" parent="CornerHUD" node_paths=PackedStringArray("hitpoint_display")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+script = SubResource("GDScript_vu6n8")
+hitpoint_display = NodePath("hitpoint")
+
+[node name="hitpoint" type="TextureRect" parent="CornerHUD/HitPointContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("1_j1872")
+expand_mode = 5
+stretch_mode = 4

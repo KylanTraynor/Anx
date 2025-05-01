@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://xmliywr1ptda"]
+[gd_scene load_steps=77 format=3 uid="uid://xmliywr1ptda"]
 
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="1_ig7tw"]
@@ -31,7 +31,8 @@
 [ext_resource type="Script" uid="uid://cmtjeh2qkoee8" path="res://addons/rmsmartshape/normal_range.gd" id="17_4lmeg"]
 [ext_resource type="Texture2D" uid="uid://b76rsywwuesw0" path="res://art/tiles/dirt.png" id="18_0cp0l"]
 [ext_resource type="Script" uid="uid://dul66ircjlkng" path="res://addons/rmsmartshape/materials/shape_material.gd" id="19_d2t1y"]
-[ext_resource type="PackedScene" uid="uid://dw7xovyysy2vo" path="res://subscenes/chat.tscn" id="20_82xsv"]
+[ext_resource type="PackedScene" uid="uid://dw7xovyysy2vo" path="res://subscenes/ui/chat.tscn" id="20_82xsv"]
+[ext_resource type="PackedScene" uid="uid://bxn8fsd6meo3m" path="res://subscenes/ui/hud.tscn" id="32_jq2sk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
 size = Vector2(4932, 688)
@@ -564,6 +565,8 @@ scale = Vector2(0.1, 0.1)
 texture = SubResource("CanvasTexture_yaehf")
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("32_jq2sk")]
 
 [node name="Chat" parent="UI" instance=ExtResource("20_82xsv")]
 visible = false

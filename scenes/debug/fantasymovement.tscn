@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bhwwryfp2f6bb"]
+[gd_scene load_steps=38 format=3 uid="uid://bhwwryfp2f6bb"]
 
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="1_c6y0c"]
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_htiwf"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://cekcaqqk77qpu" path="res://addons/rmsmartshape/shapes/point.gd" id="5_s6ojs"]
 [ext_resource type="Script" uid="uid://cqbgarmxy0513" path="res://addons/rmsmartshape/shapes/point_array.gd" id="6_cighu"]
 [ext_resource type="Resource" uid="uid://cslaf7a3o75a0" path="res://materials/polygons/grass_and_dirt.tres" id="7_wolfc"]
+[ext_resource type="PackedScene" uid="uid://hgqq1bar7djj" path="res://subscenes/objects/perils/spikes.tscn" id="8_f0k5l"]
+[ext_resource type="PackedScene" uid="uid://bxn8fsd6meo3m" path="res://subscenes/ui/hud.tscn" id="9_s6ojs"]
 
 [sub_resource type="Resource" id="Resource_xtiew"]
 script = ExtResource("4_f0k5l")
@@ -259,3 +261,11 @@ metadata/_custom_type_script = "uid://dljfd8m4747um"
 visible = false
 modulate = Color(1, 1, 1, 0.3)
 polygon = PackedVector2Array(1032, -304, 1015.91, -321.105, 998.172, -356.094, 960.875, -471.75, 901, -830, 902.625, -1251.25, 942.203, -1445.66, 974.432, -1531.83, 1016, -1608, 1104.45, -1720.62, 1143.39, -1759.31, 1179.12, -1787.5, 1211.91, -1806.12, 1241.98, -1816.12, 1269.6, -1818.44, 1295, -1814, 1318.43, -1803.75, 1340.14, -1788.62, 1379.38, -1747.5, 1448, -1648, 1466.47, -1610.66, 1482.86, -1551.8, 1509.38, -1382.38, 1537, -927, 1530.12, -488.125, 1513.52, -339.328, 1501.88, -293.869, 1488, -272, 1471.89, -262.604, 1451.02, -255.328, 1397.62, -246.625, 1263, -249, 1126.88, -270.875, 1071.61, -286.547, 1032, -304)
+
+[node name="Spikes" parent="." instance=ExtResource("8_f0k5l")]
+position = Vector2(1775, 190)
+rotation = 0.123849
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("9_s6ojs")]
