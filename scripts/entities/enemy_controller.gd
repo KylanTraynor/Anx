@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 @export var enemy_data : EnemyData
-@export var melee_range = 2.0 ## Melee range measured in number of widths of the enemy.
 
 var destination : Vector2 = self.global_position
 var target : Node2D = null
@@ -38,7 +37,7 @@ func get_size() -> Vector2:
 		return Vector2.ZERO
 	
 func is_in_melee_range(point : Vector2) -> bool:
-	return point.distance_squared_to(global_position) < (get_size().x * melee_range) ** 2
+	return point.distance_squared_to(global_position) < (get_size().x * enemy_data.melee_range + get_size().x) ** 2
 	
 func set_destination(new_destination : Vector2, silent = false) -> void:
 	destination = new_destination

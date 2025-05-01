@@ -147,4 +147,7 @@ func _handle_events() -> void:
 
 func _on_damaged(_amount: int) -> void:
 	play_sound(damaged_sound)
+	self.modulate = Color.CRIMSON
 	Main.shake_screen(100)
+	await get_tree().create_timer(0.1).timeout
+	self.modulate = Color.WHITE
