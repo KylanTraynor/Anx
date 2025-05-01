@@ -65,6 +65,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_direction.x * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
+	
+	if move_direction.x > 0:
+		$Sprite2D.scale.x = -1
+	else:
+		$Sprite2D.scale.x = 1
 
 	move_and_slide()
 
@@ -75,6 +80,7 @@ func jump() -> void:
 func attack() -> void:
 	_wants_to_attack = false
 	if not target : return
+	if not is_in_melee_range(target.global_position) : return
 	print("Enemy attacks!")
 	_attack_cooldown = melee_cooldown
 	if target == Main.get_player():
