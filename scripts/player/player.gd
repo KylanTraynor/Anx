@@ -3,6 +3,7 @@ extends CharacterBody2D
 class_name Player
 
 @export var speed = 400 ## How far the player will move pixel/sec.
+@export var acceleration = 10 ## How much smoothing for acceleration (1 is instantaneous acceleration).
 @export var damaged_sound: AudioStream ## Sound made when receiving damage.
 @export_subgroup("Jump settings")
 @export var jump_strength = 1500 ## How far the player will jump.
@@ -112,11 +113,11 @@ func _physics_process(delta) -> void:
 
 	var move_direction = Input.get_axis("move_left", "move_right")
 	if move_direction ** 2 >= 0.1:
-		velocity.x = move_direction * speed
+		velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
 		animated_sprite.play("walk")
 	else:
-		if is_on_floor(): velocity.x = move_toward(velocity.x, 0, speed)
-		else: velocity.x = move_toward(velocity.x, _last_ground_velocity.x, speed)
+		if is_on_floor(): velocity.x = move_toward(velocity.x, 0, speed/acceleration)
+		else: velocity.x = move_toward(velocity.x, _last_ground_velocity.x, speed/acceleration)
 		animated_sprite.play("idle")
 	
 	$AnimatedSprite2D.flip_h = $AnimatedSprite2D.flip_h if move_direction == 0 else move_direction > 0
