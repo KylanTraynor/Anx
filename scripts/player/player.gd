@@ -154,6 +154,6 @@ func _process_ground_check():
 			ground = null
 			grounded_end.emit()
 
-func _on_damaged(amount: int) -> void:
+func _on_damaged(_amount: int) -> void:
 	play_sound(damaged_sound)
 	Main.shake_screen(100)

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmgkd0nxenni8"]
+
+[ext_resource type="Script" uid="uid://daxr62jf4iqad" path="res://scripts/entities/enemy_controller.gd" id="1_s8ea2"]
+[ext_resource type="Texture2D" uid="uid://bb80ddtch0347" path="res://art/characters/player/idle00.png" id="1_yf8bv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s8ea2"]
+radius = 34.0
+height = 250.0
+
+[node name="BasicEnemy" type="CharacterBody2D"]
+script = ExtResource("1_s8ea2")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -128)
+texture = ExtResource("1_yf8bv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -128)
+shape = SubResource("CapsuleShape2D_s8ea2")

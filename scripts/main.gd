@@ -114,3 +114,9 @@ static func shake_screen(amount = 100, frequency = 500, time = 200):
 		)
 		await instance.get_tree().process_frame
 	instance.camera.offset = Vector2.ZERO
+
+static func get_player() -> Player:
+	if not instance:
+		push_error("No main node found !")
+		return null
+	return instance.player

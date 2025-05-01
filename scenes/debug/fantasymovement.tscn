@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bhwwryfp2f6bb"]
+[gd_scene load_steps=39 format=3 uid="uid://bhwwryfp2f6bb"]
 
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="1_c6y0c"]
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_htiwf"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://cslaf7a3o75a0" path="res://materials/polygons/grass_and_dirt.tres" id="7_wolfc"]
 [ext_resource type="PackedScene" uid="uid://hgqq1bar7djj" path="res://subscenes/objects/perils/spikes.tscn" id="8_f0k5l"]
 [ext_resource type="PackedScene" uid="uid://bxn8fsd6meo3m" path="res://subscenes/ui/hud.tscn" id="9_s6ojs"]
+[ext_resource type="PackedScene" uid="uid://dmgkd0nxenni8" path="res://subscenes/enemies/basic_enemy.tscn" id="10_cighu"]
 
 [sub_resource type="Resource" id="Resource_xtiew"]
 script = ExtResource("4_f0k5l")
@@ -269,3 +270,7 @@ rotation = 0.123849
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UI" instance=ExtResource("9_s6ojs")]
+
+[node name="BasicEnemy" parent="." instance=ExtResource("10_cighu")]
+position = Vector2(1588, -13)
+melee_range = 3.0
