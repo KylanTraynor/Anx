@@ -3,11 +3,13 @@ extends Object
 class_name PlayerData
 
 @export var hit_points: int = 10
+@export var mana_points: int = 10
 
 static var _instance : PlayerData
 
 signal damaged(amount: int)
 signal health_changed(new_health: int)
+signal mana_changed(new_mana: int)
 
 static func damage(amount: int) -> void:
 	get_instance().hit_points -= amount
@@ -20,6 +22,17 @@ static func set_health(new_health: int) -> void:
 
 static func get_health() -> int:
 	return get_instance().hit_points
+	
+static func use_mana(amount: int) -> void:
+	get_instance().mana_points -= amount
+	_instance.mana_changed.emit(_instance.mana_points)
+
+static func set_mana(new_mana: int) -> void:
+	get_instance().mana_points = new_mana
+	_instance.mana_changed.emit(new_mana)
+	
+static func get_mana() -> int:
+	return get_instance().mana_points
 
 static func get_instance() -> PlayerData:
 	if(_instance):

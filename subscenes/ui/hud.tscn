@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxn8fsd6meo3m"]
+[gd_scene load_steps=5 format=3 uid="uid://bxn8fsd6meo3m"]
 
 [ext_resource type="Texture2D" uid="uid://b5s44m7yw67c1" path="res://art/ui/status.png" id="1_j1872"]
+[ext_resource type="Texture2D" uid="uid://l8yx4flag4n5" path="res://art/ui/mana.png" id="2_vu6n8"]
 
 [sub_resource type="GDScript" id="GDScript_vu6n8"]
 resource_name = "HealthBar"
@@ -26,6 +27,18 @@ func _on_player_health_changed(new_health: int) -> void:
 		self.get_child(i).visible = i < new_health 
 "
 
+[sub_resource type="GDScript" id="GDScript_ljhx3"]
+script/source = "extends HBoxContainer
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	PlayerData.get_instance().mana_changed.connect(_on_player_mana_changed)
+	_on_player_mana_changed(PlayerData.get_mana())
+
+func _on_player_mana_changed(new_mana: int) -> void:
+	$Label.text = str(new_mana)
+"
+
 [node name="HUD" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -36,9 +49,12 @@ grow_vertical = 2
 
 [node name="CornerHUD" type="Control" parent="."]
 clip_contents = true
+layout_mode = 1
 anchors_preset = 0
-offset_right = 396.0
-offset_bottom = 79.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 627.0
+offset_bottom = 99.0
 
 [node name="StatusImage" type="TextureRect" parent="CornerHUD"]
 layout_mode = 0
@@ -48,19 +64,44 @@ texture = ExtResource("1_j1872")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="HitPointContainer" type="HBoxContainer" parent="CornerHUD" node_paths=PackedStringArray("hitpoint_display")]
+[node name="HitPointsContainer" type="HBoxContainer" parent="CornerHUD" node_paths=PackedStringArray("hitpoint_display")]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 64.0
+offset_bottom = -47.0
 script = SubResource("GDScript_vu6n8")
+max_hitpoint_displayed = 15
 hitpoint_display = NodePath("hitpoint")
 
-[node name="hitpoint" type="TextureRect" parent="CornerHUD/HitPointContainer"]
+[node name="hitpoint" type="TextureRect" parent="CornerHUD/HitPointsContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 0
 texture = ExtResource("1_j1872")
 expand_mode = 5
 stretch_mode = 4
+
+[node name="ManaPointsContainer" type="HBoxContainer" parent="CornerHUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+script = SubResource("GDScript_ljhx3")
+
+[node name="ManaIcon" type="TextureRect" parent="CornerHUD/ManaPointsContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("2_vu6n8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CornerHUD/ManaPointsContainer"]
+layout_mode = 2
+text = "100"

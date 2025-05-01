@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 @export var enemy_data : EnemyData
-@export var melee_cooldown = 2.0 ## Number of seconds of cooldown between basic attacks.
 @export var melee_range = 2.0 ## Melee range measured in number of widths of the enemy.
 
 var destination : Vector2 = self.global_position
@@ -78,6 +77,6 @@ func attack() -> void:
 	if not target : return
 	if not is_in_melee_range(target.global_position) : return
 	print("Enemy attacks!")
-	_attack_cooldown = melee_cooldown
+	_attack_cooldown = enemy_data.melee_cooldown
 	if target == Main.get_player():
 		PlayerData.damage(1)
