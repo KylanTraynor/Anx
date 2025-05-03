@@ -12,6 +12,8 @@ normal_texture = ExtResource("2_rwc6d")
 size = Vector2(128, 64)
 
 [node name="Spikes" type="Area2D"]
+rotation = -0.00123342
+collision_mask = 3
 script = ExtResource("1_rwc6d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

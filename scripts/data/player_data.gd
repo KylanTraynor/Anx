@@ -10,15 +10,20 @@ static var _instance : PlayerData
 signal damaged(amount: int)
 signal health_changed(new_health: int)
 signal mana_changed(new_mana: int)
+signal die
 
 static func damage(amount: int) -> void:
 	get_instance().hit_points -= amount
 	_instance.health_changed.emit(_instance.hit_points)
 	_instance.damaged.emit(amount)
+	if(get_instance().hit_points <= 0):
+		_instance.die.emit()
 
 static func set_health(new_health: int) -> void:
 	get_instance().hit_points = new_health
 	_instance.health_changed.emit(new_health)
+	if(get_instance().hit_points <= 0):
+		_instance.die.emit()
 
 static func get_health() -> int:
 	return get_instance().hit_points

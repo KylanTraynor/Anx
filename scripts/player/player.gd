@@ -48,6 +48,7 @@ func _ready() -> void:
 	animated_sprite = find_children("*", "AnimatedSprite2D")[0]
 	collision_shape = find_children("*", "CollisionShape2D")[0]
 	PlayerData.get_instance().damaged.connect(_on_damaged)
+	PlayerData.get_instance().die.connect(_on_die)
 	pass
 
 # Called every frame. 'delta' is the elapsed time since t0he previous frame.
@@ -152,3 +153,8 @@ func _on_damaged(_amount: int) -> void:
 	Main.shake_screen(100)
 	await get_tree().create_timer(0.1).timeout
 	self.modulate = Color.WHITE
+
+func _on_die() -> void:
+	await get_tree().create_timer(0.11).timeout
+	self.modulate = Color.from_rgba8(0, 0, 0, 50)
+	self.collision_mask = 0 # Disable all collisions
