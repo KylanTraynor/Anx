@@ -122,3 +122,7 @@ static func get_player() -> Player:
 		push_error("No main node found !")
 		return null
 	return instance.player
+
+static func reset_current_scene() -> void:
+	PlayerData.reset()
+	instance.get_tree().reload_current_scene()

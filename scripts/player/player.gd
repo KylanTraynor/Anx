@@ -3,7 +3,7 @@ extends CharacterBody2D
 class_name Player
 
 @export var speed = 400 ## How far the player will move pixel/sec.
-@export var acceleration = 10 ## How much smoothing for acceleration (1 is instantaneous acceleration).
+@export var acceleration = 10.0 ## How much smoothing for acceleration (1 is instantaneous acceleration).
 @export var damaged_sound: AudioStream ## Sound made when receiving damage.
 @export_subgroup("Jump settings")
 @export var jump_strength = 1500 ## How far the player will jump.
@@ -20,7 +20,6 @@ var is_jumping = false
 var animated_sprite : AnimatedSprite2D
 var collision_shape : CollisionShape2D
 
-var _last_successful_ground_raycast_origin : Vector2 = Vector2.ZERO
 var _was_grounded : bool = false
 var _was_walled : bool = false
 var _was_ceiled : bool = false
@@ -42,6 +41,9 @@ func play_sound(sound: AudioStream, restart: bool = false):
 	else:
 		push_warning("Sound was null.")
 
+func play_animation(animation_name : String):
+	animated_sprite.play(animation_name)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -57,7 +59,7 @@ func _process(delta: float) -> void:
 	_process_jump(delta)
 
 # Called every frame to handle jumping functionality.
-func _process_jump(delta: float) -> void:
+func _process_jump(_delta: float) -> void:
 	var is_about_to_jump = jump_pressed_time != -1
 	var jump_delta = Time.get_ticks_msec() - jump_pressed_time if is_about_to_jump else 0
 	# Jump
@@ -115,13 +117,13 @@ func _physics_process(delta) -> void:
 	var move_direction = Input.get_axis("move_left", "move_right")
 	if move_direction ** 2 >= 0.1:
 		velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
-		animated_sprite.play("walk")
+		play_animation("walk")
 	else:
 		if is_on_floor(): velocity.x = move_toward(velocity.x, 0, speed/acceleration)
 		else: velocity.x = move_toward(velocity.x, _last_ground_velocity.x, speed/acceleration)
-		animated_sprite.play("idle")
+		play_animation("idle")
 	
-	$AnimatedSprite2D.flip_h = $AnimatedSprite2D.flip_h if move_direction == 0 else move_direction > 0
+	animated_sprite.flip_h = animated_sprite.flip_h if move_direction == 0 else move_direction > 0
 
 	_was_grounded = is_on_floor()
 	_was_walled = is_on_wall()
@@ -158,3 +160,5 @@ func _on_die() -> void:
 	await get_tree().create_timer(0.11).timeout
 	self.modulate = Color.from_rgba8(0, 0, 0, 50)
 	self.collision_mask = 0 # Disable all collisions
+	await get_tree().create_timer(2).timeout
+	Main.reset_current_scene()

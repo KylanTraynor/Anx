@@ -12,6 +12,23 @@ signal health_changed(new_health: int)
 signal mana_changed(new_mana: int)
 signal die
 
+static var saved_state : PlayerData
+
+func duplicate() -> PlayerData:
+	var duplicated = PlayerData.new()
+	duplicated.hit_points = hit_points
+	duplicated.mana_points = mana_points
+	return duplicated
+
+static func save_state():
+	saved_state = get_instance().duplicate()
+	
+static func reset():
+	_instance = PlayerData.new()
+	
+static func reload_state():
+	_instance = saved_state
+
 static func damage(amount: int) -> void:
 	get_instance().hit_points -= amount
 	_instance.health_changed.emit(_instance.hit_points)

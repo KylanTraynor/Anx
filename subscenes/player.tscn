@@ -52,7 +52,6 @@ height = 232.0
 collision_layer = 2
 script = ExtResource("1_78gyk")
 speed = 500
-acceleration = 7
 jump_sound = ExtResource("2_1ap0v")
 landing_sound = ExtResource("3_5o4t3")
 

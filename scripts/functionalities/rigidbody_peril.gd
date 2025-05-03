@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 @export var damage_amount: int = 1
+@export var animation_name: String = "crushed"
 
 var _shape : Shape2D
 
@@ -9,9 +10,10 @@ func _ready() -> void:
 	_shape = $CollisionShape2D.shape
 	pass
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if(is_in(Main.get_player().global_position)):
 		PlayerData.damage(damage_amount)
+		Main.get_player().play_animation(animation_name)
 
 func is_in(point: Vector2):
 	if _shape is CircleShape2D:

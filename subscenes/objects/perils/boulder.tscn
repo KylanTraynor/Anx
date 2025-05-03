@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://nf3as5xr2kf5"]
+
+[ext_resource type="Script" uid="uid://bn6m3j6uen1kr" path="res://scripts/functionalities/rigidbody_peril.gd" id="1_nr0la"]
+[ext_resource type="Texture2D" uid="uid://b4ra6j1itxc81" path="res://art/objects/boulder.png" id="2_yvtbu"]
+[ext_resource type="Texture2D" uid="uid://2sppsynunvhp" path="res://art/objects/boulder_NORMAL.png" id="3_8a2f5"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_867vy"]
+diffuse_texture = ExtResource("2_yvtbu")
+normal_texture = ExtResource("3_8a2f5")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pfkd4"]
+radius = 538.033
+
+[node name="Boulder" type="RigidBody2D"]
+collision_layer = 4
+mass = 1e+06
+linear_damp = 0.1
+angular_damp = 0.1
+script = ExtResource("1_nr0la")
+damage_amount = 200
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(8.3, 8.3)
+texture = SubResource("CanvasTexture_867vy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pfkd4")
+debug_color = Color(1, 0, 0, 0.419608)
