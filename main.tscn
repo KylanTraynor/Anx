@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://pt4ueo732xre" path="res://subscenes/objects/crate.tscn" id="10_getpj"]
 [ext_resource type="PackedScene" uid="uid://6c2qi8ufltwi" path="res://subscenes/objects/weapons/rifle.tscn" id="10_jq2sk"]
 [ext_resource type="Script" uid="uid://cqbgarmxy0513" path="res://addons/rmsmartshape/shapes/point_array.gd" id="11_0rl1p"]
-[ext_resource type="Script" uid="uid://ijb2rsgylb2u" path="res://scripts/functionalities/conversation_player.gd" id="11_cegan"]
+[ext_resource type="Script" path="res://scripts/functionalities/conversation_player.gd" id="11_cegan"]
 [ext_resource type="Resource" uid="uid://dj4pc0gbdlx57" path="res://conversations/test.tres" id="12_82xsv"]
 [ext_resource type="Script" uid="uid://c0dhrsj7icoqh" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="12_ok6jj"]
 [ext_resource type="Texture2D" uid="uid://ddufcyxxss5kk" path="res://art/lights/firefly.webp" id="12_vivmo"]

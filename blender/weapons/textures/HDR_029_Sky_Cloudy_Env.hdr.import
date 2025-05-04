@@ -2,20 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< Updated upstream
-uid="uid://d2wajsh137kqh"
-=======
-uid="uid://do4irs485dcwn"
->>>>>>> Stashed changes
-path="res://.godot/imported/rifle_d.png-af58bc3d30987bf998cf0f497c8eedef.ctex"
+uid="uid://6egg5g1fa48f"
+path="res://.godot/imported/HDR_029_Sky_Cloudy_Env.hdr-3c0715abceb941f0e594c575224259e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/weapons/rifle_d.png"
-dest_files=["res://.godot/imported/rifle_d.png-af58bc3d30987bf998cf0f497c8eedef.ctex"]
+source_file="res://blender/weapons/textures/HDR_029_Sky_Cloudy_Env.hdr"
+dest_files=["res://.godot/imported/HDR_029_Sky_Cloudy_Env.hdr-3c0715abceb941f0e594c575224259e5.ctex"]
 
 [params]
 
@@ -25,11 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-<<<<<<< Updated upstream
-mipmaps/generate=true
-=======
 mipmaps/generate=false
->>>>>>> Stashed changes
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

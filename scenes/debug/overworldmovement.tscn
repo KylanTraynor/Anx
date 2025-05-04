@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cqbgarmxy0513" path="res://addons/rmsmartshape/shapes/point_array.gd" id="6_vaj32"]
 [ext_resource type="Resource" uid="uid://cslaf7a3o75a0" path="res://materials/polygons/grass_and_dirt.tres" id="7_ip80r"]
 
-[sub_resource type="Resource" id="Resource_mhfwe"]
+[sub_resource type="Resource" id="Resource_ip80r"]
 script = ExtResource("4_vyeve")
 texture_idx = 0
 flip = false
@@ -19,9 +19,9 @@ script = ExtResource("5_er5vc")
 position = Vector2(2432, 736)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_mhfwe")
+properties = SubResource("Resource_ip80r")
 
-[sub_resource type="Resource" id="Resource_qyggo"]
+[sub_resource type="Resource" id="Resource_wuvoj"]
 script = ExtResource("4_vyeve")
 texture_idx = 0
 flip = false
@@ -32,9 +32,9 @@ script = ExtResource("5_er5vc")
 position = Vector2(1200, 512)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_qyggo")
+properties = SubResource("Resource_wuvoj")
 
-[sub_resource type="Resource" id="Resource_tixy2"]
+[sub_resource type="Resource" id="Resource_er5vc"]
 script = ExtResource("4_vyeve")
 texture_idx = 0
 flip = false
@@ -45,9 +45,9 @@ script = ExtResource("5_er5vc")
 position = Vector2(-8, 696)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_tixy2")
+properties = SubResource("Resource_er5vc")
 
-[sub_resource type="Resource" id="Resource_582s2"]
+[sub_resource type="Resource" id="Resource_vaj32"]
 script = ExtResource("4_vyeve")
 texture_idx = 0
 flip = false
@@ -58,9 +58,9 @@ script = ExtResource("5_er5vc")
 position = Vector2(-168, 672)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_582s2")
+properties = SubResource("Resource_vaj32")
 
-[sub_resource type="Resource" id="Resource_5tuxy"]
+[sub_resource type="Resource" id="Resource_o64of"]
 script = ExtResource("4_vyeve")
 texture_idx = 0
 flip = false
@@ -71,9 +71,9 @@ script = ExtResource("5_er5vc")
 position = Vector2(-256, 832)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_5tuxy")
+properties = SubResource("Resource_o64of")
 
-[sub_resource type="Resource" id="Resource_wuvoj"]
+[sub_resource type="Resource" id="Resource_skt0j"]
 script = ExtResource("4_vyeve")
 texture_idx = 0
 flip = false
@@ -84,7 +84,7 @@ script = ExtResource("5_er5vc")
 position = Vector2(364.371, 649.255)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_wuvoj")
+properties = SubResource("Resource_skt0j")
 
 [sub_resource type="Resource" id="Resource_vh7v7"]
 script = ExtResource("6_vaj32")
