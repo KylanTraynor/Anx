@@ -16,4 +16,5 @@ size = Vector2(128, 128)
 texture = SubResource("CanvasTexture_0iqh5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_y8cph")

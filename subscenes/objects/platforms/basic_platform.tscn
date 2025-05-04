@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnoqgnk8ri4m1"]
+
+[ext_resource type="Script" uid="uid://dtbgllfkw8oef" path="res://scripts/functionalities/platform.gd" id="1_6yxwt"]
+[ext_resource type="Texture2D" uid="uid://b76rsywwuesw0" path="res://art/tiles/dirt.png" id="1_g0xun"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6yxwt"]
+size = Vector2(384, 64)
+
+[node name="BasicPlatform" type="PathFollow2D"]
+rotates = false
+script = ExtResource("1_6yxwt")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+sync_to_physics = false
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
+position = Vector2(0, 32)
+scale = Vector2(3, 0.5)
+texture = ExtResource("1_g0xun")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_6yxwt")
+one_way_collision = true

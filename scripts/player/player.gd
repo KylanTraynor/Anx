@@ -1,10 +1,12 @@
-extends RigidBody2D
+extends CharacterBody2D
 
 class_name Player
 
 @export var speed = 400 ## How far the player will move pixel/sec.
+@export var acceleration = 10.0 ## How much smoothing for acceleration (1 is instantaneous acceleration).
+@export var damaged_sound: AudioStream ## Sound made when receiving damage.
 @export_subgroup("Jump settings")
-@export var jump_strength = 1000 ## How far the player will jump.
+@export var jump_strength = 1500 ## How far the player will jump.
 @export var jump_boost = 2 ## The jump multiplier for sustained jumps.
 @export var jump_limit = 1 ## If 1, only single jumps allowed. More allows double or triple jumps.
 @export var jump_tolerance = 50 ## Time in milliseconds before hitting the ground that will still trigger a jump.
@@ -13,17 +15,22 @@ class_name Player
 
 var jump_pressed_time = -1
 var jump_counter = 0
-var is_grounded = false
 var is_jumping = false
-var ground = null
 
 var animated_sprite : AnimatedSprite2D
 var collision_shape : CollisionShape2D
 
-var _last_successful_ground_raycast_origin : Vector2 = Vector2.ZERO
+var _was_grounded : bool = false
+var _was_walled : bool = false
+var _was_ceiled : bool = false
+var _last_ground_velocity = Vector2.ZERO
 
 signal grounded_start
 signal grounded_end
+signal walled_start
+signal walled_end
+signal ceiled_start
+signal ceiled_end
 
 ## Play the given sound at the player location.
 func play_sound(sound: AudioStream, restart: bool = false):
@@ -34,21 +41,22 @@ func play_sound(sound: AudioStream, restart: bool = false):
 	else:
 		push_warning("Sound was null.")
 
+func play_animation(animation_name : String):
+	animated_sprite.play(animation_name)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	animated_sprite = find_children("*", "AnimatedSprite2D")[0]
 	collision_shape = find_children("*", "CollisionShape2D")[0]
+	PlayerData.get_instance().damaged.connect(_on_damaged)
+	PlayerData.get_instance().die.connect(_on_die)
 	pass
-
-
 
 # Called every frame. 'delta' is the elapsed time since t0he previous frame.
 func _process(delta: float) -> void:
 	if Main.instance.is_in_ui(): return
 	_process_jump(delta)
-
-
 
 # Called every frame to handle jumping functionality.
 func _process_jump(_delta: float) -> void:
@@ -60,7 +68,7 @@ func _process_jump(_delta: float) -> void:
 		register_jump(jump_tolerance)
 	# Add force to the jump while the button is pressed.
 	if(is_jumping and Input.is_action_pressed("action_jump")):
-		apply_central_force(Vector2.UP * jump_strength * jump_boost)	
+		velocity.y = -jump_strength
 	# Reset jump when button is released or after 200ms.
 	if(Input.is_action_just_released("action_jump") or jump_delta > 200):
 		is_jumping = false
@@ -68,7 +76,7 @@ func _process_jump(_delta: float) -> void:
 	
 func register_jump(tolerance: float = jump_tolerance):
 	jump_pressed_time = Time.get_ticks_msec()
-	if(is_grounded):
+	if(is_on_floor()):
 		print("Legit Jump!")
 		jump()
 	else:
@@ -77,8 +85,9 @@ func register_jump(tolerance: float = jump_tolerance):
 			return
 		# Wait for ground collision.
 		await grounded_start
+		print("Grounded")
 		# Wait a frame to ensure velocity is back to 0.
-		await get_tree().process_frame
+		await get_tree().physics_frame
 		# If already jumping, then skip.
 		if(is_jumping):
 			return
@@ -90,66 +99,66 @@ func register_jump(tolerance: float = jump_tolerance):
 			print("Grounded too late, no jumping.")
 
 func jump() -> void:
-	apply_central_impulse(Vector2.UP * jump_strength)
+	velocity.y = -jump_strength
 	is_jumping = true
 	jump_counter += 1
 	play_sound(jump_sound, true)
-	
-# Called every physic update.
-func _integrate_forces(_state: PhysicsDirectBodyState2D) -> void:
-	var velocity = Vector2.ZERO
-	if(Input.is_action_pressed("move_left")):
-		velocity.x -= 1
-	if(Input.is_action_pressed("move_right")):
-		velocity.x += 1
-	if(velocity.length_squared() > 0):
-		velocity = velocity.normalized() * speed
-		animated_sprite.play("walk")
-		animated_sprite.flip_h = velocity.x > 0
-	else:
-		animated_sprite.play("idle")
-	linear_velocity.x = velocity.x
 
-func _physics_process(_delta) -> void:
-	_process_ground_check()
+func _physics_process(delta) -> void:
+	_handle_events()
+	
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
 
-# Checks if the player is colliding with something under their feet.
-func _process_ground_check():
-	var shapeowners = self.get_shape_owners()[0]
-	var shape = self.shape_owner_get_shape(shapeowners, 0)
-	var width = shape.get_rect().size.x
-	var height = shape.get_rect().size.y
-	var origin = collision_shape.global_position
-	var space_state = get_world_2d().direct_space_state
-	
-	
-	var query = PhysicsRayQueryParameters2D.create(origin, origin + Vector2.DOWN * (height/2 + 3), 1)
-	query.exclude = [self]
-	var result = space_state.intersect_ray(query)
-	if(result):
-		_last_successful_ground_raycast_origin = Vector2.ZERO
-	
-	if(len(result) == 0):
-		query.from = origin + _last_successful_ground_raycast_origin
-		query.to = query.from + Vector2.DOWN * (height/2 + 3)
-		result = space_state.intersect_ray(query)
-	
-	if(len(result) == 0):
-		var offset = Vector2(randf_range(-width/2, width/2), 0)
-		query.from = origin + offset
-		query.to = query.from + Vector2.DOWN * (height/2 + 3)
-		result = space_state.intersect_ray(query)
-		if(result):
-			_last_successful_ground_raycast_origin = offset
-	
-	if(result):
-		if(not is_grounded):
-			is_grounded = true
-			ground = result["collider"]
-			jump_counter = 0
-			grounded_start.emit()
+	# Handle jump.
+	#if _wants_to_jump and is_on_floor(): jump()
+
+	var move_direction = Input.get_axis("move_left", "move_right")
+	if move_direction ** 2 >= 0.1:
+		velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
+		play_animation("walk")
 	else:
-		if(is_grounded):
-			is_grounded = false
-			ground = null
-			grounded_end.emit()
+		if is_on_floor(): velocity.x = move_toward(velocity.x, 0, speed/acceleration)
+		else: velocity.x = move_toward(velocity.x, _last_ground_velocity.x, speed/acceleration)
+		play_animation("idle")
+	
+	animated_sprite.flip_h = animated_sprite.flip_h if move_direction == 0 else move_direction > 0
+
+	_was_grounded = is_on_floor()
+	_was_walled = is_on_wall()
+	_was_ceiled = is_on_ceiling()
+	if is_on_floor() : _last_ground_velocity = get_platform_velocity()
+	move_and_slide()
+
+func _handle_events() -> void:
+	if not is_on_floor():
+		if _was_grounded : grounded_end.emit()
+	else:
+		jump_counter = 0
+		is_jumping = false
+		if not _was_grounded : grounded_start.emit()
+	
+	if not is_on_wall():
+		if _was_walled : walled_end.emit()
+	else:
+		if not _was_walled : walled_start.emit()
+	
+	if not is_on_ceiling():
+		if _was_ceiled : ceiled_end.emit()
+	else:
+		if not _was_ceiled : ceiled_start.emit()
+
+func _on_damaged(_amount: int) -> void:
+	play_sound(damaged_sound)
+	self.modulate = Color.CRIMSON
+	Main.shake_screen(100)
+	await get_tree().create_timer(0.1).timeout
+	self.modulate = Color.WHITE
+
+func _on_die() -> void:
+	await get_tree().create_timer(0.11).timeout
+	self.modulate = Color.from_rgba8(0, 0, 0, 50)
+	self.collision_mask = 0 # Disable all collisions
+	await get_tree().create_timer(2).timeout
+	Main.reset_current_scene()

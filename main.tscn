@@ -12,26 +12,27 @@
 [ext_resource type="Texture2D" uid="uid://b8ethwy4pl2ea" path="res://art/lights/defaultLight.webp" id="7_4c57u"]
 [ext_resource type="Script" uid="uid://d18eq8hstcspc" path="res://addons/rmsmartshape/shapes/shape.gd" id="8_htxhm"]
 [ext_resource type="Script" uid="uid://crt8cstbdfuyr" path="res://addons/rmsmartshape/vertex_properties.gd" id="9_jq2sk"]
+[ext_resource type="Script" uid="uid://623ij2o5wmde" path="res://scripts/functionalities/random_movements.gd" id="10_0rl1p"]
 [ext_resource type="Script" uid="uid://cekcaqqk77qpu" path="res://addons/rmsmartshape/shapes/point.gd" id="10_4k2k6"]
 [ext_resource type="PackedScene" uid="uid://pt4ueo732xre" path="res://subscenes/objects/crate.tscn" id="10_getpj"]
+[ext_resource type="PackedScene" uid="uid://6c2qi8ufltwi" path="res://subscenes/objects/weapons/rifle.tscn" id="10_jq2sk"]
 [ext_resource type="Script" uid="uid://cqbgarmxy0513" path="res://addons/rmsmartshape/shapes/point_array.gd" id="11_0rl1p"]
 [ext_resource type="Script" uid="uid://ijb2rsgylb2u" path="res://scripts/functionalities/conversation_player.gd" id="11_cegan"]
 [ext_resource type="Resource" uid="uid://dj4pc0gbdlx57" path="res://conversations/test.tres" id="12_82xsv"]
 [ext_resource type="Script" uid="uid://c0dhrsj7icoqh" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="12_ok6jj"]
 [ext_resource type="Texture2D" uid="uid://ddufcyxxss5kk" path="res://art/lights/firefly.webp" id="12_vivmo"]
 [ext_resource type="Script" uid="uid://n5agoev2kf14" path="res://addons/rmsmartshape/materials/edge_material.gd" id="13_facbu"]
-[ext_resource type="Shader" uid="uid://csk45i7a51qsl" path="res://shaders/pixelize.tres" id="13_w48qg"]
 [ext_resource type="Texture2D" uid="uid://crp4jlwpixksh" path="res://art/lights/firefly.png" id="14_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://c5msy3hmk2ply" path="res://subscenes/objects/grass.tscn" id="14_82xsv"]
 [ext_resource type="Texture2D" uid="uid://t0ced860fpm8" path="res://art/tiles/edge_grass.png" id="14_b1qrp"]
-[ext_resource type="Texture2D" uid="uid://n5cugupaj30b" path="res://art/environments/test_HEIGHT.jpg" id="14_vivmo"]
 [ext_resource type="Texture2D" uid="uid://djmnacuepxdt0" path="res://art/tiles/edge_grass_left.png" id="15_come4"]
 [ext_resource type="Script" uid="uid://dhj58mdqj6l2b" path="res://scripts/entities/firefly.gd" id="15_vivmo"]
 [ext_resource type="Texture2D" uid="uid://djtkm7ugi4w5" path="res://art/tiles/edge_grass_right.png" id="16_h8e4i"]
 [ext_resource type="Script" uid="uid://cmtjeh2qkoee8" path="res://addons/rmsmartshape/normal_range.gd" id="17_4lmeg"]
 [ext_resource type="Texture2D" uid="uid://b76rsywwuesw0" path="res://art/tiles/dirt.png" id="18_0cp0l"]
 [ext_resource type="Script" uid="uid://dul66ircjlkng" path="res://addons/rmsmartshape/materials/shape_material.gd" id="19_d2t1y"]
-[ext_resource type="PackedScene" uid="uid://dw7xovyysy2vo" path="res://subscenes/chat.tscn" id="20_82xsv"]
+[ext_resource type="PackedScene" uid="uid://dw7xovyysy2vo" path="res://subscenes/ui/chat.tscn" id="20_82xsv"]
+[ext_resource type="PackedScene" uid="uid://bxn8fsd6meo3m" path="res://subscenes/ui/hud.tscn" id="32_jq2sk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
 size = Vector2(4932, 688)
@@ -65,7 +66,7 @@ size = Vector2(0, 0)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
 size = Vector2(242, 281)
 
-[sub_resource type="Resource" id="Resource_htxhm"]
+[sub_resource type="Resource" id="Resource_4k2k6"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -76,9 +77,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(-428.567, -264.721)
 point_in = Vector2(-72, 56)
 point_out = Vector2(72, -48)
-properties = SubResource("Resource_htxhm")
+properties = SubResource("Resource_4k2k6")
 
-[sub_resource type="Resource" id="Resource_4k2k6"]
+[sub_resource type="Resource" id="Resource_ok6jj"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -89,9 +90,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(581, -785)
 point_in = Vector2(-130, 37)
 point_out = Vector2(142, -27)
-properties = SubResource("Resource_4k2k6")
+properties = SubResource("Resource_ok6jj")
 
-[sub_resource type="Resource" id="Resource_ok6jj"]
+[sub_resource type="Resource" id="Resource_b1qrp"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -102,9 +103,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(686, 109)
 point_in = Vector2(78, -3)
 point_out = Vector2(-74, 13)
-properties = SubResource("Resource_ok6jj")
+properties = SubResource("Resource_b1qrp")
 
-[sub_resource type="Resource" id="Resource_b1qrp"]
+[sub_resource type="Resource" id="Resource_come4"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -115,9 +116,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(405, 135)
 point_in = Vector2(40, -16)
 point_out = Vector2(-40, 24)
-properties = SubResource("Resource_b1qrp")
+properties = SubResource("Resource_come4")
 
-[sub_resource type="Resource" id="Resource_come4"]
+[sub_resource type="Resource" id="Resource_h8e4i"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -128,9 +129,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(-1323.02, 128.68)
 point_in = Vector2(96, 8)
 point_out = Vector2(-96, 0)
-properties = SubResource("Resource_come4")
+properties = SubResource("Resource_h8e4i")
 
-[sub_resource type="Resource" id="Resource_h8e4i"]
+[sub_resource type="Resource" id="Resource_4lmeg"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -141,9 +142,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(-1376.78, -206.566)
 point_in = Vector2(56, 40)
 point_out = Vector2(-56, -32)
-properties = SubResource("Resource_h8e4i")
+properties = SubResource("Resource_4lmeg")
 
-[sub_resource type="Resource" id="Resource_4lmeg"]
+[sub_resource type="Resource" id="Resource_0cp0l"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -154,9 +155,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(-1118.36, -195.687)
 point_in = Vector2(18.9282, 26.8231)
 point_out = Vector2(-16, -32)
-properties = SubResource("Resource_4lmeg")
+properties = SubResource("Resource_0cp0l")
 
-[sub_resource type="Resource" id="Resource_0cp0l"]
+[sub_resource type="Resource" id="Resource_d2t1y"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -167,9 +168,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(-428.567, -264.721)
 point_in = Vector2(-72, 56)
 point_out = Vector2(72, -48)
-properties = SubResource("Resource_0cp0l")
+properties = SubResource("Resource_d2t1y")
 
-[sub_resource type="Resource" id="Resource_d2t1y"]
+[sub_resource type="Resource" id="Resource_gngh3"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -180,9 +181,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(117, -217)
 point_in = Vector2(-395, -17)
 point_out = Vector2(389, 23)
-properties = SubResource("Resource_d2t1y")
+properties = SubResource("Resource_gngh3")
 
-[sub_resource type="Resource" id="Resource_gngh3"]
+[sub_resource type="Resource" id="Resource_qnost"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -193,9 +194,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(854, -787)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_gngh3")
+properties = SubResource("Resource_qnost")
 
-[sub_resource type="Resource" id="Resource_qnost"]
+[sub_resource type="Resource" id="Resource_f6a44"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -206,9 +207,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(846, -59)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_qnost")
+properties = SubResource("Resource_f6a44")
 
-[sub_resource type="Resource" id="Resource_f6a44"]
+[sub_resource type="Resource" id="Resource_blkrb"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -219,9 +220,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(-703.824, -360.284)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_f6a44")
+properties = SubResource("Resource_blkrb")
 
-[sub_resource type="Resource" id="Resource_blkrb"]
+[sub_resource type="Resource" id="Resource_e71vb"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -232,9 +233,9 @@ script = ExtResource("10_4k2k6")
 position = Vector2(-866.736, -310.267)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_blkrb")
+properties = SubResource("Resource_e71vb")
 
-[sub_resource type="Resource" id="Resource_e71vb"]
+[sub_resource type="Resource" id="Resource_b17eg"]
 script = ExtResource("9_jq2sk")
 texture_idx = 0
 flip = false
@@ -245,7 +246,7 @@ script = ExtResource("10_4k2k6")
 position = Vector2(-976.774, -294.547)
 point_in = Vector2(0, 0)
 point_out = Vector2(0, 0)
-properties = SubResource("Resource_e71vb")
+properties = SubResource("Resource_b17eg")
 
 [sub_resource type="Resource" id="Resource_ruth0"]
 script = ExtResource("11_0rl1p")
@@ -329,11 +330,6 @@ render_offset = 0.0
 [sub_resource type="CanvasTexture" id="CanvasTexture_yaehf"]
 diffuse_texture = ExtResource("14_2cqfq")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
-shader = ExtResource("13_w48qg")
-shader_parameter/FloatParameter = 512.0
-shader_parameter/FloatParameter2 = 100.0
-
 [node name="Main" type="Node" node_paths=PackedStringArray("base_layer", "player", "play_area", "camera", "start_position")]
 script = ExtResource("1_0xm2m")
 background_music = ExtResource("2_htxhm")
@@ -344,7 +340,7 @@ camera = NodePath("Camera")
 start_position = NodePath("StartPosition")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.324293, 0.513765, 0.599744, 1)
+color = Color(0.659054, 0.811177, 0.883789, 1)
 
 [node name="Sounds" type="Node" parent="."]
 
@@ -366,8 +362,9 @@ drag_vertical_enabled = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="PlayArea" type="Area2D" parent="."]
+[node name="PlayArea" type="Area2D" parent="." node_paths=PackedStringArray("camera_area")]
 script = ExtResource("2_1bvp3")
+camera_area = NodePath("CameraArea")
 
 [node name="CameraArea" type="CollisionShape2D" parent="PlayArea"]
 editor_description = "The area the camera is constrained to."
@@ -430,6 +427,20 @@ region_rect = Rect2(-1000, 0, 2000, 648)
 
 [node name="PlayLayer" type="Node2D" parent="PlayArea"]
 
+[node name="PointLight2D" type="PointLight2D" parent="PlayArea/PlayLayer"]
+position = Vector2(393, 281)
+texture = ExtResource("7_4c57u")
+texture_scale = 2.44
+height = 1024.0
+script = ExtResource("10_0rl1p")
+
+[node name="PointLight2D2" type="PointLight2D" parent="PlayArea/PlayLayer"]
+position = Vector2(946, 389)
+texture = ExtResource("7_4c57u")
+texture_scale = 2.44
+height = 1024.0
+script = ExtResource("10_0rl1p")
+
 [node name="Ground" type="StaticBody2D" parent="PlayArea/PlayLayer"]
 metadata/_edit_group_ = true
 
@@ -449,10 +460,10 @@ polygon = PackedVector2Array(0, 0, 1080, 0, 1080, 200, 0, 200)
 position = Vector2(736, -125)
 jump_tolerance = 200
 
-[node name="PointLight2D" type="PointLight2D" parent="PlayArea/PlayLayer/Player"]
-texture = ExtResource("7_4c57u")
-texture_scale = 8.83
-height = 210.0
+[node name="Rifle" parent="PlayArea/PlayLayer/Player" instance=ExtResource("10_jq2sk")]
+position = Vector2(-103, 33)
+rotation = -0.0401426
+scale = Vector2(-0.25, 0.25)
 
 [node name="Objects" type="Node2D" parent="PlayArea/PlayLayer"]
 
@@ -502,7 +513,7 @@ metadata/_custom_type_script = "uid://d18eq8hstcspc"
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayArea/PlayLayer/StaticBody2D2"]
 physics_interpolation_mode = 1
 modulate = Color(1, 1, 1, 0.3)
-polygon = PackedVector2Array(-349.567, -254.721, -335.914, -262.282, -321.654, -267.149, -306.332, -269.598, -289.494, -269.905, -197.909, -255.236, 196, -207, 263.888, -209.182, 322.291, -223.285, 372.131, -247.707, 414.328, -280.844, 449.805, -321.094, 479.482, -366.855, 525.125, -468.5, 587.359, -667.406, 602.24, -706.872, 618.693, -739.027, 637.639, -762.271, 660, -775, 762.562, -786.703, 849.75, -786.125, 933, -777, 925, -49, 874.25, 33.875, 849.902, 64.5254, 822.906, 91.4844, 808.73, 102.382, 794.27, 110.92, 779.651, 116.619, 765, 119, 534.375, 136.016, 504.523, 139.822, 484, 145, 459.056, 148.972, -1244.02, 138.68, -1259.83, 135.354, -1271.6, 125.916, -1279.83, 111.169, -1285.05, 91.9228, -1288.45, 43.1529, -1285.9, -13.943, -1279.26, -127.309, -1280.25, -150.774, -1283.33, -170.677, -1289, -186.209, -1297.78, -196.566, -1303.9, -201.423, -1301.98, -204.186, -1293.1, -205.146, -1278.37, -204.594, -1079.63, -180.571, -1047.33, -179.766, -1039.76, -181.74, -1039.36, -185.687, -1040.41, -192.071, -1037.87, -199.122, -1032.24, -206.693, -1023.99, -214.634, -974.567, -247.117, -897.774, -284.547, -787.736, -300.267, -624.824, -350.284, -514.195, -281.503, -468.301, -260.348, -422.951, -246.028, -401.705, -242.745, -382.066, -242.749, -364.523, -246.566, -349.567, -254.721)
+polygon = PackedVector2Array(-349.567, -254.721, -335.914, -262.282, -321.654, -267.149, -306.332, -269.598, -289.494, -269.905, -197.909, -255.236, 196, -207, 263.888, -209.182, 322.291, -223.285, 372.131, -247.707, 414.328, -280.844, 449.805, -321.094, 479.482, -366.855, 525.125, -468.5, 587.359, -667.406, 602.24, -706.872, 618.693, -739.027, 637.639, -762.271, 660, -775, 762.563, -786.703, 849.75, -786.125, 933, -777, 925, -49, 874.25, 33.875, 849.902, 64.5254, 822.906, 91.4844, 808.73, 102.382, 794.27, 110.92, 779.651, 116.619, 765, 119, 534.375, 136.016, 504.523, 139.822, 484, 145, 459.056, 148.972, -1244.02, 138.68, -1259.83, 135.354, -1271.6, 125.916, -1279.83, 111.169, -1285.05, 91.9228, -1288.45, 43.1529, -1285.9, -13.943, -1279.26, -127.309, -1280.25, -150.774, -1283.33, -170.677, -1289, -186.209, -1297.78, -196.566, -1303.9, -201.423, -1301.98, -204.186, -1293.1, -205.146, -1278.37, -204.594, -1079.63, -180.571, -1047.33, -179.766, -1039.76, -181.74, -1039.36, -185.687, -1040.41, -192.071, -1037.87, -199.122, -1032.24, -206.693, -1023.99, -214.634, -974.567, -247.117, -897.774, -284.547, -787.736, -300.267, -624.824, -350.284, -514.195, -281.503, -468.301, -260.348, -422.951, -246.028, -401.705, -242.745, -382.066, -242.749, -364.523, -246.566, -349.567, -254.721)
 
 [node name="ParallaxLayer+1" type="Parallax2D" parent="PlayArea"]
 repeat_size = Vector2(1080, 0)
@@ -535,402 +546,6 @@ gizmo_extents = 1000.0
 
 [node name="Fireflies" type="Node" parent="."]
 
-[node name="PointLight2D" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D2" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D3" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D4" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D5" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D6" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D7" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D8" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D9" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D10" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D11" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D12" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D13" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D14" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D15" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D16" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D17" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D18" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D19" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D20" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D21" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D22" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D23" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D24" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D25" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D26" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D27" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D28" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D29" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D30" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 2
-texture = ExtResource("12_vivmo")
-texture_scale = 0.02
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D31" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D32" type="PointLight2D" parent="Fireflies"]
-position = Vector2(120, 384)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D33" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D34" type="PointLight2D" parent="Fireflies"]
-position = Vector2(120, 384)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D35" type="PointLight2D" parent="Fireflies"]
-position = Vector2(-240, 264)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
-[node name="PointLight2D36" type="PointLight2D" parent="Fireflies"]
-position = Vector2(120, 384)
-color = Color(0.596418, 0.933558, 0.439853, 1)
-energy = 2.58
-range_item_cull_mask = 3
-texture = ExtResource("12_vivmo")
-texture_scale = 0.04
-height = 35.0
-script = ExtResource("15_vivmo")
-blink_speed = 0.01
-
 [node name="PointLight2D37" type="PointLight2D" parent="Fireflies"]
 modulate = Color(0.877, 2, 0.33, 1)
 position = Vector2(208, 368)
@@ -949,20 +564,9 @@ blink_speed = 0.01
 scale = Vector2(0.1, 0.1)
 texture = SubResource("CanvasTexture_yaehf")
 
-[node name="CameraFilters" type="Parallax2D" parent="."]
-visible = false
-z_index = 100
-scroll_scale = Vector2(0, 0)
-
-[node name="PixelShader" type="Sprite2D" parent="CameraFilters"]
-visible = false
-material = SubResource("ShaderMaterial_2cqfq")
-scale = Vector2(2.13333, 1.8)
-texture = ExtResource("14_vivmo")
-centered = false
-region_rect = Rect2(0, 0, 1152, 648)
-
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("32_jq2sk")]
 
 [node name="Chat" parent="UI" instance=ExtResource("20_82xsv")]
 visible = false

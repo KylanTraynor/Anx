@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://crp4jlwpixksh" path="res://art/lights/firefly.png" id="17_jmfxp"]
 [ext_resource type="Shader" uid="uid://csk45i7a51qsl" path="res://shaders/pixelize.tres" id="18_540rd"]
 [ext_resource type="Texture2D" uid="uid://n5cugupaj30b" path="res://art/environments/test_HEIGHT.jpg" id="19_s0uga"]
-[ext_resource type="PackedScene" uid="uid://dw7xovyysy2vo" path="res://subscenes/chat.tscn" id="20_im88e"]
+[ext_resource type="PackedScene" uid="uid://dw7xovyysy2vo" path="res://subscenes/ui/chat.tscn" id="20_im88e"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_dg77c"]
 diffuse_texture = ExtResource("4_3yvir")
