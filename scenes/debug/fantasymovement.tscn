@@ -61,34 +61,6 @@ width = 1.0
 
 [sub_resource type="Resource" id="Resource_65kds"]
 script = ExtResource("5_s6ojs")
-position = Vector2(1464, 160)
-point_in = Vector2(-344, 8)
-point_out = Vector2(344, -8)
-properties = SubResource("Resource_1c8e3")
-
-[sub_resource type="Resource" id="Resource_swaou"]
-script = ExtResource("4_f0k5l")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_5qcvt"]
-script = ExtResource("5_s6ojs")
-position = Vector2(2408, 328)
-point_in = Vector2(0, 0)
-point_out = Vector2(0, 0)
-properties = SubResource("Resource_swaou")
->>>>>>> Stashed changes
-
-[sub_resource type="Resource" id="Resource_744g4"]
-script = ExtResource("4_f0k5l")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_65kds"]
-script = ExtResource("5_s6ojs")
-<<<<<<< Updated upstream
 position = Vector2(1464, 272)
 point_in = Vector2(-344, 8)
 point_out = Vector2(344, -8)
@@ -474,11 +446,7 @@ metadata/_custom_type_script = "uid://dljfd8m4747um"
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 visible = false
 modulate = Color(1, 1, 1, 0.3)
-<<<<<<< Updated upstream
 polygon = PackedVector2Array(-2854, -1768, -724.375, 111.875, -381.797, 353.547, -260.787, 416.521, -182, 432, 264, 358, 502, 344.25, 770, 368, 905.672, 382.578, 1027.38, 381.125, 1245, 347, 1455.12, 299.375, 1690, 272, 1772.47, 282.541, 1887.42, 315.078, 2193.88, 433.625, 3986, 1328, 3919.03, 1415.75, 3771.25, 1670, 3622.34, 2077.25, 3572.37, 2334.03, 3552, 2624, 3569.5, 2923.94, 3621.84, 3207, 3785.25, 3694, 4026, 4152, 4027.17, 4165.52, 4035.72, 4204.62, 4059.22, 4267.17, 4105.25, 4351, 4181.37, 4453.95, 4295.16, 4573.88, 4666, 4856, 4806.04, 4924.55, 4979.95, 4975.44, 5405.72, 5031.5, 6403.25, 5012, 7656, 4856, 2842, 5512, 2826, 4136, -2766, 1384, -2854, -1768)
-=======
-polygon = PackedVector2Array(-1624, 344, -722.875, 441.875, -408, 432, 38, 358, 276, 344.25, 544, 368, 679.672, 377.766, 801.375, 363.625, 1019, 291, 1229.13, 204.875, 1341.45, 173.859, 1464, 160, 1756.63, 182.875, 2065, 241, 2408, 328, 2416, 832, -1600, 768, -1624, 344)
->>>>>>> Stashed changes
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 
@@ -492,7 +460,6 @@ metadata/_custom_type_script = "uid://dljfd8m4747um"
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2"]
 visible = false
 modulate = Color(1, 1, 1, 0.3)
-<<<<<<< Updated upstream
 polygon = PackedVector2Array(1000, -1056, 907.625, -1102.5, 851.359, -1141.5, 824.85, -1165.92, 801, -1194, 780.994, -1226.02, 766.016, -1262.25, 757.248, -1302.98, 755.875, -1348.5, 763.08, -1399.08, 780.047, -1455, 807.959, -1516.55, 848, -1584, 896.958, -1645.01, 947.496, -1690.91, 999.106, -1723.04, 1051.28, -1742.72, 1103.52, -1751.28, 1155.3, -1750.04, 1206.13, -1740.34, 1255.5, -1723.5, 1347.82, -1673.71, 1428.22, -1611.28, 1492.63, -1546.84, 1537, -1491, 1554.47, -1464.5, 1568.04, -1436.26, 1577.95, -1406.68, 1584.47, -1376.16, 1588.29, -1313.85, 1581.5, -1252.5, 1566.08, -1195.28, 1544.03, -1145.34, 1517.34, -1105.86, 1502.88, -1091.03, 1488, -1080, 1471.53, -1069.97, 1449.64, -1060.92, 1392.62, -1045.88, 1247, -1029, 1099.88, -1031.62, 1040.98, -1040.95, 1017.87, -1047.74, 1000, -1056)
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
@@ -557,6 +524,3 @@ color = Color(0.374139, 0.374139, 0.374139, 1)
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UI" instance=ExtResource("9_s6ojs")]
-=======
-polygon = PackedVector2Array(1032, -304, 1015.91, -321.105, 998.172, -356.094, 960.875, -471.75, 901, -830, 902.625, -1251.25, 942.203, -1445.66, 974.432, -1531.83, 1016, -1608, 1104.45, -1720.63, 1143.39, -1759.31, 1179.13, -1787.5, 1211.91, -1806.13, 1241.98, -1816.13, 1269.6, -1818.44, 1295, -1814, 1318.43, -1803.75, 1340.14, -1788.63, 1379.38, -1747.5, 1448, -1648, 1466.47, -1610.66, 1482.86, -1551.8, 1509.38, -1382.38, 1537, -927, 1530.13, -488.125, 1513.52, -339.328, 1501.88, -293.869, 1488, -272, 1471.89, -262.604, 1451.02, -255.328, 1397.63, -246.625, 1263, -249, 1126.88, -270.875, 1071.61, -286.547, 1032, -304)
->>>>>>> Stashed changes
