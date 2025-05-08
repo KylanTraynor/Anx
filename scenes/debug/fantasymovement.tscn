@@ -414,7 +414,7 @@ point_count = 4
 
 [sub_resource type="Curve2D" id="Curve2D_wolfc"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 966, -715, -371.122, 149.067, 371.122, -149.067, 2118, -834, 0, 0, 0, 0, 3290, -953)
+"points": PackedVector2Array(0, 0, 0, 0, 966, -715, -371.122, 149.067, 371.122, -149.067, 2209, -936, 0, 0, 0, 0, 3290, -953)
 }
 point_count = 3
 
@@ -501,7 +501,7 @@ loop = false
 ping_pong = true
 
 [node name="BasicPlatform2" parent="Path2D2" instance=ExtResource("10_wolfc")]
-position = Vector2(3290, -953)
+position = Vector2(3280.87, -954.633)
 progress = 2348.45
 loop = false
 ping_pong = true
