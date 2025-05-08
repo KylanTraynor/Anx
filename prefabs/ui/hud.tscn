@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxn8fsd6meo3m"]
+[gd_scene load_steps=10 format=3 uid="uid://bxn8fsd6meo3m"]
 
 [ext_resource type="Texture2D" uid="uid://b5s44m7yw67c1" path="res://art/ui/status.png" id="1_j1872"]
 [ext_resource type="Texture2D" uid="uid://l8yx4flag4n5" path="res://art/ui/mana.png" id="2_vu6n8"]
+[ext_resource type="Script" uid="uid://bddiss4nmnbw1" path="res://scripts/ui/boss_bar.gd" id="3_cxp5x"]
 
 [sub_resource type="GDScript" id="GDScript_vu6n8"]
 resource_name = "HealthBar"
@@ -38,6 +39,30 @@ func _ready() -> void:
 func _on_player_mana_changed(new_mana: int) -> void:
 	$Label.text = str(new_mana)
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxp5x"]
+bg_color = Color(0, 0, 0, 0.376471)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jtpgg"]
+bg_color = Color(0.672928, 0.532976, 0.488122, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_halsq"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ektdj"]
+bg_color = Color(0.6, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -105,3 +130,46 @@ stretch_mode = 5
 [node name="Label" type="Label" parent="CornerHUD/ManaPointsContainer"]
 layout_mode = 2
 text = "100"
+
+[node name="BossBar" type="Control" parent="." node_paths=PackedStringArray("_delayed_bar", "_main_bar")]
+custom_minimum_size = Vector2(750, 25)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -375.0
+offset_top = -48.0
+offset_right = 375.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("3_cxp5x")
+_delayed_bar = NodePath("DelayedBar")
+_main_bar = NodePath("ProgressBar")
+
+[node name="DelayedBar" type="ProgressBar" parent="BossBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_cxp5x")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jtpgg")
+value = 65.0
+rounded = true
+show_percentage = false
+
+[node name="ProgressBar" type="ProgressBar" parent="BossBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_halsq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ektdj")
+value = 50.0
+rounded = true

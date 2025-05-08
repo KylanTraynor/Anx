@@ -12,7 +12,6 @@ func _ready() -> void:
 	pass
 
 func _physics_process(_delta: float) -> void:
-	print(self.linear_velocity.length_squared())
 	if self.linear_velocity.length_squared() > harmless_threshold:
 		self.collision_mask = 1
 		self.collision_layer = 4

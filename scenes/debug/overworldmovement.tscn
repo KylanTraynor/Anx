@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://cqeggvxebh1kp"]
 
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_dswoo"]
-[ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://subscenes/player.tscn" id="2_5ogqy"]
+[ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://prefabs/player.tscn" id="2_5ogqy"]
 [ext_resource type="Script" uid="uid://cdqbk50wg5d5s" path="res://addons/rmsmartshape/shapes/shape_open.gd" id="3_wuvoj"]
 [ext_resource type="Script" uid="uid://crt8cstbdfuyr" path="res://addons/rmsmartshape/vertex_properties.gd" id="4_vyeve"]
 [ext_resource type="Script" uid="uid://cekcaqqk77qpu" path="res://addons/rmsmartshape/shapes/point.gd" id="5_er5vc"]

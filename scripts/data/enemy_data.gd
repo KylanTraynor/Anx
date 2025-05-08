@@ -13,3 +13,4 @@ class_name EnemyData
 @export var melee_range: float = 2.0 ## Range for melee attacks (collider width based).
 @export var melee_attacks: Array[ActionData] = [] ## The list of melee attacks available.
 @export var ranged_attacks: Array[ActionData] = [] ## The list of ranged attacks available.
+@export var damaged_sound: AudioStream ## Sound played when damaged.
