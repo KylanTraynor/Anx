@@ -20,6 +20,8 @@ var is_jumping = false
 var animated_sprite : AnimatedSprite2D
 var collision_shape : CollisionShape2D
 
+var attack_direction := Vector2.ZERO
+
 var _was_grounded : bool = false
 var _was_walled : bool = false
 var _was_ceiled : bool = false
@@ -44,7 +46,16 @@ func play_sound(sound: AudioStream, restart: bool = false):
 func play_animation(animation_name : String):
 	animated_sprite.play(animation_name)
 
-
+func get_size() -> Vector2:
+	var shape = $CollisionShape2D.shape
+	if shape is CapsuleShape2D:
+		return Vector2(shape.radius * 2, shape.height)
+	elif shape is RectangleShape2D:
+		return shape.size
+	else:
+		push_warning("Unrecognized enemy shape.")
+		return Vector2.ZERO
+		
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	animated_sprite = find_children("*", "AnimatedSprite2D")[0]
@@ -57,6 +68,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Main.instance.is_in_ui(): return
 	_process_jump(delta)
+	_process_attack(delta)
 
 # Called every frame to handle jumping functionality.
 func _process_jump(_delta: float) -> void:
@@ -73,6 +85,22 @@ func _process_jump(_delta: float) -> void:
 	if(Input.is_action_just_released("action_jump") or jump_delta > 200):
 		is_jumping = false
 		jump_pressed_time = -1
+
+func _process_attack(_delta: float) -> void:
+	if not Input.is_action_just_pressed("action_attack"): return
+	
+	print("Player attacks!")
+	var enemies = Main.instance.find_children("*", "EnemyController")
+	for i in range(len(enemies)):
+		if not (enemies[i].global_position.y - (self.global_position.y - self.get_size().y) < self.get_size().y * 2):
+				print("No enemy in y range...")
+				return
+		if attack_direction.x > 0 and enemies[i].global_position.x > self.global_position.x:
+			if enemies[i].global_position.x - self.global_position.x < self.get_size().x * 2:
+				enemies[i].damage(1)
+		elif attack_direction.x < 0 and enemies[i].global_position.x < self.global_position.x:
+			if self.global_position.x - enemies[i].global_position.x < self.get_size().x * 2:
+				enemies[i].damage(1)
 	
 func register_jump(tolerance: float = jump_tolerance):
 	jump_pressed_time = Time.get_ticks_msec()
@@ -116,6 +144,7 @@ func _physics_process(delta) -> void:
 
 	var move_direction = Input.get_axis("move_left", "move_right")
 	if move_direction ** 2 >= 0.1:
+		attack_direction.x = move_direction
 		velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
 		play_animation("walk")
 	else:

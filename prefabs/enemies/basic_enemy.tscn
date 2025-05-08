@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmgkd0nxenni8"]
+
+[ext_resource type="Script" uid="uid://daxr62jf4iqad" path="res://scripts/entities/enemy_controller.gd" id="1_s8ea2"]
+[ext_resource type="Texture2D" uid="uid://bb80ddtch0347" path="res://art/characters/player/idle00.png" id="1_yf8bv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s8ea2"]
+radius = 34.0
+height = 250.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oj8a0"]
+bg_color = Color(0.2, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssjww"]
+bg_color = Color(0.76, 0, 0, 1)
+
+[node name="BasicEnemy" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_s8ea2")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -128)
+texture = ExtResource("1_yf8bv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -128)
+shape = SubResource("CapsuleShape2D_s8ea2")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+offset_left = -100.0
+offset_top = -300.0
+offset_right = 100.0
+offset_bottom = -275.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+z_index = 100
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_oj8a0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssjww")
+step = 1.0
+value = 100.0
+rounded = true
