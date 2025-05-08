@@ -15,7 +15,6 @@ static var _current : int
 func _ready() -> void:
 	_instance = self
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if(Time.get_ticks_msec() > _last_health_changed_time + _delay):

@@ -27,8 +27,13 @@ texture = ExtResource("1_yf8bv")
 position = Vector2(0, -128)
 shape = SubResource("CapsuleShape2D_s8ea2")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.5, -153.5)
+scale = Vector2(10.85, 15.15)
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
+anchors_preset = 0
 offset_left = -100.0
 offset_top = -300.0
 offset_right = 100.0
