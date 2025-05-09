@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://x01fcgsluvgv"]
+
+[ext_resource type="Script" uid="uid://b2b6tswkg6wio" path="res://scripts/entities/turret_controller.gd" id="1_gbmx1"]
+[ext_resource type="Texture2D" uid="uid://cmhv77rutpijx" path="res://icon.svg" id="2_6hp41"]
+[ext_resource type="PackedScene" uid="uid://dboodxhan5jyh" path="res://prefabs/objects/perils/projectile.tscn" id="2_tj3xn"]
+[ext_resource type="Resource" uid="uid://ckntg26l63rkr" path="res://data/projectiles/basic_projectile.tres" id="3_tj3xn"]
+
+[node name="BasicTurret" type="Node2D" node_paths=PackedStringArray("detection_area")]
+script = ExtResource("1_gbmx1")
+projectile_scene = ExtResource("2_tj3xn")
+projectile_data = ExtResource("3_tj3xn")
+detection_area = NodePath("TargetField")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_6hp41")
+
+[node name="TargetField" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TargetField"]
+polygon = PackedVector2Array(0, 0, 800, -400, 800, 400)

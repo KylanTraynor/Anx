@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ProjectileData" load_steps=5 format=3 uid="uid://ckntg26l63rkr"]
+
+[ext_resource type="AudioStream" uid="uid://c81y8ekul6ufp" path="res://sounds/soundeffects/projectiles/336006__rudmer_rotteveel__sharp-explosion-1-of-5.wav" id="1_gu08s"]
+[ext_resource type="Script" uid="uid://c6enc5qhl7gqm" path="res://scripts/data/projectile_data.gd" id="1_iet4i"]
+[ext_resource type="Texture2D" uid="uid://cmhv77rutpijx" path="res://icon.svg" id="2_xe0gc"]
+[ext_resource type="AudioStream" uid="uid://du2xur3a6aj6l" path="res://sounds/soundeffects/projectiles/36791__farbin__muted_thud_2.wav" id="3_vonoi"]
+
+[resource]
+script = ExtResource("1_iet4i")
+name = "Projectile"
+speed = 500.0
+damage = 1
+lifetime = 5.0
+texture = ExtResource("2_xe0gc")
+scale = Vector2(1, 1)
+modulate = Color(1, 1, 1, 1)
+element = ""
+shoot_sound = ExtResource("3_vonoi")
+impact_sound = ExtResource("1_gu08s")
+pierce_targets = false
+homing = false
+homing_strength = 0.0
+bounces = 2
+explodes = false
+explosion_radius = 0.0
+metadata/_custom_type_script = "uid://c6enc5qhl7gqm"

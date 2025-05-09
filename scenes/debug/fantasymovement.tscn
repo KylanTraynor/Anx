@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://bhwwryfp2f6bb"]
+[gd_scene load_steps=70 format=3 uid="uid://bhwwryfp2f6bb"]
 
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://prefabs/player.tscn" id="1_c6y0c"]
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_htiwf"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dmgkd0nxenni8" path="res://prefabs/enemies/basic_enemy.tscn" id="10_cighu"]
 [ext_resource type="PackedScene" uid="uid://cnoqgnk8ri4m1" path="res://prefabs/objects/platforms/basic_platform.tscn" id="10_wolfc"]
 [ext_resource type="PackedScene" uid="uid://nf3as5xr2kf5" path="res://prefabs/objects/perils/boulder.tscn" id="12_g1jw4"]
+[ext_resource type="PackedScene" uid="uid://x01fcgsluvgv" path="res://prefabs/enemies/basic_turret.tscn" id="12_swaou"]
 
 [sub_resource type="Resource" id="Resource_swaou"]
 script = ExtResource("4_f0k5l")
@@ -509,6 +510,9 @@ ping_pong = true
 
 [node name="Boulder" parent="." instance=ExtResource("12_g1jw4")]
 position = Vector2(-2446, -2070)
+
+[node name="BasicTurret" parent="." instance=ExtResource("12_swaou")]
+position = Vector2(1505, -1073)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 position = Vector2(373, -682)
