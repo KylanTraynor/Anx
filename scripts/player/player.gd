@@ -104,12 +104,9 @@ func _process(delta: float) -> void:
 ## Handles jump button press, hold, and release
 ## @param _delta Time elapsed since last frame
 func _process_jump(_delta: float) -> void:
-	var is_about_to_jump = jump_pressed_time != -1
-	var jump_delta = Time.get_ticks_msec() - jump_pressed_time if is_about_to_jump else 0
-	
 	_handle_jump_input()
 	_handle_jump_hold()
-	_handle_jump_release(jump_delta)
+	_handle_jump_release()
 
 ## Handles initial jump input
 func _handle_jump_input() -> void:
@@ -124,7 +121,9 @@ func _handle_jump_hold() -> void:
 
 ## Handles jump button release
 ## @param jump_delta Time since jump was initiated
-func _handle_jump_release(jump_delta: float) -> void:
+func _handle_jump_release() -> void:
+	var is_about_to_jump = jump_pressed_time != -1
+	var jump_delta = Time.get_ticks_msec() - jump_pressed_time if is_about_to_jump else 0
 	if Input.is_action_just_released("action_jump") or jump_delta > JUMP_BUFFER_TIME:
 		is_jumping = false
 		jump_pressed_time = -1

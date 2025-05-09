@@ -499,6 +499,7 @@ curve = SubResource("Curve2D_wolfc")
 position = Vector2(966, -715)
 loop = false
 ping_pong = true
+is_collapsible = true
 
 [node name="BasicPlatform2" parent="Path2D2" instance=ExtResource("10_wolfc")]
 position = Vector2(3280.87, -954.633)

@@ -57,7 +57,7 @@ func _process(_delta: float) -> void:
 ## @param speaker Name of the speaker
 ## @param text The dialogue text to display
 ## @param choices Array of choice options
-static func show_message(speaker: String, text: String, choices: Array[String] = DEFAULT_CHOICE) -> void:
+static func show_message(speaker: String, text: String, choices: Array = DEFAULT_CHOICE) -> void:
 	if not instance:
 		push_error("No chat instance found!")
 		return
