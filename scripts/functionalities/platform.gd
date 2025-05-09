@@ -10,7 +10,7 @@ class_name Platform
 # Collapse settings
 @export var is_collapsible := false ## Whether platform collapses when touched
 @export var collapse_delay := 0.5 ## Time in seconds before platform starts falling
-@export var fall_speed := 500.0 ## Speed at which platform falls
+@export var fall_acceleration := 500.0 ## Acceleration at which platform falls
 @export var destroy_on_collapse := true ## Whether to destroy platform after falling
 
 # Internal state
@@ -50,9 +50,9 @@ func _handle_collapse(delta: float) -> void:
 		_collapse_timer -= delta
 		return
 		
-	_velocity.y += fall_speed*0.5 * delta
+	_velocity.y += fall_acceleration*0.5 * delta
 	position.y += _velocity.y
-	_velocity.y += fall_speed*0.5 * delta
+	_velocity.y += fall_acceleration*0.5 * delta
 	
 	if destroy_on_collapse and position.y > _original_position.y + 1000:
 		queue_free()
