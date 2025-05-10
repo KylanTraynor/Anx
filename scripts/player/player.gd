@@ -10,6 +10,7 @@ const DEATH_FADE_DURATION := 0.11
 const DEATH_CLEANUP_DELAY := 2.0
 const JUMP_BUFFER_TIME := 200.0
 const MIN_MOVEMENT_THRESHOLD := 0.1
+const MIN_FALL_TIME := 0.2
 
 # Movement properties
 @export var speed = 400 ## Base movement speed in pixels per second
@@ -49,6 +50,7 @@ var _was_walled : bool = false ## Previous frame's wall contact state
 var _was_ceiled : bool = false ## Previous frame's ceiling contact state
 var _last_ground_velocity = Vector2.ZERO ## Velocity of the platform player is standing on
 var _last_attack = 0 ## Timestamp of the last attack
+var _start_falling_time = 0 ## Timestamp of the time falling started
 
 # Signals for state changes
 signal grounded_start ## Emitted when player first touches ground
@@ -283,13 +285,15 @@ func _handle_ground_events() -> void:
 	if not is_on_floor():
 		if _was_grounded:
 			grounded_end.emit()
+			_start_falling_time = Time.get_ticks_msec()
 	else:
 		jump_counter = 0
 		is_jumping = false
 		if not _was_grounded:
-			print("Landed")
-			grounded_start.emit()
-			play_animation(&"land")
+			if(Time.get_ticks_msec() > _start_falling_time + 1000*MIN_FALL_TIME):
+				print("Landed")
+				grounded_start.emit()
+				play_animation(&"land")
 
 ## Handles wall contact state changes
 func _handle_wall_events() -> void:
@@ -334,7 +338,7 @@ func _on_die() -> void:
 ## Fades out the player sprite
 func _fade_out() -> void:
 	self.modulate = Color.from_rgba8(0, 0, 0, 50)
-	self.collision_mask = 0 # Disable all collisions
+	self.collision_mask = 1 # Disable all collisions
 
 ## Plays a sound effect at the player's position
 ## @param sound The audio stream to play
