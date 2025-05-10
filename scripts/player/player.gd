@@ -163,7 +163,7 @@ func _apply_attack_damage() -> void:
 			continue
 		var attack_pos = self.global_position - self.attack_direction * self.get_size().x
 		var to_enemy = enemy.global_position - attack_pos
-		if to_enemy.dot(self.attack_direction) > 0 and abs(to_enemy.x) < (melee_range * get_size().x):
+		if to_enemy.dot(self.attack_direction) > 0 and abs(to_enemy.x) < (melee_range * get_size().x) and abs(to_enemy.y) < (melee_range * get_size().x):
 			enemy.damage(1)
 
 ## Registers a jump attempt and handles jump buffering
@@ -207,7 +207,7 @@ func jump() -> void:
 	is_jumping = true
 	jump_counter += 1
 	print("Jump counter: ", jump_counter)
-	play_animation("jump")
+	play_animation(&"jump", 1)
 	play_sound(jump_sound, true)
 
 ## Called every physics frame
@@ -215,11 +215,11 @@ func jump() -> void:
 ## @param delta Time elapsed since last physics frame
 func _physics_process(delta) -> void:
 	_handle_events()
-	_apply_gravity(delta)
 	_handle_movement(delta)
 	_update_animation()
 	_process_jump(delta)
 	
+	_apply_gravity(delta)
 	
 	_update_physics_state()
 	
@@ -228,12 +228,12 @@ func _physics_process(delta) -> void:
 ## Applies gravity when in air
 ## @param delta Time elapsed since last physics frame
 func _apply_gravity(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	#if not is_on_floor():
+	velocity += get_gravity() * delta
 
 ## Handles horizontal movement
 func _handle_movement(delta: float) -> void:
-	var move_direction = Input.get_axis("move_left", "move_right")
+	var move_direction = Input.get_axis(&"move_left", &"move_right")
 	if move_direction ** 2 >= MIN_MOVEMENT_THRESHOLD:
 		attack_direction.x = move_direction
 		if is_on_floor():
@@ -244,18 +244,18 @@ func _handle_movement(delta: float) -> void:
 			#print("Adjusted:", tangent)
 			velocity.x = move_toward(velocity.x, (move_direction * tangent.x) * speed, speed/acceleration)
 			velocity.y = move_toward(velocity.y, (move_direction * tangent.y) * 5 * speed, speed/acceleration)
-			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*6), delta*5)
+			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*12), delta*5)
 		else:
 			velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
-			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*2), delta*5)
-		play_animation("walk")
+			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*4), delta*5)
+		play_animation(&"walk")
 	else:
 		animated_sprite.skew = lerpf(animated_sprite.skew, 0.0, delta*5)
 		if is_on_floor():
 			velocity.x = move_toward(velocity.x, 0, speed/acceleration)
 		else:
 			velocity.x = move_toward(velocity.x, _last_ground_velocity.x, speed/(acceleration*5))
-		play_animation("idle")
+		play_animation(&"idle")
 	#print("Velocity: ", velocity)
 
 ## Updates animation based on movement
@@ -289,7 +289,7 @@ func _handle_ground_events() -> void:
 		if not _was_grounded:
 			print("Landed")
 			grounded_start.emit()
-			play_animation("land")
+			play_animation(&"land")
 
 ## Handles wall contact state changes
 func _handle_wall_events() -> void:
@@ -350,10 +350,11 @@ func play_sound(sound: AudioStream, restart: bool = false):
 
 ## Plays the specified animation on the player's sprite
 ## @param animation_name Name of the animation to play
-func play_animation(animation_name : String):
-	animated_sprite.play(animation_name)
+func play_animation(animation_name : StringName, blend = -1.0, speed = 1.0) -> void:
+	if animation_name in [&"idle", &"walk"]:
+		animated_sprite.play(animation_name, speed)
 	if animation_player.has_animation(animation_name):
-		animation_player.play(animation_name)
+		animation_player.play(animation_name, blend, speed)
 
 ## Returns the player's collision shape size
 ## @return Vector2 representing the width and height of the collision shape

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bnht0v1pkreiq"]
+[gd_scene load_steps=17 format=3 uid="uid://bnht0v1pkreiq"]
 
 [ext_resource type="Texture2D" uid="uid://bb80ddtch0347" path="res://art/characters/player/idle00.png" id="1_4b615"]
 [ext_resource type="Script" uid="uid://dt8x32kr18fhm" path="res://scripts/player/player.gd" id="1_78gyk"]
@@ -130,9 +130,37 @@ tracks/1/keys = {
 "values": [Vector2(0, 0), Vector2(0, 32), Vector2(0, -64), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_sd3sa"]
+resource_name = "crushed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 115.2)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8rb0w"]
 _data = {
 &"RESET": SubResource("Animation_opo22"),
+&"crushed": SubResource("Animation_sd3sa"),
 &"jump": SubResource("Animation_8rb0w"),
 &"land": SubResource("Animation_rgeog")
 }
