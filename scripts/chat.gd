@@ -6,7 +6,7 @@ class_name Chat
 
 # Constants
 const TYPING_SPEED := 0.01
-const DEFAULT_CHOICE := [""]
+const DEFAULT_CHOICE : Array[String] = [""]
 
 # Static instance
 static var instance: Chat
