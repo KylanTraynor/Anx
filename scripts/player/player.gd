@@ -11,7 +11,7 @@ const DEATH_CLEANUP_DELAY := 2.0
 const JUMP_BUFFER_TIME := 200.0
 const MIN_MOVEMENT_THRESHOLD := 0.1
 const MIN_FALL_TIME := 0.2
-const SNAP_DISTANCE := 20
+
 # Movement properties
 @export var speed = 400 ## Base movement speed in pixels per second
 @export var acceleration = 10.0 ## Movement smoothing factor (1 = instant acceleration, higher = smoother)
@@ -31,10 +31,17 @@ const SNAP_DISTANCE := 20
 @export var melee_range = 5 ## Attack range in units of player width
 @export var attack_cooldown = 0.5 ## Minimum time between attacks in seconds
 
+@export_subgroup("Dash settings")
+@export var dash_speed := 4000.0  # How fast the dash is
+@export var dash_distance := 1000.0  # How far the dash goes
+@export var dash_cooldown := 0.1  # Cooldown in seconds
+
 # Internal state variables
 var jump_pressed_time = -1 ## Timestamp of when jump was pressed (-1 if not pressed)
 var jump_counter = 0 ## Current number of jumps performed
 var is_jumping = false ## Whether player is currently in a jump
+var _is_dashing := false
+var _dash_time_left := 0.0
 
 # Node references
 var animated_sprite : AnimatedSprite2D ## Reference to the sprite animation component
@@ -51,6 +58,7 @@ var _was_ceiled : bool = false ## Previous frame's ceiling contact state
 var _last_ground_velocity = Vector2.ZERO ## Velocity of the platform player is standing on
 var _last_attack = 0 ## Timestamp of the last attack
 var _start_falling_time = 0 ## Timestamp of the time falling started
+var _last_dash_time := -1000.0
 
 # Signals for state changes
 signal grounded_start ## Emitted when player first touches ground
@@ -118,13 +126,13 @@ func _process_jump(_delta: float) -> void:
 
 ## Handles initial jump input
 func _handle_jump_input() -> void:
-	if Input.is_action_just_pressed("action_jump"):
+	if Input.is_action_just_pressed(&"action_jump"):
 		jump_pressed_time = Time.get_ticks_msec()
 		register_jump(jump_tolerance)
 
 ## Handles sustained jump force while button is held
 func _handle_jump_hold() -> void:
-	if is_jumping and Input.is_action_pressed("action_jump"):
+	if is_jumping and Input.is_action_pressed(&"action_jump"):
 		velocity.y = -jump_strength
 
 ## Handles jump button release
@@ -132,7 +140,7 @@ func _handle_jump_hold() -> void:
 func _handle_jump_release() -> void:
 	var is_about_to_jump = jump_pressed_time != -1
 	var jump_delta = Time.get_ticks_msec() - jump_pressed_time if is_about_to_jump else 0
-	if Input.is_action_just_released("action_jump") or jump_delta > JUMP_BUFFER_TIME:
+	if Input.is_action_just_released(&"action_jump") or jump_delta > JUMP_BUFFER_TIME:
 		is_jumping = false
 		jump_pressed_time = -1
 
@@ -150,7 +158,7 @@ func _process_attack(_delta: float) -> void:
 ## Checks if player can attack
 ## @return bool True if attack can be performed
 func _can_attack() -> bool:
-	if not Input.is_action_just_pressed("action_attack"):
+	if not Input.is_action_just_pressed(&"action_attack"):
 		return false
 	if Time.get_ticks_msec() <= _last_attack + attack_cooldown * 1000:
 		return false
@@ -219,15 +227,24 @@ func jump() -> void:
 ## Handles movement, gravity, and collision detection
 ## @param delta Time elapsed since last physics frame
 func _physics_process(delta) -> void:
+	_try_dash()
+
+	if _is_dashing:
+		_dash_time_left -= delta
+		if _dash_time_left <= 0.0:
+			_is_dashing = false
+		else:
+			# Optionally, disable gravity and input during dash
+			move_and_slide()
+			return  # Skip normal movement while dashing
+
+	# Normal movement code below
 	_handle_events()
 	_handle_movement(delta)
 	_update_animation()
 	_process_jump(delta)
-	
 	_apply_gravity(delta)
-	
 	_update_physics_state()
-	
 	move_and_slide()
 
 ## Applies gravity when in air
@@ -265,7 +282,7 @@ func _handle_movement(delta: float) -> void:
 
 ## Updates animation based on movement
 func _update_animation() -> void:
-	var move_direction = Input.get_axis("move_left", "move_right")
+	var move_direction = Input.get_axis(&"move_left", &"move_right")
 	animated_sprite.flip_h = animated_sprite.flip_h if move_direction == 0 else move_direction > 0
 
 ## Updates physics state tracking
@@ -374,3 +391,24 @@ func get_size() -> Vector2:
 	else:
 		push_warning("Unrecognized player shape.")
 		return Vector2.ZERO
+
+func _try_dash():
+	if _is_dashing:
+		return
+	if not Input.is_action_just_pressed(&"action_dash"):
+		return
+	if (Time.get_ticks_msec() < _last_dash_time + int(dash_cooldown * 1000)):
+		return
+
+	var dash_dir = Vector2(Input.get_axis(&"move_left", &"move_right"), 0)
+	if dash_dir == Vector2.ZERO:
+		dash_dir.x = (1 if animated_sprite.flip_h else -1) if animated_sprite else 1  # Default to facing direction
+
+	dash_dir = dash_dir.normalized()
+	if dash_dir == Vector2.ZERO:
+		dash_dir = Vector2.RIGHT  # Fallback
+
+	_is_dashing = true
+	_dash_time_left = dash_distance / dash_speed  # Duration = distance / speed
+	velocity = dash_dir * dash_speed
+	_last_dash_time = Time.get_ticks_msec()
