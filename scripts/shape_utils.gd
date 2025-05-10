@@ -8,6 +8,9 @@ static func _is_between(x, min, max)-> bool:
 	else: return false
 
 static func get_normal_at_(point: Vector2, body: PhysicsBody2D, shape_origin: Vector2) -> Vector2:
+	var best_distance = INF
+	var best_normal = Vector2.ZERO
+
 	for i in body.get_shape_owners():
 		for j in range(body.shape_owner_get_shape_count(i)):
 			var owner = body.shape_owner_get_owner(i)
@@ -33,21 +36,28 @@ static func get_normal_at_(point: Vector2, body: PhysicsBody2D, shape_origin: Ve
 				# Doesn't take into account rotation yet.
 				return (point - shape_origin).normalized() # temporary
 			elif shape is CircleShape2D:
-				return (point - shape_origin).normalized()
+				var normal = (point - owner.global_position).normalized()
+				var dist = point.distance_to(owner.global_position) - shape.radius
+				if dist < best_distance:
+					best_distance = dist
+					best_normal = normal
 			elif shape is ConvexPolygonShape2D:
-				var best = -1
-				var bestDistance = 9999999999.0
+				shape_origin = owner.global_position
 				for p in range(len(shape.points)):
-					if p == 0: continue
-					var midpoint : Vector2 = (shape.points[p] + shape.points[p-1]) * 0.5
-					var d = (midpoint+shape_origin).distance_squared_to(point)
-					if d < bestDistance:
-						bestDistance = d
-						best = p
-				if best != -1:
-					var tangent : Vector2 = (shape.points[best] - shape.points[best-1])
-					tangent = tangent.normalized()
-					return tangent.orthogonal().normalized()
-			else:
-				print(shape)
-	return point-shape_origin.normalized()
+					var p1 = shape.points[p] + shape_origin
+					var p2 = shape.points[p - 1] + shape_origin
+					var seg = p2 - p1
+					var seg_length = seg.length()
+					if seg_length == 0:
+						continue
+					var t = ((point - p1).dot(seg)) / (seg_length * seg_length)
+					t = clamp(t, 0, 1)
+					var projection = p1 + seg * t
+					var dist = point.distance_squared_to(projection)
+					if dist < best_distance:
+						best_distance = dist
+						best_normal = seg.orthogonal().normalized()
+	# The normal may point inward or outward depending on winding; flip if needed
+	if best_distance < 1000:
+		return -best_normal
+	return (point-shape_origin).normalized()

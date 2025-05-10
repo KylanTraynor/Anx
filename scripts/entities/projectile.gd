@@ -95,7 +95,9 @@ func _handle_wall_collision(wall: PhysicsBody2D) -> void:
 		
 	# Calculate collision normal based on relative positions
 	var collision_normal = ShapeUtils.get_normal_at_(global_position, wall, wall.global_position)
-
+	print(collision_normal)
+	Main.debug_draw_line(global_position, global_position+collision_normal * 300, Color.BLUE)
+	
 	# Reflect direction based on collision normal
 	velocity = velocity.bounce(collision_normal)
 	

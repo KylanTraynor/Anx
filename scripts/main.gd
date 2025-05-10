@@ -1,6 +1,6 @@
 ## Main game controller that manages core game systems and global state.
 ## Handles camera control, player management, and game initialization.
-extends Node
+extends Node2D
 
 class_name Main
 
@@ -28,6 +28,9 @@ signal ui_input ## Emitted when UI input is detected
 # State
 var current_interactable: Interactable ## Currently focused interactable object
 static var instance : Main ## Singleton instance
+
+var debug_points_to_draw : Array[Vector2] = []
+var debug_lines_to_draw: Array[Array] = []
 
 ## Called when the node enters the scene tree
 ## Initializes game systems and finds required nodes
@@ -209,3 +212,17 @@ static func reset_current_scene() -> void:
 		instance.get_tree().reload_current_scene()
 	else:
 		push_error("No main instance found!")
+
+static func debug_draw_point(point: Vector2):
+	instance.debug_points_to_draw.append(point)
+	instance.queue_redraw()
+
+static func debug_draw_line(point_a: Vector2, point_b: Vector2, color: Color):
+	instance.debug_lines_to_draw.append([point_a, point_b, color])
+	instance.queue_redraw()
+
+func _draw() :
+	for p in debug_points_to_draw:
+		draw_circle(p, 10, Color.BLUE)
+	for l in debug_lines_to_draw:
+		draw_line(l[0], l[1], l[2])

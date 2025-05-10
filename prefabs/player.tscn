@@ -224,6 +224,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
+floor_snap_length = 40.0
 script = ExtResource("1_78gyk")
 speed = 500
 jump_sound = ExtResource("2_1ap0v")

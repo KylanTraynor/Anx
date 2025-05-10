@@ -419,7 +419,7 @@ _data = {
 }
 point_count = 3
 
-[node name="Fantasy Movement" type="Node" node_paths=PackedStringArray("player")]
+[node name="Fantasy Movement" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_htiwf")
 player = NodePath("Player")
 
@@ -518,6 +518,7 @@ position = Vector2(-2446, -2070)
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 position = Vector2(373, -682)
 rotation = 0.263486
+scale = Vector2(1, 1)
 color = Color(0.921371, 0.927593, 0.87201, 1)
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)

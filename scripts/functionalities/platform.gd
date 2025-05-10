@@ -2,6 +2,8 @@ extends PathFollow2D
 
 class_name Platform
 
+@onready var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 # Movement settings
 @export var speed = 200 ## Platform movement speed
 @export var ping_pong = false ## Whether platform should reverse direction at endpoints
@@ -12,12 +14,14 @@ class_name Platform
 @export var collapse_delay := 0.5 ## Time in seconds before platform starts falling
 @export var fall_acceleration := 500.0 ## Acceleration at which platform falls
 @export var destroy_on_collapse := true ## Whether to destroy platform after falling
+@export var respawn_delay := 3.0 ## Time in seconds before platform respawns
+@export var respawn_enabled := true ## Whether platform should respawn after collapsing
 
 # Internal state
 var _is_collapsing := false ## Whether platform is currently collapsing
-var _collapse_timer := 0.0 ## Timer for collapse delay
 var _original_position := Vector2.ZERO ## Platform's initial position
 var _velocity := Vector2.ZERO ## Platform's velocity for collapse
+var _default_collision_layer : int ## Collision layer the object is initialized with
 
 ## Called when the node enters the scene tree
 func _ready() -> void:
@@ -25,15 +29,17 @@ func _ready() -> void:
 	var body_node = $Area2D
 	if body_node:
 		body_node.body_entered.connect(_on_body_entered)
-
+	_default_collision_layer = $AnimatableBody2D.collision_layer
+	
 ## Called every physics frame
 ## Handles platform movement and collapse behavior
 ## @param delta Time elapsed since last physics frame
 func _physics_process(delta: float) -> void:
+	# Always handle movement to keep track of platform position
+	_handle_movement(delta)
+	# Handle collapse state
 	if _is_collapsing:
 		_handle_collapse(delta)
-	else:
-		_handle_movement(delta)
 
 ## Handles normal platform movement
 ## @param delta Time elapsed since last physics frame
@@ -46,21 +52,22 @@ func _handle_movement(delta: float) -> void:
 ## Handles platform collapse behavior
 ## @param delta Time elapsed since last physics frame
 func _handle_collapse(delta: float) -> void:
-	if _collapse_timer > 0:
-		_collapse_timer -= delta
-		return
-		
-	_velocity.y += fall_acceleration*0.5 * delta
+	$AnimatableBody2D.collision_layer = 0
+	_velocity.y += gravity * delta * 0.5
 	position.y += _velocity.y
-	_velocity.y += fall_acceleration*0.5 * delta
+	_velocity.y += gravity * delta * 0.5
 	
-	if destroy_on_collapse and position.y > _original_position.y + 1000:
-		queue_free()
+	if position.y > _original_position.y + 1000:
+		if destroy_on_collapse and not respawn_enabled:
+			queue_free()
+		elif respawn_enabled:
+			_start_respawn()
 
 ## Called when a body enters the platform's collision area
 ## @param body The body that entered the platform
 func _on_body_entered(body: Node2D) -> void:
 	if not is_collapsible or _is_collapsing:
+		print("Is collapsing")
 		return
 		
 	if body is Player:
@@ -69,7 +76,17 @@ func _on_body_entered(body: Node2D) -> void:
 
 ## Initiates the platform collapse sequence
 func _start_collapse() -> void:
-	_is_collapsing = true
-	_collapse_timer = collapse_delay
-	# Add visual feedback like shaking or color change
 	modulate = Color(1, 0.5, 0.5) # Red tint to indicate collapsing
+	await get_tree().create_timer(collapse_delay).timeout
+	_is_collapsing = true # Keep this true to start falling
+
+func _start_respawn() -> void:
+	visible = false
+	await get_tree().create_timer(respawn_delay).timeout
+	
+	# Reset platform state
+	_is_collapsing = false
+	_velocity = Vector2.ZERO
+	$AnimatableBody2D.collision_layer = _default_collision_layer
+	modulate = Color.WHITE
+	visible = true

@@ -11,7 +11,7 @@ const DEATH_CLEANUP_DELAY := 2.0
 const JUMP_BUFFER_TIME := 200.0
 const MIN_MOVEMENT_THRESHOLD := 0.1
 const MIN_FALL_TIME := 0.2
-
+const SNAP_DISTANCE := 20
 # Movement properties
 @export var speed = 400 ## Base movement speed in pixels per second
 @export var acceleration = 10.0 ## Movement smoothing factor (1 = instant acceleration, higher = smoother)
@@ -247,8 +247,8 @@ func _handle_movement(delta: float) -> void:
 				tangent = -tangent
 			#print("Normal: ", get_floor_normal(), "; Tangent: ", get_floor_normal().orthogonal())
 			#print("Adjusted:", tangent)
-			velocity.x = move_toward(velocity.x, (move_direction * tangent.x) * speed, speed/acceleration)
-			velocity.y = move_toward(velocity.y, (move_direction * tangent.y) * 5 * speed, speed/acceleration)
+			velocity.x = move_toward(velocity.x, (move_direction) * speed, speed/acceleration)
+			#velocity.y = move_toward(velocity.y, (move_direction * tangent.y) * 5 * speed, speed/acceleration)
 			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*12), delta*5)
 		else:
 			velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
@@ -293,9 +293,9 @@ func _handle_ground_events() -> void:
 		jump_counter = 0
 		is_jumping = false
 		if not _was_grounded:
+			print("Landed")
+			grounded_start.emit()
 			if(Time.get_ticks_msec() > _start_falling_time + 1000*MIN_FALL_TIME):
-				print("Landed")
-				grounded_start.emit()
 				play_animation(&"land")
 
 ## Handles wall contact state changes
