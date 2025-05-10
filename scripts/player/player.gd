@@ -246,6 +246,8 @@ func _physics_process(delta) -> void:
 	_apply_gravity(delta)
 	_update_physics_state()
 	move_and_slide()
+	
+	_process_procedural_animation()
 
 ## Applies gravity when in air
 ## @param delta Time elapsed since last physics frame
@@ -412,3 +414,11 @@ func _try_dash():
 	_dash_time_left = dash_distance / dash_speed  # Duration = distance / speed
 	velocity = dash_dir * dash_speed
 	_last_dash_time = Time.get_ticks_msec()
+	
+	
+func _process_procedural_animation() -> void:
+	if not animated_sprite: return
+	
+	var max_y_velocity = 1000.0
+	var scale_x = lerp(1.0, 0.25, clamp(abs(velocity.y) / max_y_velocity, 0.0, 1.0))
+	animated_sprite.scale = lerp(animated_sprite.scale, Vector2(scale_x, 1), get_physics_process_delta_time())
