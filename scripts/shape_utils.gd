@@ -2,8 +2,8 @@ extends Object
 
 class_name ShapeUtils
 
-static func _is_between(x, min, max)-> bool:
-	if x > min and x < max:
+static func _is_between(x, min_value, max_value)-> bool:
+	if x > min_value and x < max_value:
 		return true
 	else: return false
 

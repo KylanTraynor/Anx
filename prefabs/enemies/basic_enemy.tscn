@@ -31,6 +31,8 @@ shape = SubResource("CapsuleShape2D_s8ea2")
 position = Vector2(-0.5, -153.5)
 scale = Vector2(10.85, 15.15)
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0

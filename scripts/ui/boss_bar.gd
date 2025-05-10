@@ -24,9 +24,9 @@ static func set_max(amount : int) -> void:
 	_max = amount
 
 static func set_health(health: int) -> void:
-	var is_damage = false
-	if(health < _current):
-		is_damage = true
+	#var is_damage = false
+	#if(health < _current):
+	#	is_damage = true
 	_current = health
 	_last_health_changed_time = Time.get_ticks_msec()
 	_instance._main_bar.value = 100.0 * _current / _max

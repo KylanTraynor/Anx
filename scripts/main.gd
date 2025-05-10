@@ -42,9 +42,9 @@ func _ready() -> void:
 ## Initializes all required nodes with validation
 func _initialize_required_nodes() -> void:
 	player = _find_node_if_null(player, "*", "Player", true)
-	play_area = _find_node_if_null(play_area, "PlayArea", "Area2D", false)
+	play_area = _find_node_if_null(play_area, "PlayArea", "Area2D", false, "No play area designated in Main. Camera will not be restricted.")
 	camera = _find_node_if_null(camera, "*", "Camera2D", true)
-	start_position = _find_node_if_null(start_position, "StartPosition", "Node2D", false)
+	start_position = _find_node_if_null(start_position, "StartPosition", "Node2D", false, "No start position found.")
 
 ## Finds a node of specified type if the provided reference is null
 ## @param variable Current node reference
@@ -52,7 +52,7 @@ func _initialize_required_nodes() -> void:
 ## @param type Type of node to find
 ## @param required Whether this node is required for game operation
 ## @return Node2D Found node or null
-func _find_node_if_null(variable: Node2D, namepattern: String, type: String, required: bool) -> Node2D:
+func _find_node_if_null(variable: Node2D, namepattern: String, type: String, required: bool, warning_message: String = "No %s node found. Some features may be limited." % type) -> Node2D:
 	if variable:
 		return variable
 		
@@ -61,7 +61,7 @@ func _find_node_if_null(variable: Node2D, namepattern: String, type: String, req
 		if required:
 			push_error("No %s node found!" % type)
 		else:
-			push_warning("No %s node found. Some features may be limited." % type)
+			push_warning(warning_message)
 		return null
 	return nodes[0]
 

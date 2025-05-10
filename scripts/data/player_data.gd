@@ -30,7 +30,7 @@ static func reload_state():
 	_instance = saved_state
 
 static func damage(amount: int) -> void:
-	if _instance.get_health() <= 0: return
+	if get_health() <= 0: return
 	get_instance().hit_points -= amount
 	_instance.health_changed.emit(_instance.hit_points)
 	_instance.damaged.emit(amount)

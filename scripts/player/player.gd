@@ -367,7 +367,6 @@ func _fade_out() -> void:
 ## @param restart Whether to restart the sound if it's already playing
 func play_sound(sound: AudioStream, restart: bool = false):
 	if sound == null:
-		push_warning("Sound was null.")
 		return
 		
 	if $PlayerAudio.stream != sound or restart:
@@ -376,11 +375,11 @@ func play_sound(sound: AudioStream, restart: bool = false):
 
 ## Plays the specified animation on the player's sprite
 ## @param animation_name Name of the animation to play
-func play_animation(animation_name : StringName, blend = -1.0, speed = 1.0) -> void:
+func play_animation(animation_name : StringName, blend = -1.0, animation_speed = 1.0) -> void:
 	if animation_name in [&"idle", &"walk"]:
-		animated_sprite.play(animation_name, speed)
+		animated_sprite.play(animation_name, animation_speed)
 	if animation_player.has_animation(animation_name):
-		animation_player.play(animation_name, blend, speed)
+		animation_player.play(animation_name, blend, animation_speed)
 
 ## Returns the player's collision shape size
 ## @return Vector2 representing the width and height of the collision shape
