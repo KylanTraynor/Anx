@@ -4,6 +4,7 @@ extends Area2D
 
 # Movement properties
 var direction := Vector2.ZERO ## Direction vector for projectile movement
+var velocity := Vector2.ZERO ## Current velocity vector
 var target: Node2D ## Target for homing projectiles
 
 # Projectile data
@@ -39,6 +40,9 @@ func _ready() -> void:
 		add_child(trail)
 	
 	self.body_entered.connect(_on_body_entered)
+	
+	# Initialize velocity based on direction and speed
+	velocity += direction * data.speed
 
 ## Called every physics frame
 ## Moves the projectile in its direction
@@ -51,8 +55,13 @@ func _physics_process(delta: float) -> void:
 	if data.homing and target and is_instance_valid(target):
 		var to_target = (target.global_position - global_position).normalized()
 		direction = direction.lerp(to_target, data.homing_strength * delta)
+		velocity = direction * data.speed
 	
-	position += direction * data.speed * delta
+	if data.use_gravity:
+		velocity.y += gravity * data.gravity_scale * delta
+
+	position += velocity * delta
+	rotation = velocity.angle()
 
 ## Called when the projectile collides with a body
 ## Damages the player and destroys the projectile
@@ -79,17 +88,16 @@ func _on_body_entered(body: Node2D) -> void:
 
 ## Handles collision with walls and implements bouncing
 ## @param wall The wall that was hit
-func _handle_wall_collision(wall: Node2D) -> void:
+func _handle_wall_collision(wall: PhysicsBody2D) -> void:
 	if _bounces_remaining <= 0:
 		queue_free()
 		return
 		
 	# Calculate collision normal based on relative positions
 	var collision_normal = ShapeUtils.get_normal_at_(global_position, wall, wall.global_position)
-	
-	print(collision_normal)
+
 	# Reflect direction based on collision normal
-	direction = direction.bounce(collision_normal)
+	velocity = velocity.bounce(collision_normal)
 	
 	# Decrease bounce count
 	_bounces_remaining -= 1
@@ -102,6 +110,9 @@ func _handle_wall_collision(wall: Node2D) -> void:
 		var effect = data.impact_effect.instantiate()
 		effect.global_position = global_position
 		get_parent().add_child(effect)
+
+func _draw():
+	draw_line(Vector2.ZERO, Vector2.RIGHT*500, Color.RED)
 
 func _play_impact_sound() -> void:
 	if not data.impact_sound:

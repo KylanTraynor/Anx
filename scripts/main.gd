@@ -14,6 +14,7 @@ const NOISE_SEED_OFFSET := 500
 @export var background_music: AudioStream ## Background music track
 @export var background_sound: AudioStream ## Ambient background sound
 @export var base_layer: Node ## Base layer for game elements
+@export var projectile_layer: Node ## Layer projectiles will be initialized into
 @export var player: Node2D ## Player character reference
 @export var play_area: Area2D ## Area that restricts camera movement
 @export var camera: Camera2D ## Main game camera
@@ -194,6 +195,12 @@ static func get_player() -> Player:
 		push_error("No main instance found!")
 		return null
 	return instance.player
+	
+static func get_projectile_layer() -> Node:
+	if(not instance):
+		push_error("No main instance found!")
+		return null
+	return instance.projectile_layer
 
 ## Resets the current scene and player data
 static func reset_current_scene() -> void:

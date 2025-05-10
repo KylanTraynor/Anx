@@ -51,10 +51,15 @@ func _shoot() -> void:
 	var projectile = projectile_scene.instantiate()
 	projectile.global_position = global_position
 	projectile.direction = Vector2(cos(rotation), sin(rotation))
+	if(self.get_parent() is PhysicsBody2D):
+		projectile.velocity = self.get_parent().velocity
 	projectile.data = projectile_data
 	if projectile_data.homing:
 		projectile.target = _player
-	get_parent().add_child(projectile)
+	if(Main.get_projectile_layer()):
+		Main.get_projectile_layer().add_child(projectile)
+	else:
+		get_tree().root.add_child(projectile)
 
 ## Called when a body enters the detection area
 ## Stores reference to player if detected

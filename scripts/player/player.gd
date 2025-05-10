@@ -106,7 +106,6 @@ func _connect_signals() -> void:
 func _process(delta: float) -> void:
 	if Main.instance.is_in_ui(): 
 		return
-	
 	_process_attack(delta)
 
 ## Processes jump input and state

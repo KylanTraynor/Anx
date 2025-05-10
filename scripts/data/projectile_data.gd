@@ -24,6 +24,8 @@ class_name ProjectileData
 @export var travel_sound: AudioStream ## Sound played while projectile is moving
 
 @export_category("Behavior")
+@export var use_gravity: bool = false ## Whether projectile is affected by gravity
+@export var gravity_scale: float = 1.0 ## How strongly projectile is affected by gravity
 @export var pierce_targets: bool = false ## Whether projectile continues after hitting
 @export var homing: bool = false ## Whether projectile follows target
 @export var homing_strength: float = 0.0 ## How strongly projectile follows target
