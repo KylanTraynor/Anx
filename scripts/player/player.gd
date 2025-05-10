@@ -209,7 +209,11 @@ func jump() -> void:
 	is_jumping = true
 	jump_counter += 1
 	print("Jump counter: ", jump_counter)
-	play_animation(&"jump", 1)
+	if(jump_counter == 1):
+		play_animation(&"jump", 1)
+	else:
+		var side = "r" if animated_sprite.flip_h else "l"
+		play_animation(str("spin_", side), 1)
 	play_sound(jump_sound, true)
 
 ## Called every physics frame

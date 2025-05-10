@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bnht0v1pkreiq"]
+[gd_scene load_steps=19 format=3 uid="uid://bnht0v1pkreiq"]
 
 [ext_resource type="Texture2D" uid="uid://bb80ddtch0347" path="res://art/characters/player/idle00.png" id="1_4b615"]
 [ext_resource type="Script" uid="uid://dt8x32kr18fhm" path="res://scripts/player/player.gd" id="1_78gyk"]
@@ -75,6 +75,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 64), Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_opo22"]
 length = 0.001
@@ -101,6 +113,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_8rb0w"]
@@ -157,12 +181,45 @@ tracks/1/keys = {
 "values": [Vector2(0, 0), Vector2(0, 115.2)]
 }
 
+[sub_resource type="Animation" id="Animation_m2qjg"]
+resource_name = "spin"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.378929, 2.54912),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_llb5v"]
+resource_name = "spin_r"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.378929, 2.54912),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8rb0w"]
 _data = {
 &"RESET": SubResource("Animation_opo22"),
 &"crushed": SubResource("Animation_sd3sa"),
 &"jump": SubResource("Animation_8rb0w"),
-&"land": SubResource("Animation_rgeog")
+&"land": SubResource("Animation_rgeog"),
+&"spin_l": SubResource("Animation_m2qjg"),
+&"spin_r": SubResource("Animation_llb5v")
 }
 
 [node name="Player" type="CharacterBody2D"]
