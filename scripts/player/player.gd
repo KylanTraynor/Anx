@@ -38,6 +38,7 @@ var is_jumping = false ## Whether player is currently in a jump
 # Node references
 var animated_sprite : AnimatedSprite2D ## Reference to the sprite animation component
 var collision_shape : CollisionShape2D ## Reference to the collision shape component
+var animation_player : AnimationPlayer ## Reference to the animation player component
 
 # Combat state
 var attack_direction := Vector2.ZERO ## Direction the player is facing for attacks
@@ -67,6 +68,7 @@ func _ready() -> void:
 func _setup_node_references() -> void:
 	var sprite_nodes = find_children("*", "AnimatedSprite2D")
 	var collision_nodes = find_children("*", "CollisionShape2D")
+	var animation_nodes = find_children("*", "AnimationPlayer")
 	
 	if sprite_nodes.is_empty():
 		push_error("No AnimatedSprite2D found for player")
@@ -76,9 +78,14 @@ func _setup_node_references() -> void:
 		push_error("No CollisionShape2D found for player")
 		queue_free()
 		return
+	if animation_nodes.is_empty():
+		push_error("No AnimationPlayer found for player")
+		queue_free()
+		return
 		
 	animated_sprite = sprite_nodes[0]
 	collision_shape = collision_nodes[0]
+	animation_player = animation_nodes[0]
 
 ## Connects all required signals
 func _connect_signals() -> void:
@@ -97,7 +104,7 @@ func _connect_signals() -> void:
 func _process(delta: float) -> void:
 	if Main.instance.is_in_ui(): 
 		return
-	_process_jump(delta)
+	
 	_process_attack(delta)
 
 ## Processes jump input and state
@@ -199,6 +206,8 @@ func jump() -> void:
 	velocity.y = -jump_strength
 	is_jumping = true
 	jump_counter += 1
+	print("Jump counter: ", jump_counter)
+	play_animation("jump")
 	play_sound(jump_sound, true)
 
 ## Called every physics frame
@@ -207,9 +216,13 @@ func jump() -> void:
 func _physics_process(delta) -> void:
 	_handle_events()
 	_apply_gravity(delta)
-	_handle_movement()
+	_handle_movement(delta)
 	_update_animation()
+	_process_jump(delta)
+	
+	
 	_update_physics_state()
+	
 	move_and_slide()
 
 ## Applies gravity when in air
@@ -219,18 +232,31 @@ func _apply_gravity(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 ## Handles horizontal movement
-func _handle_movement() -> void:
+func _handle_movement(delta: float) -> void:
 	var move_direction = Input.get_axis("move_left", "move_right")
 	if move_direction ** 2 >= MIN_MOVEMENT_THRESHOLD:
 		attack_direction.x = move_direction
-		velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
+		if is_on_floor():
+			var tangent = get_floor_normal().orthogonal()
+			if tangent.x < 0:
+				tangent = -tangent
+			#print("Normal: ", get_floor_normal(), "; Tangent: ", get_floor_normal().orthogonal())
+			#print("Adjusted:", tangent)
+			velocity.x = move_toward(velocity.x, (move_direction * tangent.x) * speed, speed/acceleration)
+			velocity.y = move_toward(velocity.y, (move_direction * tangent.y) * 5 * speed, speed/acceleration)
+			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*6), delta*5)
+		else:
+			velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
+			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*2), delta*5)
 		play_animation("walk")
 	else:
+		animated_sprite.skew = lerpf(animated_sprite.skew, 0.0, delta*5)
 		if is_on_floor():
 			velocity.x = move_toward(velocity.x, 0, speed/acceleration)
 		else:
-			velocity.x = move_toward(velocity.x, _last_ground_velocity.x, speed/acceleration)
+			velocity.x = move_toward(velocity.x, _last_ground_velocity.x, speed/(acceleration*5))
 		play_animation("idle")
+	#print("Velocity: ", velocity)
 
 ## Updates animation based on movement
 func _update_animation() -> void:
@@ -261,7 +287,9 @@ func _handle_ground_events() -> void:
 		jump_counter = 0
 		is_jumping = false
 		if not _was_grounded:
+			print("Landed")
 			grounded_start.emit()
+			play_animation("land")
 
 ## Handles wall contact state changes
 func _handle_wall_events() -> void:
@@ -324,6 +352,8 @@ func play_sound(sound: AudioStream, restart: bool = false):
 ## @param animation_name Name of the animation to play
 func play_animation(animation_name : String):
 	animated_sprite.play(animation_name)
+	if animation_player.has_animation(animation_name):
+		animation_player.play(animation_name)
 
 ## Returns the player's collision shape size
 ## @return Vector2 representing the width and height of the collision shape

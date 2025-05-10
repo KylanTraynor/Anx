@@ -85,9 +85,9 @@ func _handle_wall_collision(wall: Node2D) -> void:
 		return
 		
 	# Calculate collision normal based on relative positions
-	# Quick and dirty way to get a normal vector, but really doesn't work.
-	var collision_normal = (global_position - wall.global_position).normalized().orthogonal()
+	var collision_normal = ShapeUtils.get_normal_at_(global_position, wall, wall.global_position)
 	
+	print(collision_normal)
 	# Reflect direction based on collision normal
 	direction = direction.bounce(collision_normal)
 	
