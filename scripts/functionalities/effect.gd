@@ -7,5 +7,5 @@ func _ready() -> void:
 	$AnimationPlayer.animation_finished.connect(_on_finished)
 	$AnimationPlayer.play(&"play")
 
-func _on_finished() -> void:
+func _on_finished(_anim_name) -> void:
 	queue_free()
