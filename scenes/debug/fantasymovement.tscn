@@ -539,3 +539,14 @@ offset_bottom = 40.0
 texture = ExtResource("14_qvwsu")
 
 [node name="HUD" parent="UI" instance=ExtResource("9_s6ojs")]
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("2_744g4")
+autoplay = true
+bus = &"Music"
+
+[node name="BackgroundSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
+autoplay = true
+bus = &"Sounds"

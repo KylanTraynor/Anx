@@ -77,9 +77,10 @@ func _process(_delta: float) -> void:
 	_process_time_scale()
 
 func _process_time_scale() -> void:
+	for audioplayer: AudioStreamPlayer in find_children("*", "AudioStreamPlayer"):
+		audioplayer.pitch_scale = Engine.time_scale
 	for audioplayer: AudioStreamPlayer2D in find_children("*", "AudioStreamPlayer2D"):
 		audioplayer.pitch_scale = Engine.time_scale
-	
 	if $UI/TimeOverlay:
 		$UI/TimeOverlay.modulate = Color(1,1,1, 0.75 - (Engine.time_scale * 0.75))
 
