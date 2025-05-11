@@ -148,7 +148,7 @@ func _process_projectiles_interaction() -> void:
 				catch_projectile(o)
 				_interactable_objects.remove_at(_interactable_objects.find(o))
 				break
-	elif Input.is_action_just_pressed(&"action_attack") and _caught_projectile:
+	elif Input.is_action_just_released(&"action_attack") and _caught_projectile:
 		throw_projectile(_caught_projectile)
 
 ## Handles the time scale changes depending on context
