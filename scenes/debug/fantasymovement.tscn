@@ -1,7 +1,8 @@
-[gd_scene load_steps=70 format=3 uid="uid://bhwwryfp2f6bb"]
+[gd_scene load_steps=72 format=3 uid="uid://bhwwryfp2f6bb"]
 
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://prefabs/player.tscn" id="1_c6y0c"]
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_htiwf"]
+[ext_resource type="AudioStream" uid="uid://c2dascl7rnic3" path="res://sounds/backgroundmusic/Test Forest Music.wav" id="2_744g4"]
 [ext_resource type="Script" uid="uid://dljfd8m4747um" path="res://addons/rmsmartshape/shapes/shape_closed.gd" id="3_xtiew"]
 [ext_resource type="Script" uid="uid://crt8cstbdfuyr" path="res://addons/rmsmartshape/vertex_properties.gd" id="4_f0k5l"]
 [ext_resource type="Script" uid="uid://cekcaqqk77qpu" path="res://addons/rmsmartshape/shapes/point.gd" id="5_s6ojs"]
@@ -14,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cnoqgnk8ri4m1" path="res://prefabs/objects/platforms/basic_platform.tscn" id="10_wolfc"]
 [ext_resource type="PackedScene" uid="uid://nf3as5xr2kf5" path="res://prefabs/objects/perils/boulder.tscn" id="12_g1jw4"]
 [ext_resource type="PackedScene" uid="uid://x01fcgsluvgv" path="res://prefabs/enemies/basic_turret.tscn" id="12_swaou"]
+[ext_resource type="Texture2D" uid="uid://cwe3suudraxgv" path="res://art/ui/time_overlay.png" id="14_qvwsu"]
 
 [sub_resource type="Resource" id="Resource_swaou"]
 script = ExtResource("4_f0k5l")
@@ -421,6 +423,7 @@ point_count = 3
 
 [node name="Fantasy Movement" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_htiwf")
+background_music = ExtResource("2_744g4")
 player = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource("1_c6y0c")]
@@ -529,5 +532,10 @@ height = 0.18
 color = Color(0.374139, 0.374139, 0.374139, 1)
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TimeOverlay" type="TextureRect" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("14_qvwsu")
 
 [node name="HUD" parent="UI" instance=ExtResource("9_s6ojs")]

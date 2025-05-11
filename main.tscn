@@ -330,14 +330,14 @@ render_offset = 0.0
 [sub_resource type="CanvasTexture" id="CanvasTexture_yaehf"]
 diffuse_texture = ExtResource("14_2cqfq")
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("base_layer", "player", "play_area", "camera", "start_position")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("player", "play_area", "camera", "start_position", "base_layer")]
 script = ExtResource("1_0xm2m")
 background_music = ExtResource("2_htxhm")
-base_layer = NodePath("PlayArea/PlayLayer")
 player = NodePath("PlayArea/PlayLayer/Player")
 play_area = NodePath("PlayArea")
 camera = NodePath("Camera")
 start_position = NodePath("StartPosition")
+base_layer = NodePath("PlayArea/PlayLayer")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.659054, 0.811177, 0.883789, 1)

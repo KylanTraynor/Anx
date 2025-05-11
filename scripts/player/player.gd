@@ -36,6 +36,7 @@ const MIN_FALL_TIME := 0.2
 @export var attack_cooldown = 0.5 ## Minimum time between attacks in seconds
 @export var catch_tolerance = 0.5 ## Time in seconds of tolerance for catching projectiles
 @export var throw_strength = 2000 ## Strength of the projectiles thrown
+@export var melee_effect : PackedScene ## Effect for melee attacks
 
 @export_subgroup("Dash settings")
 @export var dash_speed := 4000.0  # How fast the dash is
@@ -133,6 +134,7 @@ func _process_attack(_delta: float) -> void:
 		return
 	print("Player attacks!")
 	_last_attack = Time.get_ticks_msec()
+	Main.play_local_effect(melee_effect, self, Vector2(0,0), Vector2(2,2) if animated_sprite.flip_h else Vector2(-2,2))
 	_apply_attack_damage()
 
 ## Handles catch input

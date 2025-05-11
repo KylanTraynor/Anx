@@ -13,12 +13,14 @@ const NOISE_SEED_OFFSET := 500
 # Exported nodes
 @export var background_music: AudioStream ## Background music track
 @export var background_sound: AudioStream ## Ambient background sound
-@export var base_layer: Node ## Base layer for game elements
-@export var projectile_layer: Node ## Layer projectiles will be initialized into
 @export var player: Node2D ## Player character reference
 @export var play_area: Area2D ## Area that restricts camera movement
 @export var camera: Camera2D ## Main game camera
 @export var start_position: Node2D ## Player spawn position
+@export_category("Layers")
+@export var base_layer: Node ## Base layer for game elements
+@export var projectile_layer: Node2D ## Layer projectiles will be initialized into
+@export var effects_layer: Node2D ## Layer effects will live in
 
 # Signals
 signal interactable_changed ## Emitted when current interactable changes
@@ -72,6 +74,14 @@ func _process(_delta: float) -> void:
 	_process_camera_position()
 	_process_interaction()
 	_process_input()
+	_process_time_scale()
+
+func _process_time_scale() -> void:
+	for audioplayer: AudioStreamPlayer2D in find_children("*", "AudioStreamPlayer2D"):
+		audioplayer.pitch_scale = Engine.time_scale
+	
+	if $UI/TimeOverlay:
+		$UI/TimeOverlay.modulate = Color(1,1,1, 0.75 - (Engine.time_scale * 0.75))
 
 ## Processes player interaction with interactable objects
 func _process_interaction() -> void:
@@ -199,11 +209,44 @@ static func get_player() -> Player:
 		return null
 	return instance.player
 	
-static func get_projectile_layer() -> Node:
+## Get the layer projectiles should live in.
+static func get_projectile_layer() -> Node2D:
 	if(not instance):
 		push_error("No main instance found!")
 		return null
 	return instance.projectile_layer
+
+## Get the layer effects should live in.
+static func get_effects_layer() -> Node2D:
+	if(not instance):
+		push_error("No main instance found!")
+		return null
+	return instance.effects_layer
+
+## Plays the given effect at the given position
+static func play_global_effect(effect: PackedScene, position: Vector2, scale: Vector2 = Vector2.ONE, rotation: float = 0.0) -> Effect:
+	if not effect : return null
+	if(not instance):
+		push_error("No main instance found!")
+		return
+	var e : Effect = effect.instantiate()
+	if(get_effects_layer()):
+		get_effects_layer().add_child(e)
+	else:
+		instance.get_tree().root.add_child(e)
+	e.global_position = position
+	e.scale = scale
+	e.rotation = rotation
+	return e
+
+static func play_local_effect(effect: PackedScene, parent: Node2D, position:= Vector2.ZERO, scale:= Vector2.ONE, rotation: float = 0.0) -> Effect:
+	if not effect : return null
+	var e : Effect = effect.instantiate()
+	parent.add_child(e)
+	e.position = position
+	e.scale = scale
+	e.rotation = rotation
+	return e	
 
 ## Resets the current scene and player data
 static func reset_current_scene() -> void:
