@@ -234,6 +234,8 @@ func _handle_movement(delta: float) -> void:
 	var move_direction = Input.get_axis(&"move_left", &"move_right")
 	if move_direction ** 2 >= MIN_MOVEMENT_THRESHOLD:
 		_attack_direction.x = move_direction
+		_attack_direction = _attack_direction.normalized() # IMPORTANT FOR JOYSTICKS OTHERWISE IT BREAKS PROJECTILES
+		print(_attack_direction)
 		if is_on_floor():
 			var tangent = get_floor_normal().orthogonal()
 			if tangent.x < 0:
