@@ -7,6 +7,7 @@ class_name ProjectileData
 @export var speed: float = 500.0 ## Base movement speed
 @export var damage: int = 1 ## Base damage dealt to targets
 @export var lifetime: float = 5.0 ## How long the projectile exists before auto-destroying
+@export var catchable: bool = false ## Can the projectile be caught by the player and returned?
 
 @export_category("Visual")
 @export var texture: Texture2D ## Sprite texture for the projectile
@@ -17,6 +18,7 @@ class_name ProjectileData
 @export var element: String = "" ## Element type (fire, ice, etc.)
 @export var impact_effect: PackedScene ## Effect to spawn on impact
 @export var trail_effect: PackedScene ## Effect to spawn while moving
+@export var bounce_effect: PackedScene ## Effect to spawn when bouncing
 
 @export_category("Audio")
 @export var shoot_sound: AudioStream ## Sound played when projectile is created

@@ -4,6 +4,10 @@ extends CharacterBody2D
 
 class_name Player
 
+# ===============================================================================
+# ==========================  CONSTANT UPDATING  ===============================
+# ===============================================================================
+
 # Constants
 const DAMAGE_FLASH_DURATION := 0.1
 const DEATH_FADE_DURATION := 0.11
@@ -30,6 +34,8 @@ const MIN_FALL_TIME := 0.2
 @export_subgroup("Combat settings")
 @export var melee_range = 5 ## Attack range in units of player width
 @export var attack_cooldown = 0.5 ## Minimum time between attacks in seconds
+@export var catch_tolerance = 0.5 ## Time in seconds of tolerance for catching projectiles
+@export var throw_strength = 2000 ## Strength of the projectiles thrown
 
 @export_subgroup("Dash settings")
 @export var dash_speed := 4000.0  # How fast the dash is
@@ -42,6 +48,7 @@ var jump_counter = 0 ## Current number of jumps performed
 var is_jumping = false ## Whether player is currently in a jump
 var _is_dashing := false
 var _dash_time_left := 0.0
+var _interactable_objects : Array[Area2D] = []
 
 # Node references
 var animated_sprite : AnimatedSprite2D ## Reference to the sprite animation component
@@ -49,7 +56,9 @@ var collision_shape : CollisionShape2D ## Reference to the collision shape compo
 var animation_player : AnimationPlayer ## Reference to the animation player component
 
 # Combat state
-var attack_direction := Vector2.ZERO ## Direction the player is facing for attacks
+var _attack_direction := Vector2.ZERO ## Direction the player is facing for attacks
+var _ready_to_catch_time := 0 ## Timestamp of when the player is ready to catch a projectile
+var _caught_projectile : Projectile ## Projectile that the player is currently catching
 
 # Physics state tracking
 var _was_grounded : bool = false ## Previous frame's ground contact state
@@ -74,40 +83,6 @@ func _ready() -> void:
 	_setup_node_references()
 	_connect_signals()
 
-## Sets up references to required nodes
-func _setup_node_references() -> void:
-	var sprite_nodes = find_children("*", "AnimatedSprite2D")
-	var collision_nodes = find_children("*", "CollisionShape2D")
-	var animation_nodes = find_children("*", "AnimationPlayer")
-	
-	if sprite_nodes.is_empty():
-		push_error("No AnimatedSprite2D found for player")
-		queue_free()
-		return
-	if collision_nodes.is_empty():
-		push_error("No CollisionShape2D found for player")
-		queue_free()
-		return
-	if animation_nodes.is_empty():
-		push_error("No AnimationPlayer found for player")
-		queue_free()
-		return
-		
-	animated_sprite = sprite_nodes[0]
-	collision_shape = collision_nodes[0]
-	animation_player = animation_nodes[0]
-
-## Connects all required signals
-func _connect_signals() -> void:
-	var player_data = PlayerData.get_instance()
-	if not player_data:
-		push_error("PlayerData singleton not found")
-		queue_free()
-		return
-		
-	player_data.damaged.connect(_on_damaged)
-	player_data.die.connect(_on_die)
-
 ## Called every frame
 ## Handles jump and attack input processing
 ## @param delta Time elapsed since last frame
@@ -115,14 +90,82 @@ func _process(delta: float) -> void:
 	if Main.instance.is_in_ui(): 
 		return
 	_process_attack(delta)
+	_process_projectiles_interaction()
 
-## Processes jump input and state
-## Handles jump button press, hold, and release
+## Called every physics frame
+## Handles movement, gravity, and collision detection
+## @param delta Time elapsed since last physics frame
+func _physics_process(delta) -> void:
+	_try_dash()
+
+	if _is_dashing:
+		_dash_time_left -= delta
+		if _dash_time_left <= 0.0:
+			_is_dashing = false
+		else:
+			# Optionally, disable gravity and input during dash
+			move_and_slide()
+			return  # Skip normal movement while dashing
+
+	# Normal movement code below
+	_handle_events()
+	_handle_movement(delta)
+	_update_animation()
+	_process_jump(delta)
+	_apply_gravity(delta)
+	_update_physics_state()
+	move_and_slide()
+	
+	_process_procedural_animation()
+	_process_time_scale(delta)
+
+## Handles jump and attack input processing
 ## @param _delta Time elapsed since last frame
 func _process_jump(_delta: float) -> void:
 	_handle_jump_input()
 	_handle_jump_hold()
 	_handle_jump_release()
+
+## Handles attack input and triggers attack logic
+## @param _delta Time elapsed since last frame
+func _process_attack(_delta: float) -> void:
+	if not _can_attack():
+		return
+	print("Player attacks!")
+	_last_attack = Time.get_ticks_msec()
+	_apply_attack_damage()
+
+## Handles catch input
+func _process_projectiles_interaction() -> void:
+	if _caught_projectile:
+		_caught_projectile.global_position = self.global_position + _attack_direction * get_size().x
+	if Input.is_action_just_pressed(&"action_attack") and not _caught_projectile:
+		_ready_to_catch_time = Time.get_ticks_msec()
+		for o in _interactable_objects:
+			if o is Projectile:
+				catch_projectile(o)
+				_interactable_objects.remove_at(_interactable_objects.find(o))
+				break
+	elif Input.is_action_just_pressed(&"action_attack") and _caught_projectile:
+		throw_projectile(_caught_projectile)
+
+## Handles the time scale changes depending on context
+func _process_time_scale(delta : float) -> void:
+	if(_caught_projectile):
+		Engine.time_scale = lerpf(Engine.time_scale, 0.5, delta * 5)
+	else:
+		Engine.time_scale = lerpf(Engine.time_scale, 1, delta * 5)
+
+## Handles procedural animation effects (e.g., squash/stretch)
+func _process_procedural_animation() -> void:
+	if not animated_sprite: return
+	var max_y_velocity = 1000.0
+	var scale_x = lerp(1.0, 0.25, clamp(abs(velocity.y) / max_y_velocity, 0.0, 1.0))
+	animated_sprite.scale = lerp(animated_sprite.scale, Vector2(scale_x, 1), get_physics_process_delta_time())
+
+# ===============================================================================
+# ============================  MOVEMENT GROUP  ================================
+# ===============================================================================
 
 ## Handles initial jump input
 func _handle_jump_input() -> void:
@@ -136,7 +179,6 @@ func _handle_jump_hold() -> void:
 		velocity.y = -jump_strength
 
 ## Handles jump button release
-## @param jump_delta Time since jump was initiated
 func _handle_jump_release() -> void:
 	var is_about_to_jump = jump_pressed_time != -1
 	var jump_delta = Time.get_ticks_msec() - jump_pressed_time if is_about_to_jump else 0
@@ -144,36 +186,82 @@ func _handle_jump_release() -> void:
 		is_jumping = false
 		jump_pressed_time = -1
 
-## Processes attack input and performs melee attacks
-## Checks for enemies in range and applies damage
-## @param _delta Time elapsed since last frame
-func _process_attack(_delta: float) -> void:
-	if not _can_attack():
+## Handles dash input and triggers dash logic
+func _try_dash():
+	if _is_dashing:
 		return
-		
-	print("Player attacks!")
-	_last_attack = Time.get_ticks_msec()
-	_apply_attack_damage()
+	if not Input.is_action_just_pressed(&"action_dash"):
+		return
+	if (Time.get_ticks_msec() < _last_dash_time + int(dash_cooldown * 1000)):
+		return
 
-## Checks if player can attack
-## @return bool True if attack can be performed
-func _can_attack() -> bool:
-	if not Input.is_action_just_pressed(&"action_attack"):
-		return false
-	if Time.get_ticks_msec() <= _last_attack + attack_cooldown * 1000:
-		return false
-	return true
+	var dash_dir: Vector2
+	if is_on_floor():
+		# Dash along the ground tangent, always oriented rightward
+		var floor_normal = get_floor_normal()
+		var tangent = Vector2(-floor_normal.y, floor_normal.x).normalized()  # Rightward tangent for Godot's coordinate system
+		var move_dir = Input.get_axis(&"move_left", &"move_right")
+		if move_dir == 0:
+			# Default to facing direction if no input
+			tangent = tangent if animated_sprite.flip_h else -tangent
+		else:
+			tangent = tangent * sign(move_dir)
+		dash_dir = tangent
+	else:
+		# Dash horizontally in air
+		dash_dir = Vector2(Input.get_axis(&"move_left", &"move_right"), 0)
+		if dash_dir == Vector2.ZERO:
+			dash_dir.x = (1 if animated_sprite.flip_h else -1) if animated_sprite else 1  # Default to facing direction
+		dash_dir = dash_dir.normalized()
+		if dash_dir == Vector2.ZERO:
+			dash_dir = Vector2.RIGHT  # Fallback
 
-## Applies damage to enemies in range
-func _apply_attack_damage() -> void:
-	var enemies = Main.instance.find_children("*", "EnemyController")
-	for enemy in enemies:
-		if not enemy.is_on_screen():
-			continue
-		var attack_pos = self.global_position - self.attack_direction * self.get_size().x
-		var to_enemy = enemy.global_position - attack_pos
-		if to_enemy.dot(self.attack_direction) > 0 and abs(to_enemy.x) < (melee_range * get_size().x) and abs(to_enemy.y) < (melee_range * get_size().x):
-			enemy.damage(1)
+	_is_dashing = true
+	_dash_time_left = dash_distance / dash_speed  # Duration = distance / speed
+	velocity = dash_dir * dash_speed
+	_last_dash_time = Time.get_ticks_msec()
+
+## Applies gravity to the player
+## @param delta Time elapsed since last physics frame
+func _apply_gravity(delta: float) -> void:
+	velocity += get_gravity() * delta
+
+## Handles horizontal and vertical movement
+## @param delta Time elapsed since last physics frame
+func _handle_movement(delta: float) -> void:
+	var move_direction = Input.get_axis(&"move_left", &"move_right")
+	if move_direction ** 2 >= MIN_MOVEMENT_THRESHOLD:
+		_attack_direction.x = move_direction
+		if is_on_floor():
+			var tangent = get_floor_normal().orthogonal()
+			if tangent.x < 0:
+				tangent = -tangent
+			velocity.x = move_toward(velocity.x, (move_direction) * speed, speed/acceleration)
+			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*12), delta*5)
+		else:
+			velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
+			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*4), delta*5)
+		play_animation(&"walk")
+	else:
+		animated_sprite.skew = lerpf(animated_sprite.skew, 0.0, delta*5)
+		if is_on_floor():
+			velocity.x = move_toward(velocity.x, 0, speed/acceleration)
+		else:
+			velocity.x = move_toward(velocity.x, _last_ground_velocity.x, speed/(acceleration*5))
+		play_animation(&"idle")
+
+## Executes a jump by applying upward force and updating state
+func jump() -> void:
+	velocity.y = -jump_strength
+	is_jumping = true
+	jump_counter += 1
+	print("Jump counter: ", jump_counter)
+	if(jump_counter == 1):
+		play_animation(&"jump", 1)
+	else:
+		var side = "r" if animated_sprite.flip_h else "l"
+		play_animation(str("spin_", side), 1)
+	play_sound(jump_sound, true)
 
 ## Registers a jump attempt and handles jump buffering
 ## @param tolerance Time window in milliseconds to buffer the jump input
@@ -210,77 +298,98 @@ func _handle_air_jump(tolerance: float) -> void:
 		jump_pressed_time = -1
 		print("Grounded too late, no jumping.")
 
-## Executes a jump by applying upward force and updating state
-func jump() -> void:
-	velocity.y = -jump_strength
-	is_jumping = true
-	jump_counter += 1
-	print("Jump counter: ", jump_counter)
-	if(jump_counter == 1):
-		play_animation(&"jump", 1)
-	else:
-		var side = "r" if animated_sprite.flip_h else "l"
-		play_animation(str("spin_", side), 1)
-	play_sound(jump_sound, true)
+# ===============================================================================
+# =============================  COMBAT GROUP  =================================
+# ===============================================================================
 
-## Called every physics frame
-## Handles movement, gravity, and collision detection
-## @param delta Time elapsed since last physics frame
-func _physics_process(delta) -> void:
-	_try_dash()
+## Checks if player can attack
+## @return bool True if attack can be performed
+func _can_attack() -> bool:
+	if not Input.is_action_just_pressed(&"action_attack"):
+		return false
+	if Time.get_ticks_msec() <= _last_attack + attack_cooldown * 1000:
+		return false
+	return true
 
-	if _is_dashing:
-		_dash_time_left -= delta
-		if _dash_time_left <= 0.0:
-			_is_dashing = false
-		else:
-			# Optionally, disable gravity and input during dash
-			move_and_slide()
-			return  # Skip normal movement while dashing
+## Applies damage to enemies in range
+func _apply_attack_damage() -> void:
+	var enemies = Main.instance.find_children("*", "EnemyController")
+	for enemy in enemies:
+		if not enemy.is_on_screen():
+			continue
+		var attack_pos = self.global_position - _attack_direction * self.get_size().x
+		var to_enemy = enemy.global_position - attack_pos
+		if to_enemy.dot(_attack_direction) > 0 and abs(to_enemy.x) < (melee_range * get_size().x) and abs(to_enemy.y) < (melee_range * get_size().x):
+			enemy.damage(1)
 
-	# Normal movement code below
-	_handle_events()
-	_handle_movement(delta)
-	_update_animation()
-	_process_jump(delta)
-	_apply_gravity(delta)
-	_update_physics_state()
-	move_and_slide()
+## Did the player press catch within the tolerance?
+func is_ready_to_catch() -> bool:
+	return Time.get_ticks_msec() >= _ready_to_catch_time and Time.get_ticks_msec() < _ready_to_catch_time + 1000.0 * catch_tolerance
+
+## Catches a projectile
+## @param projectile The projectile to catch
+func catch_projectile(projectile: Projectile) -> void:
+	_ready_to_catch_time = -1
+	_caught_projectile = projectile
+	projectile.catch(self)
+	print("Projectile caught!")
 	
-	_process_procedural_animation()
+## Throws a projectile
+## @param projectile The projectile to throw
+func throw_projectile(projectile: Projectile) -> void:
+	projectile.global_position = self.global_position + _attack_direction * get_size().x
+	if(projectile == _caught_projectile):
+		_caught_projectile = null
+	projectile.throw(self.velocity + _attack_direction * throw_strength, self)
+	if not is_on_floor():
+		velocity -= _attack_direction * throw_strength
 
-## Applies gravity when in air
-## @param delta Time elapsed since last physics frame
-func _apply_gravity(delta: float) -> void:
-	#if not is_on_floor():
-	velocity += get_gravity() * delta
+# ===============================================================================
+# ==========================  GENERAL / SIGNALS  ===============================
+# ===============================================================================
+## Sets up references to required nodes
+func _setup_node_references() -> void:
+	var sprite_nodes = find_children("*", "AnimatedSprite2D")
+	var collision_nodes = find_children("*", "CollisionShape2D")
+	var animation_nodes = find_children("*", "AnimationPlayer")
+	
+	if sprite_nodes.is_empty():
+		push_error("No AnimatedSprite2D found for player")
+		queue_free()
+		return
+	if collision_nodes.is_empty():
+		push_error("No CollisionShape2D found for player")
+		queue_free()
+		return
+	if animation_nodes.is_empty():
+		push_error("No AnimationPlayer found for player")
+		queue_free()
+		return
+		
+	animated_sprite = sprite_nodes[0]
+	collision_shape = collision_nodes[0]
+	animation_player = animation_nodes[0]
 
-## Handles horizontal movement
-func _handle_movement(delta: float) -> void:
-	var move_direction = Input.get_axis(&"move_left", &"move_right")
-	if move_direction ** 2 >= MIN_MOVEMENT_THRESHOLD:
-		attack_direction.x = move_direction
-		if is_on_floor():
-			var tangent = get_floor_normal().orthogonal()
-			if tangent.x < 0:
-				tangent = -tangent
-			#print("Normal: ", get_floor_normal(), "; Tangent: ", get_floor_normal().orthogonal())
-			#print("Adjusted:", tangent)
-			velocity.x = move_toward(velocity.x, (move_direction) * speed, speed/acceleration)
-			#velocity.y = move_toward(velocity.y, (move_direction * tangent.y) * 5 * speed, speed/acceleration)
-			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*12), delta*5)
-		else:
-			velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
-			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*4), delta*5)
-		play_animation(&"walk")
-	else:
-		animated_sprite.skew = lerpf(animated_sprite.skew, 0.0, delta*5)
-		if is_on_floor():
-			velocity.x = move_toward(velocity.x, 0, speed/acceleration)
-		else:
-			velocity.x = move_toward(velocity.x, _last_ground_velocity.x, speed/(acceleration*5))
-		play_animation(&"idle")
-	#print("Velocity: ", velocity)
+## Connects all required signals
+func _connect_signals() -> void:
+	var player_data = PlayerData.get_instance()
+	if not player_data:
+		push_error("PlayerData singleton not found")
+		queue_free()
+		return
+		
+	player_data.damaged.connect(_on_damaged)
+	player_data.die.connect(_on_die)
+	
+## When something enters the interaction area
+func _on_interaction_area_entered(area : Area2D) -> void:
+	_interactable_objects.append(area)
+
+## When something leaves the interaction area
+func _on_interaction_area_exited(area: Area2D) -> void:
+	var i = _interactable_objects.find(area)
+	if i >= 0:
+		_interactable_objects.remove_at(i)
 
 ## Updates animation based on movement
 func _update_animation() -> void:
@@ -296,7 +405,6 @@ func _update_physics_state() -> void:
 		_last_ground_velocity = get_platform_velocity()
 
 ## Handles state change events and emits appropriate signals
-## Manages ground, wall, and ceiling contact state changes
 func _handle_events() -> void:
 	_handle_ground_events()
 	_handle_wall_events()
@@ -368,13 +476,14 @@ func _fade_out() -> void:
 func play_sound(sound: AudioStream, restart: bool = false):
 	if sound == null:
 		return
-		
 	if $PlayerAudio.stream != sound or restart:
 		$PlayerAudio.stream = sound
 		$PlayerAudio.play()
 
 ## Plays the specified animation on the player's sprite
 ## @param animation_name Name of the animation to play
+## @param blend Animation blend time
+## @param animation_speed Playback speed
 func play_animation(animation_name : StringName, blend = -1.0, animation_speed = 1.0) -> void:
 	if animation_name in [&"idle", &"walk"]:
 		animated_sprite.play(animation_name, animation_speed)
@@ -392,44 +501,3 @@ func get_size() -> Vector2:
 	else:
 		push_warning("Unrecognized player shape.")
 		return Vector2.ZERO
-
-func _try_dash():
-	if _is_dashing:
-		return
-	if not Input.is_action_just_pressed(&"action_dash"):
-		return
-	if (Time.get_ticks_msec() < _last_dash_time + int(dash_cooldown * 1000)):
-		return
-
-	var dash_dir: Vector2
-	if is_on_floor():
-		# Dash along the ground tangent, always oriented rightward
-		var floor_normal = get_floor_normal()
-		var tangent = Vector2(-floor_normal.y, floor_normal.x).normalized()  # Rightward tangent for Godot's coordinate system
-		var move_dir = Input.get_axis(&"move_left", &"move_right")
-		if move_dir == 0:
-			# Default to facing direction if no input
-			tangent = tangent if animated_sprite.flip_h else -tangent
-		else:
-			tangent = tangent * sign(move_dir)
-		dash_dir = tangent
-	else:
-		# Dash horizontally in air
-		dash_dir = Vector2(Input.get_axis(&"move_left", &"move_right"), 0)
-		if dash_dir == Vector2.ZERO:
-			dash_dir.x = (1 if animated_sprite.flip_h else -1) if animated_sprite else 1  # Default to facing direction
-		dash_dir = dash_dir.normalized()
-		if dash_dir == Vector2.ZERO:
-			dash_dir = Vector2.RIGHT  # Fallback
-
-	_is_dashing = true
-	_dash_time_left = dash_distance / dash_speed  # Duration = distance / speed
-	velocity = dash_dir * dash_speed
-	_last_dash_time = Time.get_ticks_msec()
-
-func _process_procedural_animation() -> void:
-	if not animated_sprite: return
-	
-	var max_y_velocity = 1000.0
-	var scale_x = lerp(1.0, 0.25, clamp(abs(velocity.y) / max_y_velocity, 0.0, 1.0))
-	animated_sprite.scale = lerp(animated_sprite.scale, Vector2(scale_x, 1), get_physics_process_delta_time())

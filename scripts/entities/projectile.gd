@@ -2,6 +2,8 @@
 ## Used by turrets and other enemies to attack the player.
 extends Area2D
 
+class_name Projectile
+
 # Movement properties
 var direction := Vector2.ZERO ## Direction vector for projectile movement
 var velocity := Vector2.ZERO ## Current velocity vector
@@ -11,6 +13,11 @@ var target: Node2D ## Target for homing projectiles
 var data: ProjectileData ## Configuration data for this projectile
 var _spawn_time: int ## When the projectile was created
 var _bounces_remaining: int ## Number of bounces left before destruction
+var _default_collision_layer: int ## Default collision layer
+
+signal bounced
+signal caught(by_whom: CharacterBody2D)
+signal thrown(by_whom: CharacterBody2D)
 
 ## Called when the node enters the scene tree
 ## Initializes the projectile with its data
@@ -22,6 +29,7 @@ func _ready() -> void:
 		
 	_spawn_time = Time.get_ticks_msec()
 	_bounces_remaining = data.bounces
+	_default_collision_layer = collision_layer
 	
 	# Setup sprite
 	if data.texture:
@@ -106,15 +114,34 @@ func _handle_wall_collision(wall: PhysicsBody2D) -> void:
 	
 	# Play bounce sound
 	_play_impact_sound()
-	
+
 	# Spawn bounce effect
-	if data.impact_effect:
-		var effect = data.impact_effect.instantiate()
+	if data.bounce_effect:
+		var effect = data.bounce_effect.instantiate()
 		effect.global_position = global_position
 		get_parent().add_child(effect)
+	
+	# Emit bounced signal
+	bounced.emit()
 
 func _draw():
 	draw_line(Vector2.ZERO, Vector2.RIGHT*500, Color.RED)
+
+func throw(velocity: Vector2, by_whom: CharacterBody2D = null) -> void:
+	self.collision_layer = _default_collision_layer
+	if Main.get_projectile_layer():
+		reparent(Main.get_projectile_layer())
+	else:
+		reparent(get_tree().root)
+	self.velocity = velocity
+	self.position += self.velocity * get_physics_process_delta_time()
+	thrown.emit(by_whom)
+
+func catch(by_whom: CharacterBody2D) -> void:
+	collision_layer = 0
+	reparent(by_whom)
+	velocity = Vector2.ZERO
+	caught.emit(by_whom)
 
 func _play_impact_sound() -> void:
 	if not data.impact_sound:
