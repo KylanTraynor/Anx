@@ -424,6 +424,7 @@ script = ExtResource("1_htiwf")
 player = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource("1_c6y0c")]
+floor_snap_length = 60.0
 speed = 1500
 acceleration = 7.0
 jump_boost = 6

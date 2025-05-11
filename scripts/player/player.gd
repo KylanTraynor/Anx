@@ -401,20 +401,32 @@ func _try_dash():
 	if (Time.get_ticks_msec() < _last_dash_time + int(dash_cooldown * 1000)):
 		return
 
-	var dash_dir = Vector2(Input.get_axis(&"move_left", &"move_right"), 0)
-	if dash_dir == Vector2.ZERO:
-		dash_dir.x = (1 if animated_sprite.flip_h else -1) if animated_sprite else 1  # Default to facing direction
-
-	dash_dir = dash_dir.normalized()
-	if dash_dir == Vector2.ZERO:
-		dash_dir = Vector2.RIGHT  # Fallback
+	var dash_dir: Vector2
+	if is_on_floor():
+		# Dash along the ground tangent, always oriented rightward
+		var floor_normal = get_floor_normal()
+		var tangent = Vector2(-floor_normal.y, floor_normal.x).normalized()  # Rightward tangent for Godot's coordinate system
+		var move_dir = Input.get_axis(&"move_left", &"move_right")
+		if move_dir == 0:
+			# Default to facing direction if no input
+			tangent = tangent if animated_sprite.flip_h else -tangent
+		else:
+			tangent = tangent * sign(move_dir)
+		dash_dir = tangent
+	else:
+		# Dash horizontally in air
+		dash_dir = Vector2(Input.get_axis(&"move_left", &"move_right"), 0)
+		if dash_dir == Vector2.ZERO:
+			dash_dir.x = (1 if animated_sprite.flip_h else -1) if animated_sprite else 1  # Default to facing direction
+		dash_dir = dash_dir.normalized()
+		if dash_dir == Vector2.ZERO:
+			dash_dir = Vector2.RIGHT  # Fallback
 
 	_is_dashing = true
 	_dash_time_left = dash_distance / dash_speed  # Duration = distance / speed
 	velocity = dash_dir * dash_speed
 	_last_dash_time = Time.get_ticks_msec()
-	
-	
+
 func _process_procedural_animation() -> void:
 	if not animated_sprite: return
 	
