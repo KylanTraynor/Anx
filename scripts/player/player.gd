@@ -134,7 +134,8 @@ func _process_attack(_delta: float) -> void:
 		return
 	print("Player attacks!")
 	_last_attack = Time.get_ticks_msec()
-	Main.play_local_effect(melee_effect, self, Vector2(0,0), Vector2(2,2) if animated_sprite.flip_h else Vector2(-2,2))
+	play_animation(&"attack")
+	Main.play_local_effect(melee_effect, $Visuals, Vector2(0,0), Vector2(2,2))
 	_apply_attack_damage()
 
 ## Handles catch input
@@ -205,7 +206,7 @@ func _try_dash():
 		var move_dir = Input.get_axis(&"move_left", &"move_right")
 		if move_dir == 0:
 			# Default to facing direction if no input
-			tangent = tangent if animated_sprite.flip_h else -tangent
+			tangent = -tangent if $Visuals.scale.x < 0 else tangent
 		else:
 			tangent = tangent * sign(move_dir)
 		dash_dir = tangent
@@ -213,7 +214,7 @@ func _try_dash():
 		# Dash horizontally in air
 		dash_dir = Vector2(Input.get_axis(&"move_left", &"move_right"), 0)
 		if dash_dir == Vector2.ZERO:
-			dash_dir.x = (1 if animated_sprite.flip_h else -1) if animated_sprite else 1  # Default to facing direction
+			dash_dir.x = (-1 if $Visuals.scale.x < 0 else 1) if animated_sprite else 1  # Default to facing direction
 		dash_dir = dash_dir.normalized()
 		if dash_dir == Vector2.ZERO:
 			dash_dir = Vector2.RIGHT  # Fallback
@@ -241,10 +242,10 @@ func _handle_movement(delta: float) -> void:
 			if tangent.x < 0:
 				tangent = -tangent
 			velocity.x = move_toward(velocity.x, (move_direction) * speed, speed/acceleration)
-			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*12), delta*5)
+			animated_sprite.skew = lerp(animated_sprite.skew, abs(velocity.x) / (speed*8), delta*5)
 		else:
 			velocity.x = move_toward(velocity.x, move_direction * speed, speed/acceleration)
-			animated_sprite.skew = lerp(animated_sprite.skew, velocity.x / (speed*4), delta*5)
+			animated_sprite.skew = lerp(animated_sprite.skew, abs(velocity.x) / (speed*4), delta*5)
 		play_animation(&"walk")
 	else:
 		animated_sprite.skew = lerpf(animated_sprite.skew, 0.0, delta*5)
@@ -263,8 +264,8 @@ func jump() -> void:
 	if(jump_counter == 1):
 		play_animation(&"jump", 1)
 	else:
-		var side = "r" if animated_sprite.flip_h else "l"
-		play_animation(str("spin_", side), 1)
+		#var side = "l" if animated_sprite.flip_h else "r"
+		play_animation(&"spin_f", 1)
 	play_sound(jump_sound, true)
 
 ## Registers a jump attempt and handles jump buffering
@@ -398,7 +399,9 @@ func _on_interaction_area_exited(area: Area2D) -> void:
 ## Updates animation based on movement
 func _update_animation() -> void:
 	var move_direction = Input.get_axis(&"move_left", &"move_right")
-	animated_sprite.flip_h = animated_sprite.flip_h if move_direction == 0 else move_direction > 0
+	$Visuals.scale.x = $Visuals.scale.x if move_direction == 0 else (
+		-1 if move_direction < 0 else 1
+	)
 
 ## Updates physics state tracking
 func _update_physics_state() -> void:

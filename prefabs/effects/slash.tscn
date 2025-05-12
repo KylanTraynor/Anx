@@ -62,7 +62,7 @@ libraries = {
 }
 
 [node name="Node2D" type="Node2D" parent="."]
-rotation = 2.12756
+rotation = -0.525344
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
 position = Vector2(53, -57)
