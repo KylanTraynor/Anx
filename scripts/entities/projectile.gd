@@ -7,6 +7,7 @@ class_name Projectile
 # Movement properties
 var direction := Vector2.ZERO ## Direction vector for projectile movement
 var velocity := Vector2.ZERO ## Current velocity vector
+var thrower : CharacterBody2D ## The entity that threw the projectile
 var target: Node2D ## Target for homing projectiles
 
 # Projectile data
@@ -14,6 +15,7 @@ var data: ProjectileData ## Configuration data for this projectile
 var _spawn_time: int ## When the projectile was created
 var _bounces_remaining: int ## Number of bounces left before destruction
 var _default_collision_layer: int ## Default collision layer
+var _time_thrown : int ## When the projectile was thrown
 
 signal bounced
 signal caught(by_whom: CharacterBody2D)
@@ -75,6 +77,9 @@ func _physics_process(delta: float) -> void:
 ## Damages the player and destroys the projectile
 ## @param body The body that was hit
 func _on_body_entered(body: Node2D) -> void:
+	if body == thrower and Time.get_ticks_msec() < 100 + _time_thrown:
+		return
+	
 	if body is Player:
 		PlayerData.damage(data.damage)
 	elif body is EnemyController:
@@ -135,6 +140,8 @@ func throw(velocity: Vector2, by_whom: CharacterBody2D = null) -> void:
 		reparent(get_tree().root)
 	self.velocity = velocity
 	self.position += self.velocity * get_physics_process_delta_time()
+	self.thrower = by_whom
+	self._time_thrown = Time.get_ticks_msec()
 	thrown.emit(by_whom)
 
 func catch(by_whom: CharacterBody2D) -> void:

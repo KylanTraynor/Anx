@@ -8,6 +8,7 @@ class_name ProjectileData
 @export var damage: int = 1 ## Base damage dealt to targets
 @export var lifetime: float = 5.0 ## How long the projectile exists before auto-destroying
 @export var catchable: bool = false ## Can the projectile be caught by the player and returned?
+@export var deflectable: bool = false ## Can the projectile be deflected by the player?
 
 @export_category("Visual")
 @export var texture: Texture2D ## Sprite texture for the projectile

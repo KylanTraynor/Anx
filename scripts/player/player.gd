@@ -60,6 +60,7 @@ var animation_player : AnimationPlayer ## Reference to the animation player comp
 var _attack_direction := Vector2.ZERO ## Direction the player is facing for attacks
 var _ready_to_catch_time := 0 ## Timestamp of when the player is ready to catch a projectile
 var _caught_projectile : Projectile ## Projectile that the player is currently catching
+var _aiming_direction := Vector2.ZERO ## Direction the player is aiming for projectiles
 
 # Physics state tracking
 var _was_grounded : bool = false ## Previous frame's ground contact state
@@ -141,15 +142,19 @@ func _process_attack(_delta: float) -> void:
 ## Handles catch input
 func _process_projectiles_interaction() -> void:
 	if _caught_projectile:
+		$Aim.visible = true
+		$Aim.rotation = get_aiming_direction().angle()
 		_caught_projectile.global_position = self.global_position + _attack_direction * get_size().x
-	if Input.is_action_just_pressed(&"action_attack") and not _caught_projectile:
+	else:
+		$Aim.visible = false
+	if Input.is_action_just_pressed(&"action_catch") and not _caught_projectile:
 		_ready_to_catch_time = Time.get_ticks_msec()
 		for o in _interactable_objects:
 			if o is Projectile:
 				catch_projectile(o)
 				_interactable_objects.remove_at(_interactable_objects.find(o))
 				break
-	elif Input.is_action_just_released(&"action_attack") and _caught_projectile:
+	elif Input.is_action_just_released(&"action_catch") and _caught_projectile:
 		throw_projectile(_caught_projectile)
 
 ## Handles the time scale changes depending on context
@@ -342,12 +347,24 @@ func catch_projectile(projectile: Projectile) -> void:
 ## Throws a projectile
 ## @param projectile The projectile to throw
 func throw_projectile(projectile: Projectile) -> void:
-	projectile.global_position = self.global_position + _attack_direction * get_size().x
+	var direction = get_aiming_direction()
+	projectile.global_position = self.global_position + direction * get_size().x
 	if(projectile == _caught_projectile):
 		_caught_projectile = null
-	projectile.throw(self.velocity + _attack_direction * throw_strength, self)
+	projectile.throw(direction * throw_strength, self)
 	if not is_on_floor():
-		velocity -= _attack_direction * throw_strength
+		velocity -= direction * throw_strength
+
+## Get the direction the player is aiming for
+func get_aiming_direction() -> Vector2:
+	var direction = Input.get_vector(&"aim_neg_x", &"aim_pos_x", &"aim_neg_y", &"aim_pos_y")
+	if direction.length_squared() < 0.1 and _aiming_direction != Vector2.ZERO:
+		return _aiming_direction
+	if direction.length_squared() < 0.1:
+		_aiming_direction = _attack_direction
+		return _aiming_direction
+	_aiming_direction = direction.normalized()
+	return _aiming_direction
 
 # ===============================================================================
 # ==========================  GENERAL / SIGNALS  ===============================
