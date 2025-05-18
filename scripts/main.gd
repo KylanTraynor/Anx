@@ -162,7 +162,7 @@ static func unset_interactable(interactable: Interactable) -> void:
 static func shake_screen(amount := SCREEN_SHAKE_DEFAULT_AMOUNT, 
 						frequency := SCREEN_SHAKE_DEFAULT_FREQUENCY, 
 						time := SCREEN_SHAKE_DEFAULT_TIME) -> void:
-	if not instance or not instance.camera:
+	if not instance or not instance.camera or not instance.get_tree():
 		push_error("Can't shake the screen, no camera found!")
 		return
 		
@@ -171,6 +171,8 @@ static func shake_screen(amount := SCREEN_SHAKE_DEFAULT_AMOUNT,
 	
 	while Time.get_ticks_msec() < start_time + time:
 		instance.camera.offset = _calculate_shake_offset(noise, start_time, amount)
+		if not instance.get_tree():
+			break
 		await instance.get_tree().process_frame
 		
 	instance.camera.offset = Vector2.ZERO
