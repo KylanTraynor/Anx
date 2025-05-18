@@ -31,6 +31,10 @@ const MIN_FALL_TIME := 0.2
 @export var jump_sound: AudioStream ## Sound effect played when jumping
 @export var landing_sound: AudioStream ## Sound effect played when landing on ground
 
+@export_group("Grappling settings")
+@export var grappling_speed = 5000 ## Velocity when hooked
+@export var grappling_start_sound : AudioStream ## Sound effect played when getting hooked
+
 @export_subgroup("Combat settings")
 @export var melee_range = 5 ## Attack range in units of player width
 @export var attack_cooldown = 0.5 ## Minimum time between attacks in seconds
@@ -51,6 +55,7 @@ var hook: Hook = null
 var _is_dashing := false
 var _dash_time_left := 0.0
 var _interactable_objects : Array[Area2D] = []
+var _hooked := false
 
 # Node references
 var animated_sprite : AnimatedSprite2D ## Reference to the sprite animation component
@@ -103,6 +108,9 @@ func _physics_process(delta) -> void:
 	
 	var hooking = hook and Input.is_action_pressed(&"action_hook")
 	if hooking:
+		if not _hooked:
+			play_sound(grappling_start_sound)
+		_hooked = true
 		$Rope.set_point_position(1, hook.global_position - self.global_position)
 		var direction = (hook.global_position - self.global_position).normalized()
 		velocity = direction * 4000
@@ -110,6 +118,7 @@ func _physics_process(delta) -> void:
 		return
 	else:
 		$Rope.set_point_position(1, Vector2.ZERO)
+		_hooked = false
 
 	if _is_dashing:
 		_dash_time_left -= delta

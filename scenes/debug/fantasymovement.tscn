@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://bhwwryfp2f6bb"]
+[gd_scene load_steps=73 format=3 uid="uid://bhwwryfp2f6bb"]
 
 [ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://prefabs/player.tscn" id="1_c6y0c"]
 [ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_htiwf"]
@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://nf3as5xr2kf5" path="res://prefabs/objects/perils/boulder.tscn" id="12_g1jw4"]
 [ext_resource type="PackedScene" uid="uid://x01fcgsluvgv" path="res://prefabs/enemies/basic_turret.tscn" id="12_swaou"]
 [ext_resource type="Texture2D" uid="uid://cwe3suudraxgv" path="res://art/ui/time_overlay.png" id="14_qvwsu"]
-[ext_resource type="PackedScene" uid="uid://cyhhtsaur36tm" path="res://prefabs/objects/dark_vine.tscn" id="17_tkx3h"]
 [ext_resource type="PackedScene" uid="uid://qfn1icgttclv" path="res://prefabs/objects/hook.tscn" id="18_h180r"]
 
 [sub_resource type="Resource" id="Resource_o56rk"]
@@ -519,8 +518,8 @@ ping_pong = true
 [node name="Boulder" parent="." instance=ExtResource("12_g1jw4")]
 position = Vector2(-2446, -2070)
 
-[node name="DarkVine" parent="." instance=ExtResource("17_tkx3h")]
-position = Vector2(-4496, -1223)
+[node name="Hook" parent="." instance=ExtResource("18_h180r")]
+position = Vector2(4255, -581)
 
 [node name="BasicTurret" parent="." instance=ExtResource("12_swaou")]
 position = Vector2(1468, -1024)
@@ -559,6 +558,3 @@ bus = &"Music"
 [node name="BackgroundSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
 autoplay = true
 bus = &"Sounds"
-
-[node name="Hook" parent="." instance=ExtResource("18_h180r")]
-position = Vector2(4255, -581)

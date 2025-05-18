@@ -65,4 +65,7 @@ func _draw() -> void:
 			draw_arc(Vector2.ZERO, i, start_angle, end_angle, 100, Color.BLUE, 1)
 	else:
 		if _player_in_range:
-			draw_colored_polygon([Vector2.ZERO, Vector2(200, -200), Vector2(-200, -200)], Color.WHITE)
+			var radius = int(Time.get_ticks_msec() * 0.1) % 200
+			draw_arc(Vector2.ZERO, radius, -PI, PI, 100, Color.from_rgba8(255,255,255,200-radius))
+			radius = (int(Time.get_ticks_msec() * 0.1) + 100) % 200
+			draw_arc(Vector2.ZERO, radius, -PI, PI, 100, Color.from_rgba8(255,255,255,200-radius))
