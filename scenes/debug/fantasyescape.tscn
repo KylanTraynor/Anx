@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://ceacxyy5nsgrf"]
+
+[ext_resource type="Script" uid="uid://b8ntyx6sry52q" path="res://scripts/main.gd" id="1_v5lh5"]
+[ext_resource type="AudioStream" uid="uid://c2dascl7rnic3" path="res://sounds/backgroundmusic/Test Forest Music.wav" id="2_4q2sp"]
+[ext_resource type="PackedScene" uid="uid://bnht0v1pkreiq" path="res://prefabs/player.tscn" id="3_fdqei"]
+[ext_resource type="Texture2D" uid="uid://cwe3suudraxgv" path="res://art/ui/time_overlay.png" id="16_gkrtr"]
+[ext_resource type="PackedScene" uid="uid://bxn8fsd6meo3m" path="res://prefabs/ui/hud.tscn" id="17_w1jjb"]
+
+[node name="Fantasy Escape" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("1_v5lh5")
+background_music = ExtResource("2_4q2sp")
+player = NodePath("Player")
+
+[node name="Player" parent="." instance=ExtResource("3_fdqei")]
+floor_snap_length = 60.0
+speed = 1500
+acceleration = 7.0
+jump_boost = 6
+jump_limit = 2
+jump_tolerance = 500
+dash_distance = 200.0
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(0.25, 0.25)
+process_callback = 0
+position_smoothing_enabled = true
+
+[node name="SceneContent" type="Node2D" parent="."]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(373, -682)
+rotation = 0.263486
+color = Color(0.921371, 0.927593, 0.87201, 1)
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_filter = 1
+height = 0.18
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.374139, 0.374139, 0.374139, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TimeOverlay" type="TextureRect" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("16_gkrtr")
+
+[node name="HUD" parent="UI" instance=ExtResource("17_w1jjb")]
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("2_4q2sp")
+autoplay = true
+bus = &"Music"
+
+[node name="BackgroundSoundPlayer" type="AudioStreamPlayer" parent="Sounds"]
+autoplay = true
+bus = &"Sounds"

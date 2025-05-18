@@ -290,6 +290,10 @@ landing_sound = ExtResource("3_5o4t3")
 attack_cooldown = 0.1
 melee_effect = ExtResource("4_opo22")
 
+[node name="Rope" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+default_color = Color(0.2, 0.1762, 0.116, 1)
+
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]

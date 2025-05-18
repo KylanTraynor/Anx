@@ -47,6 +47,7 @@ const MIN_FALL_TIME := 0.2
 var jump_pressed_time = -1 ## Timestamp of when jump was pressed (-1 if not pressed)
 var jump_counter = 0 ## Current number of jumps performed
 var is_jumping = false ## Whether player is currently in a jump
+var hook: Hook = null
 var _is_dashing := false
 var _dash_time_left := 0.0
 var _interactable_objects : Array[Area2D] = []
@@ -99,6 +100,16 @@ func _process(delta: float) -> void:
 ## @param delta Time elapsed since last physics frame
 func _physics_process(delta) -> void:
 	_try_dash()
+	
+	var hooking = hook and Input.is_action_pressed(&"action_hook")
+	if hooking:
+		$Rope.set_point_position(1, hook.global_position - self.global_position)
+		var direction = (hook.global_position - self.global_position).normalized()
+		velocity = direction * 4000
+		move_and_slide()
+		return
+	else:
+		$Rope.set_point_position(1, Vector2.ZERO)
 
 	if _is_dashing:
 		_dash_time_left -= delta
@@ -241,7 +252,6 @@ func _handle_movement(delta: float) -> void:
 	if move_direction ** 2 >= MIN_MOVEMENT_THRESHOLD:
 		_attack_direction.x = move_direction
 		_attack_direction = _attack_direction.normalized() # IMPORTANT FOR JOYSTICKS OTHERWISE IT BREAKS PROJECTILES
-		print(_attack_direction)
 		if is_on_floor():
 			var tangent = get_floor_normal().orthogonal()
 			if tangent.x < 0:
@@ -265,7 +275,6 @@ func jump() -> void:
 	velocity.y = -jump_strength
 	is_jumping = true
 	jump_counter += 1
-	print("Jump counter: ", jump_counter)
 	if(jump_counter == 1):
 		play_animation(&"jump", 1)
 	else:
@@ -278,7 +287,6 @@ func jump() -> void:
 func register_jump(tolerance: float = jump_tolerance) -> void:
 	jump_pressed_time = Time.get_ticks_msec()
 	if is_on_floor():
-		print("Legit Jump!")
 		jump()
 	else:
 		_handle_air_jump(tolerance)
@@ -292,7 +300,6 @@ func _handle_air_jump(tolerance: float) -> void:
 		
 	# Wait for ground collision
 	await grounded_start
-	print("Grounded")
 	
 	# Wait a frame to ensure velocity is back to 0
 	await get_tree().physics_frame
@@ -306,7 +313,6 @@ func _handle_air_jump(tolerance: float) -> void:
 		jump()
 	else:
 		jump_pressed_time = -1
-		print("Grounded too late, no jumping.")
 
 # ===============================================================================
 # =============================  COMBAT GROUP  =================================
@@ -444,7 +450,6 @@ func _handle_ground_events() -> void:
 		jump_counter = 0
 		is_jumping = false
 		if not _was_grounded:
-			print("Landed")
 			grounded_start.emit()
 			if(Time.get_ticks_msec() > _start_falling_time + 1000*MIN_FALL_TIME):
 				play_animation(&"land")

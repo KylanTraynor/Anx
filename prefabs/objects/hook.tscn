@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://qfn1icgttclv"]
+
+[ext_resource type="Script" uid="uid://b5n31kttx0hbn" path="res://scripts/entities/hook.gd" id="1_a43f8"]
+[ext_resource type="Texture2D" uid="uid://cmhv77rutpijx" path="res://icon.svg" id="2_rp0jm"]
+
+[node name="Hook" type="Node2D"]
+script = ExtResource("1_a43f8")
+range = 2000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_rp0jm")
